@@ -73,7 +73,12 @@ function succesQueryDeleteResult(tx, result){
         for (var i = 0; i < result.rows.length; i++) {
             var row = result.rows.item(i);
             resultItem['learnItemId'] = row.LearnItemId;
-            resultItem['userId'] = $('#user option:selected').val();
+            resultItem['userId'] = 0;
+            
+            if ($('#user option:selected').val() != '') {
+            	resultItem['userId'] = $('#user option:selected').val();
+            }
+            
             DeleteResultFromDB(resultItem);
         }
     }
@@ -102,7 +107,7 @@ function AddVocabularyToDB(lessonId, newLernItem){
 	var isLongterm = newLernItem['isLongterm'];
     
     db.transaction(function(tx) {
-        doQuery(tx, 'SELECT * FROM LearnItem WHERE Question = "'+ question +'" AND LessonId =' + lessonId,[],function(tx,result){
+    	doQuery(tx, 'SELECT * FROM LearnItem WHERE Question = "'+ question +'" AND LessonId =' + lessonId,[],function(tx,result){
             if (result != null && result.rows != null) {
                 if (result.rows.length != 0){
                     $("#vocabExists").dialog( "open" );
@@ -112,6 +117,34 @@ function AddVocabularyToDB(lessonId, newLernItem){
                         doQuery(tx, 'INSERT INTO LearnItem(Question,Answer,LessonId,OwnerId,Timestamp,IsLongterm)'+
                         ' VALUES ("'+question+'","'+answer+'",' + lessonId + ',' + ownerID+',"'+date+'",'+isLongterm+')',[],querySuccess);
                     });
+                    //Check if Lesson is UserLesson - then add vocabulary to Result table 
+                    doQuery(tx, 'SELECT * FROM UserLessons WHERE lesson_id = '+ lessonId + ';',[],function(tx,result){
+			            if (result != null && result.rows != null) {
+			                //If UserLesson with lessonId exists add LearnItem to Result table
+			                if (result.rows.length != 0){
+			                	db.transaction(function(tx) {
+			                        doQuery(tx, 'SELECT * FROM LearnItem INNER JOIN UserLessons ON LearnItem.LessonId = UserLessons.lesson_id WHERE Question = "'+ question +'" AND LessonId =' + lessonId,[],function(tx,result){
+			                        	if (result != null && result.rows != null) {
+							                if (result.rows.length != 0){
+							                	for (var i = 0; i < result.rows.length; i++) {
+							                		var row = result.rows.item(i);
+							                		
+							                		if(row.IsLongterm == 1){
+									                	var resultItem = {};
+									                	resultItem['learnItemId'] = row.LearnItemId;
+														resultItem['userId'] = row.user_id;
+														resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+														resultItem['longtermLevel'] = 6;
+									                    AddResultToDB(resultItem);
+								                   }
+							                   }
+							                }
+						                }
+			                        });
+			                    });
+			                }               
+			            }
+			        });
                 }               
             }
         });
@@ -154,7 +187,9 @@ function UpdateVocabularyToDB(newLearnItemValues){
 //Deletes the chosen Vocabulary from the Database
 function DeleteVocabularyFromDB(learnItemId){
 	db.transaction(function(tx) {
-		tx.executeSql('DELETE FROM LearnItem WHERE LearnItemId = ' + learnItemId + ';',[],nullHandler,errorCB); 
-	});
+        doQuery(tx, 'DELETE FROM LearnItem WHERE LearnItemId = ' + learnItemId + ';',[],querySuccess);
+        doQuery(tx, 'DELETE FROM Result WHERE learnItem_id = ' + learnItemId + ';',[],querySuccess);
+    });
+
 	return;
 }

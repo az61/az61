@@ -18,6 +18,10 @@ function onDeviceReady(){
 
 	connectToDB();
 	
+	if($.cookie('loggedInUser') == null){
+		window.location.href='login.html';
+	}
+	
 	ListDBValues();
 	
 	initBinding();

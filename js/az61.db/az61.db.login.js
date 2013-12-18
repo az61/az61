@@ -14,7 +14,9 @@ function CheckDBUserData(loginData) {
                 if (result.rows.length != 0 && result.rows.length == 1){
 					for (var i = 0; i < result.rows.length; i++) {
 		      			var row = result.rows.item(i);
-		      			$.cookie('loggedInUser', row.UserId, { expires: 30, path: '/' });
+		      			if($.cookie('loggedInUser') === null){
+		      				$.cookie('loggedInUser', row.UserId, { expires: 365, path: '/' });
+		      			}
 						window.location.href = 'index.html';
 						$('.error').hide();
 	        		}

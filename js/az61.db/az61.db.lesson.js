@@ -31,13 +31,13 @@ function GetDBLessons(catId, callback) {
 //Get all Lessons (for checkboxes)
 function GetLessonsFromDB(){
 	db.transaction(function(tx) {
-		doQuery(tx, 'SELECT LessonId, LessonName FROM Lesson;', [],function(tx,result){
+		doQuery(tx, 'SELECT LessonId, LessonName, CategoryName FROM Lesson LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 				$('#addUserLessonsDialog').html('');
 				for (var i = 0; i < result.rows.length; i++) {
 	      			var row = result.rows.item(i);
 	      			$('#addUserLessonsDialog').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
-	      			'<label for="lessonId_'+row.LessonId+'">'+row.LessonName+'</label>');
+	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label>');
 	        	}
 	      	}
 		});
@@ -91,11 +91,24 @@ function UpdateLessonToDB(lessonId, lessonName){
 }
 
 //Deletes the chosen Lesson from the Database
-function DeleteLessonFromDB(lessonId){	
+function DeleteLessonFromDB(lessonId){
+	//Delete Lesson first
 	db.transaction(function(tx) {
-		tx.executeSql('DELETE FROM Lesson WHERE LessonId = ' + lessonId + ';',[],nullHandler,errorCB);
-		tx.executeSql('DELETE FROM LearnItem WHERE LessonId = ' + lessonId + ';',[],nullHandler,errorCB); 
-	});
+        doQuery(tx, 'DELETE FROM Lesson WHERE LessonId = ' + lessonId + ';',[],querySuccess);
+    });
+    //Delete Result before Vocabulary
+    var removeResult = true;    
+    GetDBVocabulary(lessonId, removeResult);
+    
+    //Delete Vocabulary
+    db.transaction(function(tx) {
+        doQuery(tx, 'DELETE FROM LearnItem WHERE LessonId = ' + lessonId + ';',[],querySuccess);
+    });
+    
+    //Delete UserLesson with this lessonId
+	db.transaction(function(tx) {
+        doQuery(tx, 'DELETE FROM UserLessons WHERE lesson_id = ' + lessonId + ';',[],querySuccess);
+    });
  	
 	return;
 }

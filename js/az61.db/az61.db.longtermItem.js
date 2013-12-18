@@ -162,7 +162,6 @@ function CheckForLastTimeStudied(loggedInUser){
 
 //Add Result to DB
 function AddResultToDB(resultItem){
-    console.log('test');
 	var learnItemId = resultItem['learnItemId'];
 	var userId = resultItem['userId'];
 	var lastShown = resultItem['lastShown'];
@@ -198,7 +197,7 @@ function DeleteResultFromDB(resultItem){
     
     var whereStatement = 'WHERE learnItem_id='+learnItemId;
     
-    if (userId != 0){
+    if (userId != 0 && userId != null){
     	whereStatement = whereStatement + ' AND user_id='+userId;
     }
     

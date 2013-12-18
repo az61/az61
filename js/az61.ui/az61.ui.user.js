@@ -53,10 +53,12 @@ $(function() {
 		}
 	});
 	
+	//Set all intervalls to default
 	$('.setIntervallBack').click(function(){
 		setIntervallFieldsToDefault();
 	});
 	
+	//Open Dialog for User Name Save and assign default values
 	$('.addUser').click(function(){
 		$('#newUserDialog').dialog('open');
 		resetUserSettings();
@@ -64,11 +66,13 @@ $(function() {
 		
 	});
 	
+	//Close User Add
 	$('.close').click(function(){
 		$('.newUser').toggle();
 		emptyAllUserFields();
 	});
 	
+	//Open User Lessons Dialog
 	$('.addUserLessons').click(function(){
 	    var userId = $('#user option:selected').val();
 	    if (userId != 'choose'){
