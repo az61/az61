@@ -6,7 +6,7 @@
  * Company: team in medias GmbH
  */
 
-function ListDBValues(){
+/*function ListDBValues(){
 	if (PATHNAME == pathRoot+'lessons.html') {
 		GetDBCategories();
 	}	
@@ -17,22 +17,33 @@ function ListDBValues(){
 	}
 	
 	else if (PATHNAME == pathRoot+'userSettings.html') {
+		console.log(loggedInUser);
 		GetDBUsers(loggedInUser);
 		GetLessonsFromDB();		
 	}
 	
 	else if (PATHNAME == pathRoot + 'langzeit.html'){	
-	   GetAllLongtermItems(loggedInUser);
-	   
-	   /*var lessons = [];
-	   lessons.push(2);
-	   lessons.push(3);
-	   $('.longtermContent ul').html('');
-	   for (var i=0; i<lessons.length;i++){
-	       var lessonData = {};       
-           lessonData['lessonId'] = lessons[i];
-           GetLongtermFromLesson(loggedInUser, lessonData);
-	   }*/	   
+	   GetAllLongtermItems(loggedInUser);   
+	}
+}*/
+function ListDBValues(){
+	if (PATHNAME.indexOf('lessons.html') != -1 ) {
+		GetDBCategories();
+	}	
+	
+	else if (PATHNAME.indexOf('learnItems.html') != -1) {
+	    GetLessonCategoryInfoFromLearnItem(lesID,catID);
+		GetDBVocabulary(lesID);
+	}
+	
+	else if (PATHNAME.indexOf('userSettings.html') != -1) {
+		console.log(loggedInUser);
+		GetDBUsers(loggedInUser);
+		GetLessonsFromDB();		
+	}
+	
+	else if (PATHNAME.indexOf('langzeit.html') != -1) {	
+	   GetAllLongtermItems(loggedInUser);   
 	}
 }
 
