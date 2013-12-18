@@ -11,9 +11,9 @@ function GetDBVocabulary(lessonId, removeResult){
 	if (lessonId != null){
 	    $('#dynamicLessonContent').attr('id','lessonContent_' + lessonId);
 	    $('.vocabulary table tbody').html('');
-	    
+	    	    
 	    if(!removeResult){
-    		db.transaction(function(tx) {
+	    	db.transaction(function(tx) {
     			doQuery(tx, 'SELECT * FROM LearnItem WHERE LessonId = ' + lessonId + ';', [],succesQueryGetLearnItems);
     		});
 		}
@@ -26,7 +26,7 @@ function GetDBVocabulary(lessonId, removeResult){
 }
 
 function succesQueryGetLearnItems(tx, result){
-    if (PATHNAME == pathRoot+'learnItems.html') {
+    if (PATHNAME.indexOf('learnItems.html') != -1) {
         if (result != null && result.rows != null) {
             var vocabulary = [];
             
@@ -50,7 +50,7 @@ function succesQueryGetLearnItems(tx, result){
             }
         }
     }
-    else if (PATHNAME == pathRoot+'userSettings.html'){        
+    else if (PATHNAME.indexOf('userSettings.html') != -1){        
         if (result != null && result.rows != null) {
             var resultItem = {};            
             for (var i = 0; i < result.rows.length; i++) {
@@ -179,7 +179,7 @@ function UpdateVocabularyToDB(newLearnItemValues){
 	}
 	
 	db.transaction(function(tx) {
-		tx.executeSql('UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],successCB,errorCB); 
+        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccess); 
 	});
 	return false;
 }

@@ -106,7 +106,7 @@ function querySuccessUserInsert(tx, results) {
 function querySuccessUpdate(tx, results) {	
     successLog(results);
     
-    if (PATHNAME == pathRoot+'userSettings.html') {
+    if (PATHNAME.indexOf('userSettings.html') != -1) {
     	$("#userUpdateSuccess").dialog( "open" );
     }
 }

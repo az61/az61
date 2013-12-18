@@ -21,7 +21,7 @@ function GetAllLongtermItems(userId) {
 	      			var row = result.rows.item(i);
 	      			lessonCount = lessonCount + row.count;
 
-	      			$('div.longtermList').append('<li id="longterm_'+ row.LessonId +'"><span class="longtermCategory">'+ row.CategoryName +'</span><span class="longtermCategory">'+ row.count +'</span>'+
+	      			$('ul.longtermList').append('<li id="longterm_'+ row.LessonId +'"><span class="longtermCategory">'+ row.CategoryName +'</span><span class="longtermCategory">'+ row.count +'</span>'+
 	      			'<span class="enterLongterm"><img class="enterLongtermIcon pointer" src="img/forward.png"></span></li>');
 	        	}
 	        	

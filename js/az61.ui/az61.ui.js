@@ -33,7 +33,7 @@ function ListDBValues(){
 	
 	else if (PATHNAME.indexOf('learnItems.html') != -1) {
 	    GetLessonCategoryInfoFromLearnItem(lesID,catID);
-		GetDBVocabulary(lesID);
+		GetDBVocabulary(lesID, false);
 	}
 	
 	else if (PATHNAME.indexOf('userSettings.html') != -1) {
@@ -48,7 +48,7 @@ function ListDBValues(){
 }
 
 function initBinding(){	
-	$('input[type=button],input[type=submit], button').button();
+	//$('input[type=button],input[type=submit], button').button();
 	$('.vocabulary tbody tr').removeClass();
 	$('.vocabulary tbody tr:nth-child(even)').addClass('alternate');
 	
@@ -146,22 +146,22 @@ function loadBottom(){
 	
 	$('#bottom-html').show();
 	
-	if(PATHNAME == pathRoot+'index.html'){
+	if(PATHNAME.indexOf('index.html') != -1){
 		var src = pathImg+'line_home_act.png';
 		$('li.home a > img').attr('src',src);
 	}
 	
-	else if(PATHNAME == pathRoot+'userSettings.html'){
+	else if(PATHNAME.indexOf('userSettings.html') != -1){
 		var src = pathImg+'line_user_act.png';
 		$('li.userSettings a > img').attr('src',src);
 	}
 	
-	else if(PATHNAME == pathRoot+'settings.html'){
+	else if(PATHNAME.indexOf('settings.html') != -1){
 		var src = pathImg+'line_settings_act.png';
 		$('li.settings a > img').attr('src',src);
 	}
 	
-	else if(PATHNAME == pathRoot+'lessons.html' || PATHNAME == pathRoot+'learnItems.html'){
+	else if(PATHNAME.indexOf('lessons.html') != -1 || PATHNAME.indexOf('learnItems.html') != -1){
 		var src = pathImg+'line_pen_act.png';
 		$('li.edit a > img').attr('src',src);
 	}
