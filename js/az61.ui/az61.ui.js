@@ -109,7 +109,7 @@ $(function() {
 });
 
 function loadBottom(){
-	$('.bottom').load(pathPartials+'bottom.html #bottom-html', function(){
+	/*$('.bottom').load(pathPartials+'bottom.html #bottom-html', function(){
 		//Change Bottom Menu Icons According to current page		
 
 		if(PATHNAME == pathRoot+'index.html'){
@@ -131,7 +131,29 @@ function loadBottom(){
 			var src = pathImg+'line_pen_act.png';
 			$('li.edit a > img').attr('src',src);
 		}
-	});
+	});*/
+	
+	$('#bottom-html').show();
+	
+	if(PATHNAME == pathRoot+'index.html'){
+		var src = pathImg+'line_home_act.png';
+		$('li.home a > img').attr('src',src);
+	}
+	
+	else if(PATHNAME == pathRoot+'userSettings.html'){
+		var src = pathImg+'line_user_act.png';
+		$('li.userSettings a > img').attr('src',src);
+	}
+	
+	else if(PATHNAME == pathRoot+'settings.html'){
+		var src = pathImg+'line_settings_act.png';
+		$('li.settings a > img').attr('src',src);
+	}
+	
+	else if(PATHNAME == pathRoot+'lessons.html' || PATHNAME == pathRoot+'learnItems.html'){
+		var src = pathImg+'line_pen_act.png';
+		$('li.edit a > img').attr('src',src);
+	}
 }
 
 function hideLogin(){
@@ -143,4 +165,5 @@ function hideLogin(){
 function showLogin(){
 	$('#login').show();
 	$('.content').hide();
+	$('#bottom-html').hide();
 }
