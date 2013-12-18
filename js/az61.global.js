@@ -14,9 +14,9 @@ var displayName = 'AZ61 Database - ';
 var maxSize = 65535;
 var appVersion = 'Kids';
 //Owner is logged in User
-var ownerID = $.cookie('loggedInUser');
-//var loggedInUser = 3;
-var loggedInUser = $.cookie('loggedInUser');
+var ownerID = window.localStorage.getItem("loggedInUser");
+//var ownerID = 1;
+var loggedInUser = window.localStorage.getItem("loggedInUser");
 //var loggedInUser = 1;
 var lessonArray = [];
 var isParent;
@@ -28,6 +28,7 @@ var catID = '';
 
 //Paths - do not save new values to paths
 var PATHNAME = window.location.pathname;
+var pathRoot = '/az61/';
 var pathRoot = '';
 var imgPath = 'img/';
 var pathPartials = pathRoot+'partials/';

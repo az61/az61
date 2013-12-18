@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <title>AZ 6-1</title>
+        <link rel="stylesheet" type="text/css" href="css/main.styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/default.styles.css" />
+        <!--<script type="text/javascript" src="js/cordova.js"></script>-->
+        <script type="text/javascript" src="phonegap.js"></script>
+	</head>
+	<body>
+	    <div class="container">
+    		<div class="top row">
+    		</div>
+    		<div class="main row">
+    			<ul class="category">
+    				
+    			</ul>
+    		<div class="wrapper-container">
+    		<input id="txCategoryName" type="text" placeholder="Fachnamen eingeben"><br />
+    			<div class="wrapper">
+	    			<button id="addCategory">Fach hinzufügen</button>
+	            	<input type="button" value="Refresh" onClick="ListDBValues()" /> <br /> 
+	            </div>
+    		</div> 
+            
+            </div>
+            
+    		<div class="bottom row">
+    		</div>
+    		
+    		<div id="categoryNameMissingDialog" title="Fachname fehlt">
+                <p>Bitte geben Sie einen Fachnamen ein.</p>
+            </div>
+            <div id="lessonNameMissingDialog" title="Lektionstitel fehlt">
+                <p>Bitte geben Sie einen Lektionstitel ein.</p>
+            </div>
+            <div id ="lessonEditMenu" class="popup">
+                <span class="button b-close"><span>X</span></span>
+                <ul>
+                    <li><span class="editLesson pointer"><img class="editIcon" src="img/edit.png" />Lektion bearbeiten</span></li>
+                    <li><span class="renameLesson pointer"><img class="renameIcon" src="img/rename.png" />Lektion umbenennen</span></li>
+                    <li><span class="deleteLesson pointer"><img class="deleteIcon" src="img/delete.png" />Lektion löschen</span></li>
+                </ul>
+            </div>
+            <div id ="lessonDialog" title="Lektion speichern">
+                <input id="txLessonName" type="text" placeholder="Lektionstitel eingeben">
+            </div>
+            <div id="lessonExists" title="Lektion vorhanden">
+                <p>Für dieses Fach ist schon einen Lektion mit diesem Namen vorhanden.</p>
+            </div>
+            <div id="categoryExists" title="Lektion vorhanden">
+                <p>Es gibt schon ein Fach mit diesem Namen.</p>
+            </div>
+        </div>
+		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/jquery.sortElements.js"></script>   
+		<script type="text/javascript" src="js/jquery.bpopup.min.js"></script>
+		<script type="text/javascript" src="js/az61.global.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.category.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.lesson.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.longtermItem.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.learnItem.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.user.js"></script>
+        <script type="text/javascript" src="js/az61.ui/az61.ui.js"></script>
+        <script type="text/javascript" src="js/az61.ui/az61.ui.lesson.js"></script>
+		<script type="text/javascript" src="js/mainScript.js"></script>		
+	</body>
+</html>

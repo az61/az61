@@ -16,7 +16,7 @@ function onDeviceReady(){
 	document.addEventListener("resume", onResume, false);
 	console.log("Device is ready");	
 
-	connectToDB();	
+	connectToDB();
 	
 	ListDBValues();
 	
