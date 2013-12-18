@@ -18,7 +18,7 @@ function onDeviceReady(){
 
 	connectToDB();
 	
-	if($.cookie('loggedInUser') == null){
+	if($.cookie('loggedInUser') === null){
 		window.location.href='login.html';
 	}
 	
