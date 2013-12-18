@@ -1,0 +1,3 @@
+/**** Longterm ****/
+.container.longterm .question span.header { background: url(../img/default/h2_vocabulary.png) no-repeat; }
+.container.longterm .answer span.header { background: url(../img/default/h2_translation.png) no-repeat; }

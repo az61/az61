@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+		<title>AZ 6-1</title>
+		<link rel="stylesheet" type="text/css" href="css/main.styles.css" />
+		<link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
+		<script type="text/javascript" src="js/cordova.js"></script>
+		<!--<script type="text/javascript" src="phonegap.js"></script>-->
+	</head>
+	<body>
+	    <div class="container">    		
+    		<div class="main row">
+    			<form id="loginForm" action="#"> 
+                    <input id="usernameLogin" type="text" name="username" placeholder="Benutzername">             
+                    <input id="passwordLogin" type="password" name="password" placeholder="Passwort">             
+                    <span>
+                        <input type="checkbox" name="checkbox">
+                        <label for="checkbox">remember</label>
+                    </span>             
+                    <button class="login">Login</button>             
+                </form>
+    		</div>
+        </div>
+		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+		<script type="text/javascript" src="js/az61.global.js"></script>	
+        <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.user.js"></script>
+        <script type="text/javascript" src="js/az61.ui/az61.ui.js"></script>
+        <script type="text/javascript" src="js/az61.login.js"></script>
+		<script type="text/javascript" src="js/mainScript.js"></script>
+	</body>
+</html>
