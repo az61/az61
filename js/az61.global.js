@@ -28,7 +28,7 @@ var catID = '';
 
 //Paths - do not save new values to paths
 var PATHNAME = window.location.pathname;
-var pathRoot = '/az61/';
+var pathRoot = '/';
 var imgPath = 'img/';
 var pathPartials = pathRoot+'partials/';
 var pathImg = pathRoot+'img/';
