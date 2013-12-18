@@ -16,11 +16,7 @@ function onDeviceReady(){
 	document.addEventListener("resume", onResume, false);
 	console.log("Device is ready");	
 
-	connectToDB();
-	
-	if($.cookie('loggedInUser') === null){
-		window.location.href='login.html';
-	}
+	connectToDB();	
 	
 	ListDBValues();
 	

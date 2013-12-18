@@ -48,29 +48,37 @@ $(function() {
 	//Get Top/Bottom Content
 	$('.top').load(pathPartials+'top.html #top-html');
 	
-	$('.bottom').load(pathPartials+'bottom.html #bottom-html', function(){
-		//Change Bottom Menu Icons According to current page		
-
-		if(PATHNAME == pathRoot+'index.html'){
-			var src = pathImg+'line_home_act.png';
-			$('li.home a > img').attr('src',src);
-		}
-		
-		else if(PATHNAME == pathRoot+'userSettings.html'){
-			var src = pathImg+'line_user_act.png';
-			$('li.userSettings a > img').attr('src',src);
-		}
-		
-		else if(PATHNAME == pathRoot+'settings.html'){
-			var src = pathImg+'line_settings_act.png';
-			$('li.settings a > img').attr('src',src);
-		}
-		
-		else if(PATHNAME == pathRoot+'lessons.html' || PATHNAME == pathRoot+'learnItems.html'){
-			var src = pathImg+'line_pen_act.png';
-			$('li.edit a > img').attr('src',src);
-		}
-	});
+	if($.cookie('loggedInUser') === null){
+		$('#login').show();
+		$('.content').hide();
+	}
+	
+	else {
+		$('.content').show();	
+		$('.bottom').load(pathPartials+'bottom.html #bottom-html', function(){
+			//Change Bottom Menu Icons According to current page		
+	
+			if(PATHNAME == pathRoot+'index.html'){
+				var src = pathImg+'line_home_act.png';
+				$('li.home a > img').attr('src',src);
+			}
+			
+			else if(PATHNAME == pathRoot+'userSettings.html'){
+				var src = pathImg+'line_user_act.png';
+				$('li.userSettings a > img').attr('src',src);
+			}
+			
+			else if(PATHNAME == pathRoot+'settings.html'){
+				var src = pathImg+'line_settings_act.png';
+				$('li.settings a > img').attr('src',src);
+			}
+			
+			else if(PATHNAME == pathRoot+'lessons.html' || PATHNAME == pathRoot+'learnItems.html'){
+				var src = pathImg+'line_pen_act.png';
+				$('li.edit a > img').attr('src',src);
+			}
+		});
+	}
 
 	//Sort Vocabulary by Question and Answer	
     var thSort = $('table.tablesorter th.sort-header'),

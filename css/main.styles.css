@@ -176,6 +176,7 @@ span.close { float:left; }
 
 /* Login Styles */
 span.error { display:none; }
+#login {display: none; }
 
 /****** Bottom Styles ******/
 

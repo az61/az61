@@ -17,8 +17,10 @@ function CheckDBUserData(loginData) {
 		      			if($.cookie('loggedInUser') === null){
 		      				$.cookie('loggedInUser', row.UserId, { expires: 365, path: '/' });
 		      			}
-						window.location.href = 'index.html';
+						//window.location.href = 'index.html';
+						$('#login').hide();
 						$('.error').hide();
+						$('.content').show();
 	        		}
 				}
 				else {
