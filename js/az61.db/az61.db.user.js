@@ -167,9 +167,18 @@ function UpdateUserDataToDB(userObject){
 
 //Delete the chosen User from the Database
 function DeleteUserFromDB(userId){
+    //Delte Results
+    db.transaction(function(tx) {
+        doQuery(tx, 'DELETE FROM Result WHERE user_id = ' + userId + ';', [], querySuccessDelete);
+    });
+    
+    //Delete User Lessons
+	DeleteUserLessonFromDB(userId);
+	
 	db.transaction(function(tx) {
-		tx.executeSql('DELETE FROM Users WHERE UserId = ' + userId + ';',[],nullHandler,errorCB); 
-	});
+        doQuery(tx, 'DELETE FROM Users WHERE UserId = ' + userId + ';', [], querySuccessUserDelete);
+    });
+    
 	return;
 }
 

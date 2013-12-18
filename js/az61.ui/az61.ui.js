@@ -48,11 +48,19 @@ function ListDBValues(){
 }
 
 function initBinding(){	
-	//$('input[type=button],input[type=submit], button').button();
+	$('input[type=button],input[type=submit], button').button();
 	$('.vocabulary tbody tr').removeClass();
 	$('.vocabulary tbody tr:nth-child(even)').addClass('alternate');
 	
-	$('table.tablesorter th.question.sort-header').trigger('click');   
+	$('table.tablesorter th.question.sort-header').trigger('click');
+	
+	if(localStorage.getItem("loggedInUser") == 1){
+        $('.deleteUser img').show();
+    }
+    
+    else {
+        $('.deleteUser img').hide();
+    }   
 }
 
 $(function() {	

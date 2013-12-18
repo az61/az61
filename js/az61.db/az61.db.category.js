@@ -21,12 +21,13 @@ function GetDBCategories(){
 		
 		if (loggedInUser != 1){
 			innerJoin = ' LEFT JOIN UserLessons ON Lesson.LessonId = UserLessons.lesson_id';
-			where = ' WHERE user_id ='+loggedInUser + ' OR Category.OwnerId = '+loggedInUser;
+			where = ' WHERE UserLessons.user_id ='+loggedInUser + ' OR Category.OwnerId = '+loggedInUser;
 		}
 		
-		doQuery(tx, 'SELECT * FROM Category LEFT JOIN Lesson ON Category.CategoryId = Lesson.CategoryId'+ innerJoin + where +';', [],function(tx,result){
+		doQuery(tx, 'SELECT * FROM Category LEFT JOIN Lesson ON Category.CategoryId = Lesson.CategoryId'+ innerJoin + where +' GROUP BY Category.CategoryName;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
+				    console.log(result.rows.length);
 					for (var i = 0; i < result.rows.length; i++) {
 		      			var row = result.rows.item(i);
 		      			var catId = row.CategoryId;
@@ -58,7 +59,7 @@ function AddCategoryToDB(categoryName) {
                 }
                 else {
                     db.transaction(function(tx) {
-                        doQuery(tx, 'INSERT INTO Category(CategoryName, OwnerId) VALUES ("'+categoryName+'",' + ownerID+')',[],nullHandler);
+                        doQuery(tx, 'INSERT INTO Category(CategoryName, OwnerId) VALUES ("'+categoryName+'",' + ownerID+')',[],querySuccessInsert);
                     });
                 }               
             }
@@ -69,10 +70,33 @@ function AddCategoryToDB(categoryName) {
 
 //Delete the chosen category from the database
 function DeleteCategoryFromToDB(catId){
-	db.transaction(function(tx) {
-		tx.executeSql('DELETE FROM Category WHERE CategoryId = ' + catId + ';',[],nullHandler,errorCB); 
-		tx.executeSql('DELETE FROM Lesson WHERE CategoryId = ' + catId + ';',[],nullHandler,errorCB);
-		//tx.executeSql('DELETE FROM LearnItem WHERE LessonId = ' + lessonId + ';',[],nullHandler,errorCB);  
+    db.transaction(function(tx) {
+        doQuery(tx, 'SELECT * FROM Lesson WHERE CategoryId = ' + catId + ';', [],function(tx,result){
+            if (result != null && result.rows != null) {
+                if (result.rows.length != 0) {            
+                    for (var i = 0; i < result.rows.length; i++) {
+                        var row = result.rows.item(i);
+                        var lessonId = row.LessonId;
+                        //Delete Result before Vocabulary
+                        var removeResult = true;    
+                        GetDBVocabulary(lessonId, removeResult);
+                        
+                        //Delete Vocabulary
+                        db.transaction(function(tx) {
+                            doQuery(tx, 'DELETE FROM LearnItem WHERE LessonId = ' + lessonId + ';',[],querySuccess);
+                        });
+                        
+                        //Delete UserLesson with this lessonId
+                        db.transaction(function(tx) {
+                            doQuery(tx, 'DELETE FROM UserLessons WHERE lesson_id = ' + lessonId + ';',[],querySuccess);
+                        });
+                    }
+                }
+            }
+        });        
+    
+		doQuery(tx, 'DELETE FROM Lesson WHERE CategoryId = ' + catId + ';',[],nullHandler);
+		doQuery(tx, 'DELETE FROM Category WHERE CategoryId = ' + catId + ';',[],nullHandler); 
 	});
 	return;
 }

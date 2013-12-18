@@ -115,7 +115,7 @@ function AddVocabularyToDB(lessonId, newLernItem){
                 else {
                     db.transaction(function(tx) {
                         doQuery(tx, 'INSERT INTO LearnItem(Question,Answer,LessonId,OwnerId,Timestamp,IsLongterm)'+
-                        ' VALUES ("'+question+'","'+answer+'",' + lessonId + ',' + ownerID+',"'+date+'",'+isLongterm+')',[],querySuccess);
+                        ' VALUES ("'+question+'","'+answer+'",' + lessonId + ',' + ownerID+',"'+date+'",'+isLongterm+')',[],querySuccessInsert);
                     });
                     //Check if Lesson is UserLesson - then add vocabulary to Result table 
                     doQuery(tx, 'SELECT * FROM UserLessons WHERE lesson_id = '+ lessonId + ';',[],function(tx,result){
@@ -179,7 +179,7 @@ function UpdateVocabularyToDB(newLearnItemValues){
 	}
 	
 	db.transaction(function(tx) {
-        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccess); 
+        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccessUpdate); 
 	});
 	return false;
 }

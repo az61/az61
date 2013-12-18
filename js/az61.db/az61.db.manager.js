@@ -40,8 +40,11 @@ function setDBNameAccordingToVersion(){
 
 function createTable(tx){
 	var createTable = 'CREATE TABLE IF NOT EXISTS';
+	//tx.executeSql('DROP TABLE Lesson;');
 	tx.executeSql(createTable + ' Lesson(LessonId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, LessonName TEXT NOT NULL, CategoryId INTEGER NOT NULL, OwnerId INTEGER NOT NULL)');
+	//tx.executeSql('DROP TABLE Category;');
 	tx.executeSql(createTable + ' Category(CategoryId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CategoryName TEXT NOT NULL, OwnerId INTEGER NOT NULL)');	
+	//tx.executeSql('DROP TABLE LearnItem;');
 	tx.executeSql(createTable + ' LearnItem(LearnItemId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Question TEXT NOT NULL, Answer TEXT NOT NULL, IsLongterm INTEGER NOT NULL, ' +
 		'LessonId INTEGER NOT NULL, OwnerId INTEGER NOT NULL, Timestamp TEXT NOT NULL)');
 	//tx.executeSql('DROP TABLE Result;');
@@ -54,7 +57,7 @@ function createTable(tx){
 				'Sound INTEGER NOT NULL, EditOnFly INTEGER NOT NULL, Principle INTEGER NOT NULL, Language TEXT NOT NULL, HolidayActive INTEGER NOT NULL, EnterHoliday TEXT NOT NULL)');
 			//Insert Default User
 			tx.executeSql('INSERT INTO Users(UserName,Password,IsParent,Theme,Level6,Level5,Level4,Level3,Level2,Level1,Level0,Sound,EditOnFly,Principle,Language,HolidayActive,EnterHoliday)'+
-				'VALUES("Administrator", "", "1","default","'+LEVEL6_DEFAULT+'","'+LEVEL5_DEFAULT+'","'+LEVEL4_DEFAULT+'","'+LEVEL3_DEFAULT+'","'+LEVEL2_DEFAULT+'","'+LEVEL1_DEFAULT+'",'+
+				'VALUES("Administrator", "d41d8cd98f00b204e9800998ecf8427e", "1","default","'+LEVEL6_DEFAULT+'","'+LEVEL5_DEFAULT+'","'+LEVEL4_DEFAULT+'","'+LEVEL3_DEFAULT+'","'+LEVEL2_DEFAULT+'","'+LEVEL1_DEFAULT+'",'+
 				'"'+LEVEL0_DEFAULT+'","0","1","' + LEITNER_PRINCIPLE + '","de","0","")');
 		}
 		
@@ -94,6 +97,13 @@ function querySuccessInsert(tx, results) {
     successLog(results);
     // this will be empty since no rows were inserted.
     console.log("Insert ID = " + results.insertId);
+    
+    ListDBValues();
+}
+
+function querySuccessUpdate(tx, results) {  
+    successLog(results);
+    ListDBValues();
 }
 
 function querySuccessUserInsert(tx, results) { 
@@ -101,6 +111,12 @@ function querySuccessUserInsert(tx, results) {
     
     GetDBUsers(loggedInUser);
     $("#userAddedSuccess").dialog( "open" );
+}
+
+function querySuccessUserDelete(tx, results) { 
+    querySuccess(tx, results);    
+    GetDBUsers(loggedInUser);
+    $("#deleteUserDialog").dialog("open");
 }
 
 function querySuccessUpdate(tx, results) {	

@@ -66,6 +66,17 @@ $(function() {
 		
 	});
 	
+	//Delete all User Data
+    $('.deleteUser').click(function(){
+        var userId = $('#user option:selected').val();
+        if (userId != 'choose'){
+            DeleteUserFromDB(userId);
+        }
+        else {
+            $('#userMissingDialog').dialog("open");
+        }
+    });
+	
 	//Close User Add
 	$('.close').click(function(){
 		$('.newUser').toggle();
@@ -121,12 +132,15 @@ function saveUser(dateHoliday){
     userObject['level0'] = parseInt($('#level0').val(),10);     
     userObject['enterHoliday'] = dateHoliday;
     
-    if ($('input[name=principle]:radio[value=Leitner]').is(":checked")){
+    //At the moment only Leitner Principle ist possible
+    /*if ($('input[name=principle]:radio[value=Leitner]').is(":checked")){
         userObject['principle'] = LEITNER_PRINCIPLE;
     }
     else if ($('input[name=principle]:radio[value=-1]').is(":checked")){
         userObject['principle'] = LAMMENETT_PRINCIPLE;
-    }       
+    }*/
+   
+   userObject['principle'] = LEITNER_PRINCIPLE;
     
     if($('input#holidayActive').is(":checked")){
         userObject['holidayActive'] = 1;
@@ -232,6 +246,16 @@ $("#userExists").dialog({
 });
 
 $("#userAddedSuccess").dialog({
+  autoOpen: false,
+  modal: true,
+  buttons: {
+    Ok: function() {
+      $( this ).dialog( "close" );
+    }
+  }
+});
+
+$("#deleteUserDialog").dialog({
   autoOpen: false,
   modal: true,
   buttons: {

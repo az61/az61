@@ -47,6 +47,7 @@ $(function() {
 			}
 			$('#questionLearnItem_'+learnItemId+' .vocabLevel').html(resultItem['longtermLevel']);
 			$('.checkAnswer').hide();
+			$('.container.longterm a.next').show();
 		}
 	});	
 	

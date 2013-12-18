@@ -38,8 +38,8 @@ function GetAllLongtermItems(userId) {
 
 function GetLongtermFromLesson(userId, lessonData){
 	db.transaction(function(tx) {
-		doQuery(tx, 'SELECT Result.learnItem_id as lItemId,* FROM LearnItem INNER JOIN Result ON LearnItem.LearnItemId = Result.learnItem_id'+
-		' LEFT JOIN Users ON Result.user_id = Users.UserId '+
+		doQuery(tx, 'SELECT Result.learnItem_id as lItemId,* FROM Result INNER JOIN LearnItem ON LearnItem.LearnItemId = Result.learnItem_id'+
+		' INNER JOIN Users ON Result.user_id = Users.UserId '+
 		' WHERE LessonId ='+lessonData['lessonId']+' AND Result.user_id ='+userId+' ORDER BY LearnItem.LearnItemId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 				var longtermLesson = {};

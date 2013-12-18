@@ -150,9 +150,11 @@ input#newUser,
 span.close { float:left; }
 
 .deleteCategoryIcon,
-.container.user .addUser img, 
+.container.user .addUser img,
 .container.user .close img,
 .container.user .addUserLessons img { max-width: 35px; max-height: 35px; width: auto; height: auto;}
+
+.container.user .deleteUser img { max-width: 30px; width: auto; height: auto; display:none; }
 
 .container.user p.date { background-color: #999999; color: #555555; padding: 2px; border: 1px solid #767273; width: 125px; }
 
@@ -176,7 +178,8 @@ span.close { float:left; }
 .container.longterm .vocabulary input { color: #008000; }
 .container.longterm .translation input { color: #941E34; }
 
-.container.longterm a.prev { display:none; }
+.container.longterm a.prev,
+.container.longterm a.next { display:none; }
 
 .container.longterm .longtermLearn { display:none; }
 

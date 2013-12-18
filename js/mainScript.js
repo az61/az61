@@ -9,8 +9,11 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady(){
-	lesID = getUrlVars()['lessonId'];
-	catID = getUrlVars()['catId'];
+	//lesID = getUrlVars()['lessonId'];
+	//catID = getUrlVars()['catId'];
+	
+	lesID = window.localStorage.getItem("lesId");
+    catID = window.localStorage.getItem("catId");
 	
 	document.addEventListener("pause", onPause, false);
 	document.addEventListener("resume", onResume, false);
@@ -41,4 +44,6 @@ function getUrlVars(){
 
 function pageRedirectVocab(lessonId, catId){
 	window.location.href = 'learnItems.html?lessonId='+ lessonId +'&catId='+catId;
+	window.localStorage.setItem("lesId", lessonId);
+	window.localStorage.setItem("catId", catId);
 }

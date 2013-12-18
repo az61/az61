@@ -10,13 +10,7 @@ $(function() {
 	$('.login').on('click', function(){
 		var loginData = {};
 		loginData['userName'] = $.trim($('#usernameLogin').val());
-		
-		if($.trim($('#passwordLogin').val()) != ''){
-			loginData['password'] = $.md5($.trim($('#passwordLogin').val()));
-		}
-		else {
-			loginData['password'] = $.trim($('#passwordLogin').val());
-		}
+		loginData['password'] = $.md5($.trim($('#passwordLogin').val()));
 		
 		if (loginData['userName'] != '') {
 			CheckDBUserData(loginData);
