@@ -22,7 +22,7 @@ $(function() {
 		//$('.longtermContent').find('li:visible div.question').attr('id');	    
 	    //var learnItemId = liId.substring(18);
 	    
-	    var longtermLevel = parseInt($('#questionLearnItem_'+learnItemId+' .vocabLevel').html(),10);
+	    var longtermLevel = parseInt($('#questionLearnItem_'+learnItemId+' .vocabLevel p.level').html(),10);
 	    var answerValue = $.trim($('#questionLearnItem_'+learnItemId+' .answerValue').val()).toLowerCase();
 	    var answerUser = $.trim($('#answerlearnItem_'+learnItemId+' .answerUser').val()).toLowerCase();
 	    
@@ -45,16 +45,24 @@ $(function() {
 				resultItem['longtermLevel'] = sinkLongtermLevel(longtermLevel);
 				UpdateResultToDB(resultItem);
 			}
-			$('#questionLearnItem_'+learnItemId+' .vocabLevel').html(resultItem['longtermLevel']);
+			$('#questionLearnItem_'+learnItemId+' .vocabLevel p.level').html(resultItem['longtermLevel']);
+			var src = PATH_IMG_DEFAULT+'level_'+resultItem['longtermLevel']+'.png';
+			$('span.vocabLevel > img').attr('src',src);
 			$('.checkAnswer').hide();
-			$('.container.longterm a.next').show();
+			
+			if (getCurrentLongtermItem() != parseInt($('.totalLearnItem').html(),10)){
+				$('.container.longterm a.next').show();
+			}
+			else {
+				$('.resultLongterm').append('<p><a class="button" href="langzeit.html">Zurück zur Fachauswahl</a></p>');
+			}
 		}
 	});	
 	
 	$('.longtermList').on('click','.enterLongterm',function(event){
 		var liId = $(event.target).closest('li').attr('id');
 		lessonData = {};
-		lessonData['lessonId'] = liId.substring(9);
+		lessonData['catId'] = liId.substring(9);
 		
 		//Hide introduction to Longterm
 		$('div.longtermList').hide();
@@ -65,6 +73,9 @@ $(function() {
 		
 		//Get Longterm Lesson for User
 		GetLongtermFromLesson(loggedInUser, lessonData);
+		
+		//Prevent from Calling funtion twice
+		event.stopPropagation();
 	});
 	
 	$('.container.longterm').on('click','.rslides_nav.rslides1_nav.next',function(event) {
@@ -72,6 +83,7 @@ $(function() {
 		$('.resultLongterm').html('');
 		itemCounter = getCurrentLongtermItem();
 		$('.countLearnItem').html(itemCounter);
+		$('.container.longterm a.next').hide();
 	});
 });
 

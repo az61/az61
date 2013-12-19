@@ -96,6 +96,8 @@ ul.lesson li {
 	margin-bottom: 0.625em;
 }
 
+.main p { line-height: 150%; font-size: 1.25em;  }
+
 /* Home */
 .container.home .main ul.buttons { position: absolute; top: 150px; right: 1.625em; }
 
@@ -135,13 +137,13 @@ button#searchSubmit {
 img.lessonMenuIcon,
 img.vocabEditMenuIcon,
 img.folderIcon,
-img.deleteIcon { width: 20px; height: 20px; padding: 0.125em; }
+img.deleteIcon,
+img.enterLongtermIcon { max-width: 20px; max-height: 20px; width: 100%; height: auto; padding: 0.125em; }
 
 img.addIcon,
 img.editIcon,
 img.deleteIcon,
-img.renameIcon,
-img.enterLongtermIcon { width: 16px; height: 16px; padding: 0.125em; }
+img.renameIcon { max-width: 16px; max-height: 16px; width: 100%; height: auto; padding: 0.125em; }
 
 /* User Setting Styles */
 select.userSelect, 
@@ -172,8 +174,8 @@ span.close { float:left; }
 .password-meter div { margin-bottom: 0 !important; }
 
 /* Longterm Styles */
-.container.longterm input.longterm { width: 15.625em; height: 4.688em; }
-.container.longterm span.header { width: 75px; height: 22px; display: inline-block; }
+.container.longterm input.longterm { width: 50%; height: 4.688em; margin-right: 1.25em; }
+.container.longterm span.header { width: 25%; height: 22px; display: inline-block; }
 
 .container.longterm .vocabulary input { color: #008000; }
 .container.longterm .translation input { color: #941E34; }
@@ -182,6 +184,18 @@ span.close { float:left; }
 .container.longterm a.next { display:none; }
 
 .container.longterm .longtermLearn { display:none; }
+
+.container.longterm .longtermCategory { margin-right: 0.625em; }
+
+.container.longterm .main li { font-size: 1.25em;  }
+
+.container.longterm span.vocabLevel img {
+	max-width: 44px;
+	float: none;
+	display: inline;
+	width: auto;
+	height: auto;
+}
 
 /* Login Styles */
 span.error { display:none; }

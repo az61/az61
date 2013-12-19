@@ -87,14 +87,22 @@ thead th{padding: 0.625em 0 0; color: #7a1716; border-bottom: 2px solid #7a1716;
 #userSettings .addUser{margin-top: -0.313em;}
 
 /*****Longterm*/
-.longtermList.longtermContainer{background-color: rgba(255,255,255,0.3); padding: 0.625em;}
-.longtermList.longtermContainer h1{
+.longtermList.longtermContainer,
+.longtermLearn{background-color: rgba(255,255,255,0.3); padding: 0.625em;}
+.container.longterm h1{
 	color: #7a1716;
 	font-size: 1.625em;
 	margin-bottom: 0.625em;
 	text-transform: uppercase;
 	border-bottom: 2px solid #7a1716;
 	padding: 0.313em;
+}
+
+.container.longterm a.next,
+.container.longter a.button {
+	background-color: #7a1716;
+	color: #ffffff;
+	padding: 0.4em 1em;
 }
 
 /*****Lightboxes*/

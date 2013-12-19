@@ -87,8 +87,13 @@ $(function() {
 	$('.addUserLessons').click(function(){
 	    var userId = $('#user option:selected').val();
 	    if (userId != 'choose'){
-            GetUserLessonsFromDB(userId);            
-            $("#addUserLessonsDialog").dialog("open");
+	    	if (userId != 1){
+	            GetUserLessonsFromDB(userId);            
+	            $("#addUserLessonsDialog").dialog("open");
+           	}
+           	else {
+           		$("#adminUserDialog").dialog("open");
+           	}
         }
         else {
             $('#userMissingDialog').dialog("open");
@@ -246,6 +251,16 @@ $("#userExists").dialog({
 });
 
 $("#userAddedSuccess").dialog({
+  autoOpen: false,
+  modal: true,
+  buttons: {
+    Ok: function() {
+      $( this ).dialog( "close" );
+    }
+  }
+});
+
+$("#adminUserDialog").dialog({
   autoOpen: false,
   modal: true,
   buttons: {

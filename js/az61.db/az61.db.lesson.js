@@ -66,7 +66,7 @@ function setHtmlForLessons(elementArray, catId){
 			lessonId = lessonArray[i]['id'];
 			lessonName = lessonArray[i]['name'];
 
-			$('.category li#cat_'+catId +' ul.lesson').append('<li id="lektion_'+ lessonId +'""><span class="lessonName">' + lessonName + '</span><img class="lessonMenuIcon pointer" src="'+ imgPath +'menu.png" /></li>');
+			$('.category li#cat_'+catId +' ul.lesson').append('<li class="lessonMenu pointer" id="lektion_'+ lessonId +'"><span class="lessonName">' + lessonName + '</span><img class="lessonMenuIcon pointer" src="'+ imgPath +'menu.png" /></li>');
 			
 			if(i == lessonArray.length-1){
 				$('ul.lesson li').addClass('last');
@@ -85,9 +85,21 @@ function AddLessonToDB(catId, lessonName) {
                 }
                 else {
                     db.transaction(function(tx) {
-                        doQuery(tx, 'INSERT INTO Lesson(LessonName,CategoryId,OwnerId) VALUES ("'+lessonName+'",' + catId + ',' + ownerID+')',[],querySuccess);
-                    });
-                }               
+                        doQuery(tx, 'INSERT INTO Lesson(LessonName,CategoryId,OwnerId) VALUES ("'+lessonName+'",' + catId + ',' + ownerID+')',[],function(tx,result){
+                        	//Insert Lesson as UserLesson for Admin
+		                    doQuery(tx, 'SELECT * FROM Lesson WHERE LessonName = "'+ lessonName + '";',[],function(tx,result){
+					            if (result != null && result.rows != null) {
+					                //If UserLesson with lessonId exists add LearnItem to Result table
+					                if (result.rows.length != 0 && result.rows.length == 1){
+					                	var row = result.rows.item(0);
+					                	var userId = 1;	
+										AddUserLessonToDB(userId,row.LessonId);
+					            	}
+					        	}
+		                	});
+                        });
+                    });       
+            	}
             }
         });
     });

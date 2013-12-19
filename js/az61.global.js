@@ -12,7 +12,7 @@ var dbNamePre = 'az61.';
 var version = '1.0';
 var displayName = 'AZ61 Database - ';
 var maxSize = 65535;
-var appVersion = 'Kids';
+var appVersion = 'Standard';
 //Owner is logged in User
 var ownerID = window.localStorage.getItem("loggedInUser");
 //var ownerID = 1;
@@ -33,6 +33,7 @@ var pathRoot = '';
 var imgPath = 'img/';
 var pathPartials = pathRoot+'partials/';
 var pathImg = pathRoot+'img/';
+var PATH_IMG_DEFAULT = pathImg + 'default/';
 
 //User Defaults - do not save new values to defaults
 var LEVEL6_DEFAULT = 1;

@@ -12,7 +12,16 @@ $(function() {
 	var newLesson = false;
 	//Click Events
 	//Opens edit lesson Menu
-	$(".category").on('click', '.lessonMenuIcon', function () {
+	$(".category").on('click', 'li.lessonMenu', function () {
+		lessonAttrId = $(event.target).attr('id');		
+		lessonId = lessonAttrId.substr(8);
+		
+		catAttrId = $(event.target).closest('li.cat').attr('id');
+		categoryId = catAttrId.substr(4);	
+    	$("#lessonEditMenu").bPopup();
+    });
+    
+    $(".category").on('click', '.lessonMenuIcon', function () {
 		lessonAttrId = $(event.target).parent().attr('id');		
 		lessonId = lessonAttrId.substr(8);
 		
