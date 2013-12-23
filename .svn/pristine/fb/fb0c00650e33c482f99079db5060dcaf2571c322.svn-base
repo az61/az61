@@ -13,23 +13,23 @@ function GetAllLongtermItems(userId) {
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0 && result.rows.length == 1){
 					var row = result.rows.item(0);
-	      			$('.userData span.level6').html(row.Level6);
-	      			$('.userData span.level5').html(row.Level5);
-	      			$('.userData span.level4').html(row.Level4);
-	      			$('.userData span.level3').html(row.Level3);
-	      			$('.userData span.level2').html(row.Level2);
-	      			$('.userData span.level1').html(row.Level1);
-	      			$('.userData span.level0').html(row.Level0);
+		      			$('.userData span.level6').html(row.Level6);
+		      			$('.userData span.level5').html(row.Level5);
+		      			$('.userData span.level4').html(row.Level4);
+		      			$('.userData span.level3').html(row.Level3);
+		      			$('.userData span.level2').html(row.Level2);
+		      			$('.userData span.level1').html(row.Level1);
+		      			$('.userData span.level0').html(row.Level0);
 				}
 			}
 		});
 	});
-	
 	db.transaction(function(tx) {
-		doQuery(tx, 'SELECT LearnItem.Timestamp AS lItemTimestamp, *, Lesson.CategoryId AS catId FROM Result '+
-		'LEFT JOIN LearnItem ON Result.learnItem_id = LearnItem.LearnItemId '+
-		'LEFT JOIN Lesson ON Lesson.LessonId = LearnItem.LessonId '+
-		'LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId WHERE Result.user_id = ' + userId + ';', [],
+		doQuery(tx, 'SELECT LearnItem.Timestamp AS lItemTimestamp, *, Category.CategoryId AS catId FROM Result '+
+		'INNER JOIN UserLessons ON Result.user_id = UserLessons.user_id '+
+		'INNER JOIN LearnItem ON Result.learnItem_id = LearnItem.LearnItemId '+
+		'INNER JOIN Lesson ON UserLessons.lesson_id = Lesson.LessonId '+
+		'INNER JOIN Category ON Lesson.CategoryId = Category.CategoryId WHERE Result.user_id = ' + userId + ' GROUP BY Result.learnItem_id;', [],
 	 	function(tx, result) {
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
@@ -60,35 +60,47 @@ function GetAllLongtermItems(userId) {
 		      			
 		      			var createListItem = false;
 		      			createListItem = CheckIfDisplayItem(row.LongtermLevel, row.LastShown, now, row.lItemTimestamp, levelInfo);
-		      			
-		      			if (DEBUG_MODE) console.log(row.Question + ' ' + createListItem);
-		      			
+		      			console.log(row.Question + ' ' + createListItem);
 		      			var category = {};
 
 		      			newCatId = row.catId;
+		      			/*if(createListItem == true && $.inArray(newCatId,categories) == -1){
+	      					categoryCount++;
+		      				category['categoryName'] = row.CategoryName;
+		      				category['categoryId'] = newCatId;
+		      				category['categoryResultCount']++;
+		      				categories.push(category);
+		      				
+		      			}
+		      			
+		      			else if (createListItem == true && $.inArray(newCatId,categories) != -1){
+		      				category['categoryResultCount']++;
+		      			}*/
+		      			
 		      			
 		      			if (createListItem == true) {
 		      				learnItemCountTotal++;
+		      				
 		      				if($.inArray(newCatId,categoryIds) == -1){
 		      					categoryCount++;
 			      				category['categoryName'] = row.CategoryName;
 			      				category['categoryId'] = newCatId;
-			      				category['categoryResultCount'] = 1;
+			      				category['categoryResultCount']++;
 			      				categories.push(category);
 			      				categoryIds.push(newCatId);
 		      				}
 		      				
-		      				else {
-		      					if (categories.length > 0){
-		      						var resObj = $.grep(categories, function(obj){ 
-		      							return obj['categoryId'] === newCatId; 
-	      							});
-	      							
-		      						if (resObj.length == 1) {
-									  resObj[0]['categoryResultCount']++;
-									}
-		      					}
+		      				else {		      				
+			      				/*for (i=0;i<categories.length;i++){
+			      					if (categories[i]['categoryId'] == newCatId){
+			      						categories[i]['categoryResultCount']++;
+			      					}
+			      				}*/
 		      				}
+		      				
+		      				/*else {
+		      					categories[$.inArray(newCatId,categories)]['categoryResultCount']++;
+		      				}*/
 		      			}
 		        	}
 		        	
@@ -105,8 +117,8 @@ function GetAllLongtermItems(userId) {
 			        		var tempCat = categories[i]['categoryId'];
 			        		
 			        		if (lastCat != tempCat){
-			      				$('ul.longtermList').append('<li id="longterm_'+ categories[i]['categoryId'] +'"><span class="longtermCategory">'+ categories[i]['categoryName'] +':</span><span class="longtermCategory">'+ 
-			      				categories[i]['categoryResultCount'] +'</span><span class="enterLongterm"><img class="enterLongtermIcon pointer" src="img/forward.png"></span></li>');
+			      				$('ul.longtermList').append('<li id="longterm_'+ categories[i]['categoryId'] +'"><span class="longtermCategory">'+ categories[i]['categoryName'] +':</span><span class="longtermCategory">'+ categories[i]['categoryResultCount'] +'</span>'+
+			      					'<span class="enterLongterm"><img class="enterLongtermIcon pointer" src="img/forward.png"></span></li>');
 		      				}
 		      				lastCat = tempCat;
 			        	}
@@ -121,10 +133,19 @@ function GetAllLongtermItems(userId) {
 	},errorCB,nullHandler);
 }
 
+function hasValue(obj, key, value) {
+    return obj.hasOwnProperty(key) && obj[key] === value;
+}
+
 function GetLongtermFromLesson(userId, lessonData){
 	db.transaction(function(tx) {
+		/*doQuery(tx, 'SELECT Result.learnItem_id as lItemId,* FROM Result INNER JOIN LearnItem ON LearnItem.LearnItemId = Result.learnItem_id'+
+		' INNER JOIN Users ON Result.user_id = Users.UserId '+
+		' WHERE LearnItem.LessonId ='+lessonData['lessonId']+' AND Result.user_id ='+userId+' ORDER BY LearnItem.LearnItemId;', [],function(tx,result){
+		});*/
 		doQuery(tx, 'SELECT Result.learnItem_id as lItemId,* FROM Result INNER JOIN LearnItem ON LearnItem.LearnItemId = Result.learnItem_id'+
-		' INNER JOIN Lesson ON LearnItem.LessonId = Lesson.LessonId '+		
+		' INNER JOIN Lesson ON LearnItem.LessonId = Lesson.LessonId '+
+		//' INNER JOIN UserLessons ON Result.user_id = UserLessons.user_id '+		
 		' WHERE Lesson.CategoryId ='+lessonData['catId']+' AND Result.user_id ='+userId+' ORDER BY LearnItem.LearnItemId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 						
@@ -252,6 +273,11 @@ function CheckIfDisplayItem(longtermLevel, lastShown, now, timestamp, levelInfo)
 	}
 	
 	return createListItem;
+}
+
+//Check when logged In User Studied the last time
+function CheckForLastTimeStudied(loggedInUser){
+	
 }
 
 //Add Result to DB

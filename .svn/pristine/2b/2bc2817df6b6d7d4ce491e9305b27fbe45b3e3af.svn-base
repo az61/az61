@@ -7,15 +7,9 @@
  */
 $(function() {
 	var dateHoliday = '';
-	$.validator.passwordRating.messages = {
-		"too-short": "Zu kurz",
-		"very-weak": "Sehr schwach",
-		"weak": "Schwach",
-		"good": "Gut",
-		"strong": "Ausgezeichnet"
-	};
+	
 	//Activate User Settings PW Validator
-	$("#userSettings").validate({
+	var validator = $("#userSettings").validate({
 		rules: {
 			password_confirm: {
 				required: true,
@@ -36,7 +30,7 @@ $(function() {
 		// set this class to error-labels to indicate valid fields
 		success: function(label) {
 			// set &nbsp; as text for IE
-			label.html("").addClass("checked");
+			label.html("&nbsp;").addClass("checked");
 		}
 	});
 		

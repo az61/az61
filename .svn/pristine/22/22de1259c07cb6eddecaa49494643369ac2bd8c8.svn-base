@@ -179,7 +179,7 @@ function UpdateVocabularyToDB(newLearnItemValues){
 	}
 	
 	db.transaction(function(tx) {
-        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccessUpdate);
+        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccessUpdate); 
 	});
 	return false;
 }

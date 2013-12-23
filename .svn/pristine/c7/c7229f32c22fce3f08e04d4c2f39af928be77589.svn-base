@@ -6,8 +6,6 @@
  * Company: team in medias GmbH
  */
 
-var DEBUG_MODE = 1;
-
 var db; 
 var dbName = 'az6';
 var dbNamePre = 'az61.';

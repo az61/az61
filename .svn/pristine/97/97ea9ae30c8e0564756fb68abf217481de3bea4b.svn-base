@@ -20,10 +20,8 @@
         				<li class="button"><a href="lessons.html">Lektionen bearbeiten</a></li>
         				<li class="button"><a href="userSettings.html">Benutzereinstellungen</a></li>
         				<li class="button"><a href="langzeit.html">Langzeitgedächtnis</a></li>
-        				<li class="button"><a href="klassenarbeit.html">Klassenarbeitsmodus</a></li>
         			</ul>
     			</div>
-    			
     			<div id="login">
     			    <form id="loginForm" action="#"> 
                         <input id="usernameLogin" type="text" name="username" placeholder="Benutzername">             
@@ -32,17 +30,6 @@
                     </form>
                     <span class="error red">Der Login ist fehlgeschlagen. Benutzername oder Passwort war falsch.</span>
     			</div>
-    			
-    			<div class="userData hidden">
-                    <span class="level6"></span>
-                    <span class="level5"></span>
-                    <span class="level4"></span>
-                    <span class="level3"></span>
-                    <span class="level2"></span>
-                    <span class="level1"></span>
-                    <span class="level0"></span>
-                </div>
-    			
     		</div>
     		<div class="bottom row">
     		    <div id="bottom-html">
@@ -66,7 +53,6 @@
 		<script type="text/javascript" src="js/jquery.md5.js"></script>
 		<script type="text/javascript" src="js/az61.global.js"></script>	
         <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
-        <script type="text/javascript" src="js/az61.db/az61.db.longtermItem.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.login.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.category.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.lesson.js"></script>

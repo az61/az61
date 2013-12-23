@@ -1,71 +1,15 @@
-/**** Main Styles ****/
-.main h2 {color: #7a1716; border-bottom: 2px solid #7a1716;}
+/**** Longterm ****/
+.container.longterm .question span.header { background: url(../img/default/h2_vocabulary.png) no-repeat; }
+.container.longterm .answer span.header { background: url(../img/default/h2_translation.png) no-repeat; }
 
-a.next,
-a.button {
-	background-color: #7a1716;
-	color: #ffffff;
-	padding: 0.4em 1em;
-	border: 1px solid #d3d3d3;
-	font-weight: normal;
-}
-
-/*****Lightboxes*/
-.popup{box-shadow: none!important; border-radius: 0 0 0 0;}
-.button.b-close, .button.bClose{
-	border-radius: 0 0 0 0;
-	background-color: #7a1716;
-	font-size: 1.313em;
-	padding: 0.313em 0.625em;
-	top: -15px;
-	right: -15px;
-}
-
-
-.ui-dialog{border-radius: 0 0 0 0;}
-.ui-dialog .ui-widget-header{background-color: #7a1716; background-image: none!important; color: #fff; border-radius: 0 0 0 0;}
-.ui-dialog #txLessonName{width: 95%;}
-.ui-dialog-buttonset .ui-state-default,
-.ui-dialog-buttonset .ui-widget-content .ui-state-default,
-.ui-dialog-buttonset .ui-widget-header .ui-state-default{background-color: #898d90!important; color: #ffffff; background-image: none;}
-
-/******Form Styles*/
-input[type=text], select, textarea{ border: 1px solid #898d91; color: #111111; min-height: 1.875em; padding: 0.225em; }
-
-/*Button*/
-input.ui-button, button.ui-button { background-color: #7a1716; color: #ffffff; background-image: none; border-radius: 0; }
-button.ui-button.inactive { background-color: #898d91; color: #535353; border-color: #898d91; cursor: default; }
-
-/**** Home ****/
-.top { background-color: #7a1716; height: 1.825em; border-bottom: 2px solid #fff; }
+.top{background-color: #7a1716; height: 1.825em; border-bottom: 2px solid #fff;}
 .bottom{background-color: #7a1716; border-top: 2px solid #fff;}
 
 .container,
 .container.home{background: url(../img/app-bg-main.png) no-repeat bottom right #333333; color: #ffffff;}
 .container.home .main ul.buttons a{text-shadow: 2px 1px 0px #7a1716;  color: #ffffff}
 
-/**** Longterm ****/
-.container.longterm .question span.header,
-.container.test .question span.header { background: url(../img/default/h2_vocabulary.png) no-repeat; }
-.container.longterm .answer span.header,
-.container.test .answer span.header { background: url(../img/default/h2_translation.png) no-repeat; }
-
-.longtermList.longtermContainer,
-.longtermLearn,
-.testContainer {background-color: rgba(255,255,255,0.3); padding: 0.625em;}
-
-.container.longterm h1,
-.container.test h1 {
-	color: #7a1716;
-	font-size: 1.625em;
-	margin-bottom: 0.625em;
-	text-transform: uppercase;
-	border-bottom: 2px solid #7a1716;
-	padding: 0.313em;
-}
-
-/****** Test */
-.container.test .summaryTest span.headerSum { background: url(../img/default/h2_summary.png) no-repeat; height: 22px; min-width: 156px; }
+.main h2 {color: #7a1716; border-bottom: 2px solid #7a1716;}
 
 
 /******Lessons*/
@@ -141,4 +85,48 @@ thead th{padding: 0.625em 0 0; color: #7a1716; border-bottom: 2px solid #7a1716;
 #userSettings .holiday .holiday-wrapper input{min-height: 13px; padding: 0;}
 
 #userSettings .addUser{margin-top: -0.313em;}
+
+/*****Longterm*/
+.longtermList.longtermContainer,
+.longtermLearn{background-color: rgba(255,255,255,0.3); padding: 0.625em;}
+.container.longterm h1{
+	color: #7a1716;
+	font-size: 1.625em;
+	margin-bottom: 0.625em;
+	text-transform: uppercase;
+	border-bottom: 2px solid #7a1716;
+	padding: 0.313em;
+}
+
+.container.longterm a.next,
+.container.longter a.button {
+	background-color: #7a1716;
+	color: #ffffff;
+	padding: 0.4em 1em;
+}
+
+/*****Lightboxes*/
+.popup{box-shadow: none!important; border-radius: 0 0 0 0;}
+.button.b-close, .button.bClose{
+	border-radius: 0 0 0 0;
+	background-color: #7a1716;
+	font-size: 1.313em;
+	padding: 0.313em 0.625em;
+	top: -15px;
+	right: -15px;
+}
+
+
+.ui-dialog{border-radius: 0 0 0 0;}
+.ui-dialog .ui-widget-header{background-color: #7a1716; background-image: none!important; color: #fff; border-radius: 0 0 0 0;}
+.ui-dialog #txLessonName{width: 95%;}
+.ui-dialog-buttonset .ui-state-default,
+.ui-dialog-buttonset .ui-widget-content .ui-state-default,
+.ui-dialog-buttonset .ui-widget-header .ui-state-default{background-color: #898d90!important; color: #ffffff; background-image: none;}
+
+/******Form Styles*/
+input, select, textarea{border: 1px solid #898d91; color: #111111; min-height: 1.875em; padding: 0.225em;}
+
+/*Button*/
+input.ui-button, button.ui-button{background-color: #7a1716; color: #ffffff; background-image: none; border-radius: 0;} 
 

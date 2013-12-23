@@ -21,8 +21,8 @@ button {
 	appearance: none;
 }
 
-.red { color: #960000; }
-.green { color: #0DFF03; }
+.red { color: red; }
+.green { color: green; }
 
 .row { max-width: 60em; margin: 0 auto; width: 100%; }
 
@@ -59,14 +59,25 @@ button {
     display: inline-block;
 }
 
+
+
+ul.lesson li { 
+	width: 80%;
+	padding: 0.188em;
+	margin: 0 auto;
+	margin-bottom: 0.125em;
+}
+
+
+.lessonEditMenu { display: none; }
+
+.lessonContent span.border { border: 1px solid #000; padding: 0.125em; }
+
 /****** Top Styles ******/
 
 .top { 
 	height: 3.563em; 
-	margin-bottom: 1.563em;
-	left: 0;
-	top: 0;
-	position: fixed; 
+	margin-bottom: 1.563em; 
 }
 
 .top .right img { max-height: 38px; } 
@@ -88,7 +99,7 @@ button {
 .main p { line-height: 150%; font-size: 1.25em;  }
 
 /* Home */
-.container.home .main ul.buttons { position: absolute; /*margin-top: 10%; right: 1.625em;*/ }
+.container.home .main ul.buttons { position: absolute; top: 150px; right: 1.625em; }
 
 .container.home .main li.button { margin-bottom: 1.625em; }
 
@@ -96,7 +107,7 @@ button {
 	color: #fff;
 	font-size: 1.625em;
 	font-weight: bold; 
-	text-align: center;	 
+	text-align: right;	 
 	text-transform: uppercase;
 	display: block;
 }
@@ -110,7 +121,6 @@ button {
 
 .container {
 	padding-bottom: 65px;
-	padding-top: 65px;
 	min-height: 100%;
 	overflow: hidden;	
 }
@@ -153,7 +163,7 @@ span.close { float:left; }
 #userSettings label.error {
   background:url(../img/validator/unchecked.png) no-repeat 0px 0px;
   font-weight: bold;
-  color: #9E0B0B;
+  color: #EA5200;
 }
 
 #userSettings label.checked {
@@ -163,33 +173,15 @@ span.close { float:left; }
 .password-meter, 
 .password-meter div { margin-bottom: 0 !important; }
 
-/***** Lessons *****/
-ul.lesson li { 
-	width: 80%;
-	padding: 0.188em;
-	margin: 0 auto;
-	margin-bottom: 0.125em;
-}
+/* Longterm Styles */
+.container.longterm input.longterm { width: 50%; height: 4.688em; margin-right: 1.25em; }
+.container.longterm span.header { width: 25%; height: 22px; display: inline-block; }
 
-
-.lessonEditMenu { display: none; }
-
-.lessonContent span.border { border: 1px solid #000; padding: 0.125em; }
-
-/***** Longterm Styles *****/
-.container.longterm input.longterm,
-.container.test input.test { width: 50%; height: 4.688em; margin-right: 1.25em; }
-.container.longterm span.header,
-.container.test span.header { width: 25%; height: 22px; display: inline-block; }
-
-.container.longterm .vocabulary input,
-.container.test .vocabulary input { color: #008000; }
-.container.longterm .translation input,
-.container.test .translation input { color: #941E34; }
+.container.longterm .vocabulary input { color: #008000; }
+.container.longterm .translation input { color: #941E34; }
 
 .container.longterm a.prev,
-.container.longterm a.next,
-.container.test a.prev { display:none; }
+.container.longterm a.next { display:none; }
 
 .container.longterm .longtermLearn { display:none; }
 
@@ -205,15 +197,7 @@ ul.lesson li {
 	height: auto;
 }
 
-/***** Test Styles *****/
-.container.test .lesson { margin-left: 0.625em; line-height: 1.625em; padding: 0.225em 0; }
-.container.test input[type=checkbox] { margin-right: 0.625em; }
-.container.test .cat-title { padding: 0.625em 0; }
-.container.test .all { margin-right: 1.25em; }
-.container.test label { display: inline; }
-
-/***** Login Styles *****/
-
+/* Login Styles */
 span.error { display:none; }
 #login {display: none; }
 

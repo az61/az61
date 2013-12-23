@@ -29,19 +29,28 @@ $(function() {
 		newLearnItem['question'] = '';
 		newLearnItem['answer'] = '';
 		
+		resultItem = {};
+		resultItem['learnItemId'] = checkboxId.substring(13);
+		resultItem['userId'] = loggedInUser;
+		resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+		resultItem['longtermLevel'] = 6;
+		
     	var checked = 99;
     	if ($('#'+checkboxId).is(':checked')) {
-    		checked = 1;    		
+    		checked = 1;
+    		AddResultToDB(resultItem);
     	}
     	else {
     		checked = 0;
+    		DeleteResultFromDB(resultItem);
     	}   	
 
 		newLearnItem['isLongterm'] = checked;		
     	
     	UpdateVocabularyToDB(newLearnItem);
-    	GetDBVocabulary(lesID,catID);
-    	return false;
+    	
+    	//Prevent from Calling funtion twice
+		event.stopPropagation();
 	});
 	
 	$('.lessonContent').on('click', '.vocabEditMenuIcon', function(event){

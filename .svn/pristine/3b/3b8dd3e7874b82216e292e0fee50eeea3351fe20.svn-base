@@ -45,10 +45,10 @@ function GetLessonsFromDB(){
 		
 		doQuery(tx, 'SELECT LessonId, LessonName, CategoryName FROM Lesson LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
-				$('#addUserLessonsDialog').html('<form><fieldset></fieldset></form>');
+				$('#addUserLessonsDialog').html('');
 				for (var i = 0; i < result.rows.length; i++) {
 	      			var row = result.rows.item(i);
-	      			$('#addUserLessonsDialog form fieldset').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
+	      			$('#addUserLessonsDialog').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
 	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label>');
 	        	}
 	      	}

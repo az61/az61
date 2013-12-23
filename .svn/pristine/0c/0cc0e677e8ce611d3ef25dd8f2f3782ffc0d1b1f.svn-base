@@ -37,17 +37,13 @@ function ListDBValues(){
 	}
 	
 	else if (PATHNAME.indexOf('userSettings.html') != -1) {
+		console.log(loggedInUser);
 		GetDBUsers(loggedInUser);
 		GetLessonsFromDB();		
 	}
 	
 	else if (PATHNAME.indexOf('langzeit.html') != -1) {	
 	   GetAllLongtermItems(loggedInUser);   
-	}
-	
-	else if (PATHNAME.indexOf('klassenarbeit.html') != -1) {	
-	   GetUserLessons(loggedInUser);
-	   showTestList();   
 	}
 }
 

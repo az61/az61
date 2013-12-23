@@ -4,9 +4,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
 		<title>AZ 6-1</title>
+		<link rel="stylesheet" type="text/css" href="css/main.styles.css" />
 		<link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.validate.password.css" />
-		<link rel="stylesheet" type="text/css" href="css/main.styles.css" />
 		<link rel="stylesheet" type="text/css" href="css/default.styles.css" />
 		<!--<script type="text/javascript" src="js/cordova.js"></script>-->
 		<script type="text/javascript" src="phonegap.js"></script>
@@ -111,12 +111,8 @@
                 </div>
             </div>
             <div id="newUserDialog" title="">
-                <form>
-                    <fieldset>
-                        <label for="newUser">Gewünschten Benutzernamen eingeben</label>
-                        <input type="text" name ="newUser" id="newUser"/>
-                    </fieldset>
-                </form>
+                <label for="newUser">Gewünschten Benutzernamen eingeben</label>
+                <input type="text" name ="newUser" id="newUser"/>
             </div>
             <div id="userNameMissingDialog" title="Benutzername fehlt">
                 <p>Bitte geben einen Benutzernamen ein.</p>
@@ -145,7 +141,7 @@
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
-		
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="js/jquery.md5.js"></script>
 		<script type="text/javascript" src="js/jquery.validate.js"></script>
 		<script type="text/javascript" src="js/jquery.validate.password.js"></script>	
