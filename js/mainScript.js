@@ -18,6 +18,7 @@ function onDeviceReady(){
 	document.addEventListener("pause", onPause, false);
 	document.addEventListener("resume", onResume, false);
 	document.addEventListener("endcallbutton", onEndCallKeyDown, false);
+	document.addEventListener("backbutton", ShowExitDialog, false);
 	
 	console.log("Device is ready");
 	//window.localStorage.removeItem("launchCount");
@@ -34,6 +35,24 @@ function onDeviceReady(){
 	ListDBValues();
 	
 	initBinding();
+}
+
+function ShowExtDialog(){
+	navigator.notification.confirm(
+            ("Willst du die App beenden?"), // message
+            alertexit, // callback
+            'AZ6-1', // title
+            'Ok,Abbrechen' // buttonName
+    );
+}
+
+function alertexit(button){
+	if(button=="1" || button==1)
+	{	
+		window.localStorage.removeItem("launchCount");
+	    device.exitApp();
+	}
+
 }
 
 function onEndCallKeyDown() {
