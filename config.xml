@@ -4,12 +4,20 @@
 <widget xmlns 		= "http://www.w3.org/ns/widgets"
 		xmlns:gap 	= "http://phonegap.com/ns/1.0"
 		id			= "com.inmedias.az61"
-		version		= "1.1.3">
+		version		= "1.1.7">
 		
-		<name>AZ6-1</name>
+		<name>AZ6-1 BETA</name>
 		
 		<description>
 			Der Vokabeltrainer AZ6-1 ist ein nach dem Karteikastenprinzip aufgebautes Vokabellernprogramm, das dabei hilft Vokabeln und andere Lerninhalte langfristig und nachhaltig im Langzeitgedächtnis zu verankern.
+			
+			Das ist die BETA Version von AZ6-1, die folgende Möglichkeiten beitet:
+			- Benutzerverwaltung
+			- Anlegen von Fächern, Lektionen und Vokabeln
+			- Langzeitanbfrage
+			- Abfrage im Klassenarbeitsmodus
+			
+			Updates folgen mit anderen spannenden Features.
 		</description>
 		
 		<author href="http://www.az6-1.de" email="info@az6-1.de">

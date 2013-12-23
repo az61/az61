@@ -37,7 +37,7 @@ function onDeviceReady(){
 	initBinding();
 }
 
-function ShowExtDialog(){
+function ShowExitDialog(){
 	navigator.notification.confirm(
             ("Willst du die App beenden?"), // message
             alertexit, // callback
