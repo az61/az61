@@ -41,8 +41,9 @@ function ListDBValues(){
 		GetLessonsFromDB();		
 	}
 	
-	else if (PATHNAME.indexOf('langzeit.html') != -1) {	
-	   GetAllLongtermItems(loggedInUser);   
+	else if (PATHNAME.indexOf('langzeit.html') != -1) {
+		CheckForLastShown(loggedInUser);	
+	   	GetAllLongtermItems(loggedInUser);   
 	}
 	
 	else if (PATHNAME.indexOf('klassenarbeit.html') != -1) {	

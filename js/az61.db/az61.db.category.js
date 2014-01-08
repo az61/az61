@@ -27,8 +27,7 @@ function GetDBCategories(){
 		doQuery(tx, 'SELECT * FROM Category LEFT JOIN Lesson ON Category.CategoryId = Lesson.CategoryId'+ innerJoin + where +' GROUP BY Category.CategoryName;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
-				    console.log(result.rows.length);
-					for (var i = 0; i < result.rows.length; i++) {
+				    for (var i = 0; i < result.rows.length; i++) {
 		      			var row = result.rows.item(i);
 		      			var catId = row.CategoryId;
 		      			$('.category').append('<li class="cat" id="cat_'+ catId +'"><img class="folderIcon" src="'+ imgPath +'folder_closed.png" /><span class="cat-title">' + row.CategoryName + '</span></li>');

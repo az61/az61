@@ -254,6 +254,145 @@ function CheckIfDisplayItem(longtermLevel, lastShown, now, timestamp, levelInfo)
 	return createListItem;
 }
 
+//Check when logged In / enter App User Studied the last time
+function CheckForLastShown(userId){
+	db.transaction(function(tx) {
+		doQuery(tx, 'SELECT * FROM Users WHERE UserId = '+userId+';',[],function(tx,result){
+			if (result != null && result.rows != null) {
+				if (result.rows.length != 0 && result.rows.length == 1){
+					var row = result.rows.item(0);
+	      			$('.userData span.level6').html(row.Level6);
+	      			$('.userData span.level5').html(row.Level5);
+	      			$('.userData span.level4').html(row.Level4);
+	      			$('.userData span.level3').html(row.Level3);
+	      			$('.userData span.level2').html(row.Level2);
+	      			$('.userData span.level1').html(row.Level1);
+	      			$('.userData span.level0').html(row.Level0);
+				}
+			}
+		});
+	});
+	
+	db.transaction(function(tx) {
+		doQuery(tx, 'SELECT * FROM Result WHERE user_id = '+userId+';',[],function(tx,result){
+			if (result != null && result.rows != null) {
+				if (result.rows.length != 0){
+					for (var i = 0; i < result.rows.length; i++) {
+						var row = result.rows.item(i);
+						
+						if(DEBUG_MODE) console.log('update');
+						
+			      		var level = parseInt(row.LongtermLevel,10);
+			      		var now = parseInt(new Date().getTime()/1000,10);
+			      		
+			      		var levelInfo = {};
+		      			levelInfo['level6'] = $('.userData span.level6').html();
+		      			levelInfo['level5'] = $('.userData span.level5').html();
+		      			levelInfo['level4'] = $('.userData span.level4').html();
+		      			levelInfo['level3'] = $('.userData span.level3').html();
+		      			levelInfo['level2'] = $('.userData span.level2').html();
+		      			levelInfo['level1'] = $('.userData span.level1').html();
+		      			levelInfo['level0'] = $('.userData span.level0').html();
+		      			
+		      			if(DEBUG_MODE) console.log('level6 ' + levelInfo['level6']);
+			      		
+			      		var updateLastShownDate = false;
+			      		
+			      		var updateItem = {};
+			      		updateItem['learnItemId'] = row.learnItem_id;			      		
+						updateItem['userId'] = userId;
+			      		
+						if (row.LastShown < now){
+							var timeDiff = now - row.LastShown;
+							var diffDays = parseInt(timeDiff / (3600 * 24),10);
+							
+							var d = new Date();
+							
+							switch (level) {
+								case 6:			
+									//Check if 
+									if (levelInfo['level6'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level6']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 5:
+									//Downgrade to level 6
+									if (levelInfo['level5'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level5']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 4:
+									if (levelInfo['level4'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level4']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 3:
+									if (levelInfo['level3'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level3']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 2:
+									if (levelInfo['level2'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level2']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 1:
+									if (levelInfo['level1'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level1']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								case 0:
+									if (levelInfo['level6'] < diffDays){
+										//updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level0']);
+										updateLastShownDate = true;
+									}
+									else {
+										updateLastShownDate = false;
+									}
+									break;
+								default:
+									updateLastShownDate = false;
+									break;
+							}
+						}
+						
+						if (updateLastShownDate){
+							updateItem['longtermLevel'] = row.LongtermLevel;
+							updateItem['lastShown'] = d.setDate(d.getDate() - levelInfo['level'+row.LongtermLevel]);
+							
+							UpdateResultToDB(updateItem);
+						}
+					}
+				}
+			}
+		});
+	});
+}
+
 //Add Result to DB
 function AddResultToDB(resultItem){
 	var learnItemId = resultItem['learnItemId'];

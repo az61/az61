@@ -17,20 +17,22 @@ function onDeviceReady(){
 	
 	document.addEventListener("pause", onPause, false);
 	document.addEventListener("resume", onResume, false);
-	document.addEventListener("endcallbutton", onEndCallKeyDown, false);
-	document.addEventListener("backbutton", ShowExitDialog, false);
+	//document.addEventListener("backbutton", ShowExitDialog, false);
 	
 	console.log("Device is ready");
-	//window.localStorage.removeItem("launchCount");
-	var applaunchCount = window.localStorage.getItem('launchCount');
-		
+	
 	connectToDB();
+	
+	//window.localStorage.removeItem("launchCount");
+	/*var applaunchCount = window.localStorage.getItem('launchCount');
+		
+	
 	
 	if(!applaunchCount){
 		//Local storage is not set, hence first time launch. set the local storage item
 		window.localStorage.setItem('launchCount',1);
 		CheckForLastShown(loggedInUser);
-	}
+	}*/
 	
 	ListDBValues();
 	
@@ -38,12 +40,18 @@ function onDeviceReady(){
 }
 
 function ShowExitDialog(){
-	navigator.notification.confirm(
-            ("Willst du die App beenden?"), // message
+	if(PATHNAME.indexOf('index.html') != -1){
+		//e.preventDefault();
+		navigator.notification.confirm(
+            ("Willst du die App wirklich beenden?"), // message
             alertexit, // callback
             'AZ6-1', // title
             'Ok,Abbrechen' // buttonName
-    );
+		);
+	}
+	else {
+		navigator.app.backHistory();
+	}	
 }
 
 function alertexit(button){
@@ -53,17 +61,6 @@ function alertexit(button){
 	    device.exitApp();
 	}
 
-}
-
-function onEndCallKeyDown() {
-    // Handle the end call button
-    
-    exit = confirm("Willst du die App verlassen?");
-    
-    if(exit){
-    	window.localStorage.removeItem("launchCount");
-    	navigator.app.exitApp();
-    }            
 }
 
 function onPause(){

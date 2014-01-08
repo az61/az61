@@ -4,23 +4,15 @@
 <widget xmlns 		= "http://www.w3.org/ns/widgets"
 		xmlns:gap 	= "http://phonegap.com/ns/1.0"
 		id			= "com.inmedias.az61"
-		version		= "1.1.7">
+		version		= "1.1.8">
 		
-		<name>AZ6-1 BETA</name>
+		<name>AZ6-1</name>
 		
 		<description>
 			Der Vokabeltrainer AZ6-1 ist ein nach dem Karteikastenprinzip aufgebautes Vokabellernprogramm, das dabei hilft Vokabeln und andere Lerninhalte langfristig und nachhaltig im Langzeitgedächtnis zu verankern.
-			
-			Das ist die BETA Version von AZ6-1, die folgende Möglichkeiten beitet:
-			- Benutzerverwaltung
-			- Anlegen von Fächern, Lektionen und Vokabeln
-			- Langzeitanbfrage
-			- Abfrage im Klassenarbeitsmodus
-			
-			Updates folgen mit anderen spannenden Features.
 		</description>
 		
-		<author href="http://www.az6-1.de" email="info@az6-1.de">
+		<author href="http://www.inmedias.de" email="teaminmedias.gmbh@gmail.com">
 			team in medias GmbH
 		</author>
 		
@@ -33,7 +25,7 @@
 	    <preference name="permissions"					value="none" />
 	    <preference name="phonegap-version" 			value="2.9.0" />
 	    <preference name="orientation" 					value="default" /> <!-- all: default means both landscape and portrait are enabled -->
-	    <preference name="target-device"              	value="universal" /> <!-- all: possible values handset, tablet, or universal -->
+	    <preference name="target-device"              	value="tablet" /> <!-- all: possible values handset, tablet, or universal -->
 	    <preference name="fullscreen"                 	value="true" /> <!-- all: hides the status bar at the top of the screen -->
 	    <preference name="webviewbounce"              	value="true" /> <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
 	    <preference name="prerendered-icon"           	value="true" /> <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
@@ -84,7 +76,7 @@
 	        Otherwise, you can specify specific domains:
     	-->
 	    <!--<access origin="http://127.0.0.1*" /> <!-- allow local pages -->
-	    <access origin="*" /> <!-- allow local pages -->
+	    <access origin="*" /> <!-- allow all pages -->
 	    
 	    <!--
 	        <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
