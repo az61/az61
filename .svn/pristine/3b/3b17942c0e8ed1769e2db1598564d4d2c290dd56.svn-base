@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+        <title>AZ 6-1</title>
+        <link rel="stylesheet" type="text/css" href="css/main.styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/default.styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/slider/responsiveslides.css" />
+        <!--<script type="text/javascript" src="js/cordova.js"></script>-->
+        <script type="text/javascript" src="phonegap.js"></script>
+    </head>
+    <body>
+        <div class="container test">
+            <div class="top row">
+            </div>
+            <div class="main row">
+                <div class="testContainer">
+                    <h1>Lernen für eine Klassenarbeit</h1>
+                    <div class="testList">                    
+                        <input type="checkbox" class="all checkLesson" id="allLessons">
+                        <label for="all">Alles auswählen</label>
+                        <input type="checkbox" class="noLessons" id="noLessons">
+                        <label for="noLessons">Auswahl entfernen</label>
+                        
+                        <ul class="testList">                    
+                        </ul>
+                        
+                        <button class="enterTest inactive" type="button">Weiter</button>
+                        <p>Wähle eine Lektion aus, um für eine Klassenarbeit zu lernen.</p>
+                    </div>                
+                    
+                    <div class="testLearn">
+                        <!--<p>Fachgebiet <span class="categoryName"></span></p>-->
+                        <p>Lerninhalt <span class="countLearnItem"></span> von <span class="totalLearnItem"></span> | Lektion <span class="lessonName"></span></p>
+                        <div class="testContent">
+                            <ul class="rslides"></ul>
+                        </div>
+                        <div class="resultTest">
+                        </div>
+                        <div class="sum hidden">
+                            <span class="right"></span>
+                            <span class="wrong"></span>
+                        </div>
+                        <button class="checkAnswer">Prüfen</button>
+                        <span class="showResult hidden"><a class="button finish" href="#">Weiter</a></span>                     
+                    </div>
+                    
+                    <div class="testSummary">
+                        <p>Lerninhalte Insgesamt: <span class="totalLearnItem"></span></p>
+                        <div class="summaryTest">
+                            <span class="headerSum"></span>
+                            <div class="sumWrap">
+                                <div class="right green">
+                                    <p>Richtig <span class="counter">0</span> <span class="percent">0</span>%</p>
+                                </div>
+                                <div class="wrong red">
+                                     <p>Falsch <span class="counter">0</span> <span class="percent">0</span>%</p>
+                                </div>
+                            </div>                            
+                        </div>
+                        <!--<button class="againTest">Nochmal</button>-->
+                        <a class="button" href="klassenarbeit.html">Weiter</a>
+                        <!--<p>Nochmal zeigt alle Vokabeln der Lektionen, die falsch waren.</p>-->                                     
+                    </div>
+                </div>
+            </div>
+            <div class="bottom row">
+                <div id="bottom-html">
+                    <ul class="bottom-buttons">
+                        <li class="button settings"><a href="settings.html"><img class="bottomIcon" src="img/line_settings.png" /></a></li>
+                        <li class="bottomMenuBorder">&nbsp;</li>
+                        <li class="button userSettings"><a href="userSettings.html"><img class="bottomIcon" src="img/line_user.png" /></a></li>                
+                        <li class="bottomMenuBorder">&nbsp;</li>
+                        <li class="button edit"><a href="lessons.html"><img class="bottomIcon" src="img/line_pen.png" /></a></li>
+                        <li class="bottomMenuBorder">&nbsp;</li>
+                        <li class="button home"><a href="index.html"><img class="bottomIcon" src="img/line_home.png" /></a></li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>        
+        <script type="text/javascript" src="js/jquery.bpopup.min.js"></script>   
+        <script type="text/javascript" src="js/slider/responsiveslides.min.js"></script>   
+        <script type="text/javascript" src="js/az61.global.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.test.js"></script>
+        <script type="text/javascript" src="js/az61.ui/az61.ui.js"></script>
+        <script type="text/javascript" src="js/az61.ui/az61.ui.test.js"></script>
+        <script type="text/javascript" src="js/mainScript.js"></script>     
+    </body>
+</html>
