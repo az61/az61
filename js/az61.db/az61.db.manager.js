@@ -6,6 +6,7 @@
  * Company: team in medias GmbH
  */
 
+//Connection to the databse
 function connectToDB(){
 	if (!window.openDatabase) {
    		alert('Databases are not supported in this browser.'); 
@@ -14,59 +15,102 @@ function connectToDB(){
  	
  	setDBNameAccordingToVersion();
  	
- 	db = window.openDatabase(dbName, version, displayName,maxSize);
- 	db.transaction (createTable, errorCB, successCB);
+ 	db = window.openDatabase(DB_NAME, DB_VERSION, DB_DISPLAY_NAME,DB_MAX_SIZE);
+ 	db.transaction (createTable);
 }
 
+//This is not relevant yet, when updating the program to have different versions (kids, teen, standard) 
+// this function sets the DB name according to the version
 function setDBNameAccordingToVersion(){
-	switch(appVersion) {
+	switch(APP_VERSION) {
 		case 'Kids':
-			dbName = dbNamePre + 'kids';
-			displayName = displayName + 'Kids';
+			DB_NAME = DB_NAME_PRE + 'kids';
+			DB_DISPLAY_NAME = DB_DISPLAY_NAME + 'Kids';
 			break;
 		case 'Teens':
-			dbName = dbNamePre + 'teens';
-			displayName = displayName + 'Teens';
+			DB_NAME = DB_NAME_PRE + 'teens';
+			DB_DISPLAY_NAME = DB_DISPLAY_NAME + 'Teens';
 			break;
 		case 'Standard':
-			dbName = dbNamePre + 'standard';
-			displayName = displayName + 'Standard';
+			DB_NAME = DB_NAME_PRE + 'standard';
+			DB_DISPLAY_NAME = DB_DISPLAY_NAME + 'Standard';
 			break;
 		default:
-			dbName = dbNamePre + 'standard';
-			displayName = displayName + 'Standard';
+			DB_NAME = DB_NAME_PRE + 'standard';
+			DB_DISPLAY_NAME = DB_DISPLAY_NAME + 'Standard';
 	}
 }
 
+//Create all tables
 function createTable(tx){
-	var createTable = 'CREATE TABLE IF NOT EXISTS';
-	//tx.executeSql('DROP TABLE Lesson;');
-	tx.executeSql(createTable + ' Lesson(LessonId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, LessonName TEXT NOT NULL, CategoryId INTEGER NOT NULL, OwnerId INTEGER NOT NULL)');
-	//tx.executeSql('DROP TABLE Category;');
-	tx.executeSql(createTable + ' Category(CategoryId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CategoryName TEXT NOT NULL, OwnerId INTEGER NOT NULL)');	
-	//tx.executeSql('DROP TABLE LearnItem;');
-	tx.executeSql(createTable + ' LearnItem(LearnItemId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Question TEXT NOT NULL, Answer TEXT NOT NULL, IsLongterm INTEGER NOT NULL, ' +
-		'LessonId INTEGER NOT NULL, OwnerId INTEGER NOT NULL, Timestamp TEXT NOT NULL)');
-	//tx.executeSql('DROP TABLE Result;');
-	tx.executeSql(createTable + ' Result(user_id INTEGER NOT NULL, learnItem_id INTEGER NOT NULL, LastShown TEXT NOT NULL, LongtermLevel INTEGER NOT NULL)');
-	//tx.executeSql('DROP TABLE Users;');
-	tableExists(tx, "Users", function(status) {
+	
+	//doQuery(tx, 'Update Result SET LastShown = 1392073200 WHERE user_id = 1 AND learnItem_id = 21',[],querySuccess);
+	
+	tableExists(tx, "Lesson", function(status) {
 		if (!status){
-			tx.executeSql('CREATE TABLE Users(UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, UserName TEXT NOT NULL, Password TEXT NOT NULL, IsParent INTEGER NOT NULL, Theme TEXT NOT NULL,'+
-				'Level6 INTEGER NOT NULL, Level5 INTEGER NOT NULL, Level4 INTEGER NOT NULL, Level3 INTEGER NOT NULL,Level2 INTEGER NOT NULL,Level1 INTEGER NOT NULL, Level0 INTEGER NOT NULL,'+
-				'Sound INTEGER NOT NULL, EditOnFly INTEGER NOT NULL, Principle INTEGER NOT NULL, Language TEXT NOT NULL, HolidayActive INTEGER NOT NULL, EnterHoliday TEXT NOT NULL)');
-			//Insert Default User
-			tx.executeSql('INSERT INTO Users(UserName,Password,IsParent,Theme,Level6,Level5,Level4,Level3,Level2,Level1,Level0,Sound,EditOnFly,Principle,Language,HolidayActive,EnterHoliday)'+
-				'VALUES("Administrator", "d41d8cd98f00b204e9800998ecf8427e", "1","default","'+LEVEL6_DEFAULT+'","'+LEVEL5_DEFAULT+'","'+LEVEL4_DEFAULT+'","'+LEVEL3_DEFAULT+'","'+LEVEL2_DEFAULT+'","'+LEVEL1_DEFAULT+'",'+
-				'"'+LEVEL0_DEFAULT+'","0","1","' + LEITNER_PRINCIPLE + '","de","0","")');
+			//doQuery(tx,'DROP TABLE Lesson;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE Lesson(LessonId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, LessonName TEXT NOT NULL, CategoryId INTEGER NOT NULL, OwnerId INTEGER NOT NULL)',[],querySuccess);
 		}
 		
 	});
-	//tx.executeSql('DROP TABLE UserLessons;');
-	tx.executeSql(createTable + ' UserLessons(user_id INTEGER NOT NULL, lesson_id)');
 	
+	tableExists(tx, "Category", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE Category;',[],querySuccess);
+			doQuery(tx,'CREATE TABLE Category(CategoryId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CategoryName TEXT NOT NULL, OwnerId INTEGER NOT NULL)',[],querySuccess);
+		}
+		
+	});
+	
+	tableExists(tx, "Category", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE Category;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE Category(CategoryId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, CategoryName TEXT NOT NULL, OwnerId INTEGER NOT NULL)',[],querySuccess);
+		}
+		
+	});
+	
+	tableExists(tx, "LearnItem", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE LearnItem;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE LearnItem(LearnItemId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, Question TEXT NOT NULL, Answer TEXT NOT NULL, IsLongterm INTEGER NOT NULL, ' +
+				'LessonId INTEGER NOT NULL, OwnerId INTEGER NOT NULL, Timestamp TEXT NOT NULL)',[],querySuccess);
+		}
+		
+	});
+	
+	tableExists(tx, "Result", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE Result;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE Result(user_id INTEGER NOT NULL, learnItem_id INTEGER NOT NULL, LastShown TEXT NOT NULL, LongtermLevel INTEGER NOT NULL)',[],querySuccess);
+		}
+		
+	});
+	
+	tableExists(tx, "Users", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE Users;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE Users(UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, UserName TEXT NOT NULL, Password TEXT NOT NULL, IsParent INTEGER NOT NULL, Theme TEXT NOT NULL,'+
+				'Level6 INTEGER NOT NULL, Level5 INTEGER NOT NULL, Level4 INTEGER NOT NULL, Level3 INTEGER NOT NULL,Level2 INTEGER NOT NULL,Level1 INTEGER NOT NULL, Level0 INTEGER NOT NULL,'+
+				'Sound INTEGER NOT NULL, EditOnFly INTEGER NOT NULL, Principle INTEGER NOT NULL, Language TEXT NOT NULL, HolidayActive INTEGER NOT NULL, EnterHoliday TEXT NOT NULL)',[],querySuccess);
+			//Insert Default User
+			doQuery(tx, 'INSERT INTO Users(UserName,Password,IsParent,Theme,Level6,Level5,Level4,Level3,Level2,Level1,Level0,Sound,EditOnFly,Principle,Language,HolidayActive,EnterHoliday)'+
+				'VALUES("Administrator", "d41d8cd98f00b204e9800998ecf8427e", "1","default","'+LEVEL6_DEFAULT+'","'+LEVEL5_DEFAULT+'","'+LEVEL4_DEFAULT+'","'+LEVEL3_DEFAULT+'","'+LEVEL2_DEFAULT+'","'+LEVEL1_DEFAULT+'",'+
+				'"'+LEVEL0_DEFAULT+'","0","1","' + LEITNER_PRINCIPLE + '","de","0","")',[],querySuccess);
+		}
+		
+	});
+	
+	tableExists(tx, "UserLessons", function(status) {
+		if (!status){
+			//doQuery(tx,'DROP TABLE UserLessons;',[],querySuccess);
+			doQuery(tx, 'CREATE TABLE UserLessons(user_id INTEGER NOT NULL, lesson_id)',[],querySuccess);
+		}
+		
+	});
 }
 
+// Function to check if table exists
 function tableExists(tx, tablename, callback){
 	tx.executeSql('SELECT * FROM '+tablename, [], function(tx, resultSet) {
 		if (resultSet.rows.length <= 0){
@@ -80,32 +124,44 @@ function tableExists(tx, tablename, callback){
 	});
 }
 
+//This function ist important so that the error message can display the query that went wrong
 function doQuery(tx, query,values,successHandler){
 	tx.executeSql(query, values, successHandler, errorHandler);
-	
+	//Callback for error on query showing query
     function errorHandler(transaction, error) {
-        console.log("Error processing SQL: " + error.message + " in " + query);
+        if (DEBUG_MODE) console.log("Error processing SQL: " + error.message + " in " + query);
     }
 }
 
-
+//Callback for Success
 function querySuccess(tx, results) {
 	successLog(results);
 }
 
+//Callback for Successful Insert
 function querySuccessInsert(tx, results) {	
     successLog(results);
     // this will be empty since no rows were inserted.
-    console.log("Insert ID = " + results.insertId);
+    if (DEBUG_MODE) console.log("Insert ID = " + results.insertId);
     
     ListDBValues();
 }
 
-function querySuccessUpdate(tx, results) {  
+//Callback for Successful Insert
+function querySuccessUserLessonInsert(tx, results) {	
     successLog(results);
-    ListDBValues();
+    // this will be empty since no rows were inserted.
+    if (DEBUG_MODE) console.log("Insert ID = " + results.insertId);
 }
 
+//Callback for Successful Result Insert
+function querySuccessInsertResult(tx, results) {	
+    successLog(results);
+    // this will be empty since no rows were inserted.
+    if (DEBUG_MODE) console.log("Insert ID = " + results.insertId);
+}
+
+//Callback for Successful User Insert
 function querySuccessUserInsert(tx, results) { 
     querySuccessInsert(tx, results); 
     
@@ -113,37 +169,47 @@ function querySuccessUserInsert(tx, results) {
     alert('Neuer Benutzer wurde erfolgreich angelegt.');
 }
 
+//Callback for Successful User Delete
 function querySuccessUserDelete(tx, results) { 
     querySuccess(tx, results);    
     GetDBUsers(loggedInUser);
     alert('Benutzer wurde erfolgreich gelöscht.');
 }
 
+//Callback for Successful Update
 function querySuccessUpdate(tx, results) {	
     successLog(results);
     
     if (PATHNAME.indexOf('userSettings.html') != -1) {
     	alert('Benutzerdaten wurden erfolgreich geändert.');
     }
+    
+    ListDBValues();
 }
 
+//Callback for Successful Update of results
+function querySuccessUpdateResult(tx, results) {	
+    successLog(results);
+}
+
+//Callback for Successful Delete
 function querySuccessDelete(tx, results){    
     successLog(results);
 }
 
 function successLog(results){
 	// this will be 0 since it is a select statement
-    console.log("Rows Affected = " + results.rowsAffected);
+    if (DEBUG_MODE) console.log("Rows Affected = " + results.rowsAffected);
     // the number of rows returned by the select statement
-    console.log("Returned rows = " + results.rows.length);
+    if (DEBUG_MODE) console.log("Returned rows = " + results.rows.length);
 }
 
 function nullHandler(){};
 
 function errorCB(tx, err){
-	console.log("Error processing SQL: " + err.message);
+	if (DEBUG_MODE) console.log("Error processing SQL: " + err.message);
 }
 
 function successCB() {
-    console.log("success!");
+    if (DEBUG_MODE) console.log("success!");
 }

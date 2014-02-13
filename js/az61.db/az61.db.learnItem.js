@@ -13,8 +13,10 @@ function GetDBVocabulary(lessonId, removeResult){
 	    $('.vocabulary table tbody').html('');
 	    	    
 	    if(!removeResult){
+	    	if (DEBUG_MODE) console.log('Enter not remove result');
+	    	
 	    	db.transaction(function(tx) {
-    			doQuery(tx, 'SELECT * FROM LearnItem WHERE LessonId = ' + lessonId + ';', [],succesQueryGetLearnItems);
+    			doQuery(tx, 'SELECT * FROM LearnItem WHERE LessonId = ' + lessonId + ' ORDER BY LOWER (Question);', [],succesQueryGetLearnItems);
     		});
 		}
 		else {
@@ -26,7 +28,9 @@ function GetDBVocabulary(lessonId, removeResult){
 }
 
 function succesQueryGetLearnItems(tx, result){
-    if (PATHNAME.indexOf('learnItems.html') != -1) {
+	if (PATHNAME.indexOf('learnItems.html') != -1) {
+		if (DEBUG_MODE) console.log('Enter get learn items for vocabulary');
+		
         if (result != null && result.rows != null) {
             var vocabulary = [];
             
@@ -37,9 +41,9 @@ function succesQueryGetLearnItems(tx, result){
                 learnItem['question'] = row.Question;
                 learnItem['answer'] = row.Answer;                   
                 
-                $('.vocabulary table tbody').append('<tr id="vocab_'+ row.LearnItemId +'"><td class="question">' + row.Question + '</td><td class="answer">' + row.Answer + '</td>' +
+                $('.vocabulary table tbody').append('<tr id="vocab_'+ row.LearnItemId +'" class="pointer"><td class="question">' + row.Question + '</td><td class="answer">' + row.Answer + '</td>' +
                     '<td><input type="checkbox" class="isLongterm" name="txIsLongterm" id="txIsLongterm_' + row.LearnItemId + '" value="' + row.IsLongterm +'" class="text ui-widget-content ui-corner-all" /></td>' +
-                    '<td><img class="vocabEditMenuIcon pointer" src="'+ imgPath +'menu.png" /></td></tr>');
+                    '<td><img class="vocabEditMenuIcon pointer" src="'+ PATH_IMG +'menu.png" /></td></tr>');
                 
                 if (row.IsLongterm == 1){
                     $('#txIsLongterm_' + row.LearnItemId).attr('checked', true);
@@ -56,7 +60,12 @@ function succesQueryGetLearnItems(tx, result){
             for (var i = 0; i < result.rows.length; i++) {
                 var row = result.rows.item(i);
                 if (row.IsLongterm == 1){
-                    resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+                	var date = new Date();
+                	var yesterday = parseInt(date.setDate(date.getDate() - 1)/1000,10);
+                	yesterday = new Date(yesterday).setHours(0,0,0,0)/1000;
+                	
+                    //resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+                    resultItem['lastShown'] = yesterday;
                     resultItem['longtermLevel'] = 6;
                     resultItem['learnItemId'] = row.LearnItemId;
                     resultItem['userId'] = $('#user option:selected').val();
@@ -133,7 +142,14 @@ function AddVocabularyToDB(lessonId, newLernItem){
 									                	var resultItem = {};
 									                	resultItem['learnItemId'] = row.LearnItemId;
 														resultItem['userId'] = row.user_id;
-														resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+														var date = new Date();
+									                	var yesterday = parseInt(date.setDate(date.getDate() - 1),10);
+									                	
+									                	yesterday = new Date(yesterday).setHours(0,0,0,0)/1000;
+									                	
+									              		if (DEBUG_MODE) console.log(yesterday);
+									              		
+									                    resultItem['lastShown'] = yesterday;
 														resultItem['longtermLevel'] = 6;
 									                    AddResultToDB(resultItem);
 								                   }
@@ -155,6 +171,8 @@ function AddVocabularyToDB(lessonId, newLernItem){
 
 //Update Vocabulary to the Database
 function UpdateVocabularyToDB(newLearnItemValues){
+	if (DEBUG_MODE) console.log('Enter learn item update');
+	
 	var vocabQuestion = newLearnItemValues['question'];
 	var vocabAnswer = newLearnItemValues['answer'];
 	var learnItemId = newLearnItemValues['id'];
@@ -179,7 +197,7 @@ function UpdateVocabularyToDB(newLearnItemValues){
 	}
 	
 	db.transaction(function(tx) {
-        doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccessUpdate);
+		doQuery(tx, 'UPDATE LearnItem SET '+ updateStatement +' WHERE LearnItemId=' + learnItemId +';',[],querySuccessUpdate);
 	});
 	return false;
 }

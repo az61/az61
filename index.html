@@ -7,7 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="css/main.styles.css" />
 		<link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
 		<link rel="stylesheet" type="text/css" href="css/default.styles.css" />
-		<!--<script type="text/javascript" src="js/cordova.js"></script>-->
 		<script type="text/javascript" src="phonegap.js"></script>
 	</head>
 	<body>
@@ -18,22 +17,21 @@
     		    <div class="content">
         			<ul class="buttons">
         				<li class="button"><a href="lessons.html">Lektionen bearbeiten</a></li>
-        				<li class="button"><a href="userSettings.html">Benutzereinstellungen</a></li>
-        				<li class="button"><a href="langzeit.html">Langzeitgedächtnis</a></li>
-        				<li class="button"><a href="klassenarbeit.html">Klassenarbeitsmodus</a></li>
+        				<li class="button"><a href="userSettings.html">Einstellungen</a></li>
+        				<li class="button"><a href="longterm.html">Langzeitgedächtnis</a></li>
+        				<li class="button"><a href="classTest.html">Klassenarbeitsmodus</a></li>
         			</ul>
     			</div>
     			
     			<div id="login">
-    			    <form id="loginForm" action="#"> 
-                        <!--<input id="usernameLogin" type="text" name="username" placeholder="Benutzername">-->             
+    			    <form id="loginForm" action="#">             
                         <select id="usernameLogin" name="username">
                             <option value="choose">---</option>
                         </select>
                         <input id="passwordLogin" type="password" name="password" placeholder="Passwort">                          
                         <button type="button" class="login">Login</button>             
                     </form>
-                    <span class="error red">Der Login ist fehlgeschlagen. Benutzername oder Passwort war falsch.</span>
+                    <span class="error red hidden">Der Login ist fehlgeschlagen. Benutzername oder Passwort war falsch.</span>
     			</div>
     			
     			<div class="userData hidden">
@@ -58,10 +56,10 @@
         </div>
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
-		<script type="text/javascript" src="js/jquery.md5.js"></script>
+		<script type="text/javascript" src="js/plugins/jquery.md5.js"></script>
 		<script type="text/javascript" src="js/az61.global.js"></script>	
         <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
-        <script type="text/javascript" src="js/az61.db/az61.db.longtermItem.js"></script>
+        <script type="text/javascript" src="js/az61.db/az61.db.longterm.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.login.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.category.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.lesson.js"></script>
@@ -69,6 +67,6 @@
         <script type="text/javascript" src="js/az61.db/az61.db.user.js"></script>
         <script type="text/javascript" src="js/az61.ui/az61.ui.js"></script>
         <script type="text/javascript" src="js/az61.ui/az61.ui.login.js"></script>
-		<script src="js/mainScript.js"></script>
+		<script type="text/javascript" src="js/az61.mainScript.js"></script>
 	</body>
 </html>

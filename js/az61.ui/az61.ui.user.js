@@ -7,6 +7,8 @@
  */
 $(function() {
 	var dateHoliday = '';
+	
+	//Validate password
 	$.validator.passwordRating.messages = {
 		"too-short": "Zu kurz",
 		"very-weak": "Sehr schwach",
@@ -14,12 +16,15 @@ $(function() {
 		"good": "Gut",
 		"strong": "Ausgezeichnet"
 	};
+	
 	//Activate User Settings PW Validator
 	$("#userSettings").validate({
 		rules: {
+			password: {
+				minlength: 5
+			},
 			password_confirm: {
-				required: true,
-				equalTo: "#password"
+				required: false
 			},
 		},
 		messages: {
@@ -28,10 +33,6 @@ $(function() {
 				minlength: jQuery.format("Das Passwort muss mindestens {0} Zeichen haben"),
 				equalTo: "Die Passwörter müssen identisch schein"
 			}
-		},
-		// the errorPlacement has to take the table layout into account
-		errorPlacement: function(error, element) {
-			error.prependTo( element.parent().next() );
 		},
 		// set this class to error-labels to indicate valid fields
 		success: function(label) {
@@ -82,17 +83,18 @@ $(function() {
 		}
 		
 		emptyAllUserFields();
-		
-		//$('#newUserDialog').dialog('open');
-		
-		
 	});
 	
 	//Delete all User Data
     $('.deleteUser').click(function(){
         var userId = $('#user option:selected').val();
         if (userId != 'choose'){
-            DeleteUserFromDB(userId);
+        	if (userId != loggedInUser){
+        		DeleteUserFromDB(userId);
+        	}
+            else {
+            	alert('Der eingeloggte Benutzer kann sich nicht selbst löschen.');
+            }
         }
         else {
             alert('Bitte wähle einen Benutzer aus');
@@ -107,11 +109,13 @@ $(function() {
 	
 	//Open User Lessons Dialog
 	$('.addUserLessons').click(function(){
-	    var userId = $('#user option:selected').val();
+		var userId = $('#user option:selected').val();
 	    if (userId != 'choose'){
 	    	if (userId != 1){
 	            GetUserLessonsFromDB(userId);            
-	            $("#addUserLessonsDialog").dialog("open");
+	            //$("#addUserLessonsDialog").dialog("open");
+	            $('.userLessonsWrap').show();
+	            $('.userSettings-container').hide();
            	}
            	else {
            		alert('Der Administrator besitzt alle Lektionen.');
@@ -123,9 +127,20 @@ $(function() {
 		
 	});
 	
+	//Save new UserLessons
+	$('.saveUserLessons').click(function(){
+		saveUserLessons();
+		cancelUserLessons();
+	});
+	
+	//Save new UserLessons
+	$('.cancelUserLessons').click(function(){		
+		cancelUserLessons();
+	});
+	
 	$('#holidayActive').change(function(){
 		if($('input#holidayActive').is(":checked")){
-			dateHoliday = parseInt(new Date().getTime()/1000,10);
+			dateHoliday = parseInt(new Date().setHours(0,0,0,0)/1000,10);
 			var now = new Date();
 			var month = now.getMonth();
 			var months = new Array("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember");
@@ -141,11 +156,27 @@ $(function() {
 	});
 	
 	$('.submitUser').click(function(){
-		var newUser = false;
-		saveUser(dateHoliday,newUser);
+		if (passwordConfirm()){
+			var newUser = false;
+			saveUser(dateHoliday,newUser);
+		}
+		else {
+			alert('Die Passwörter müssen identisch sein.');
+		}
 	});
 	
 });
+
+//Check if repeated password corresponds to password
+function passwordConfirm(){
+	var passwordConfirm = false;
+	
+	if ($('#password_confirm').val() == $('#password').val()) {
+		passwordConfirm = true;
+	}
+	
+	return passwordConfirm;
+}
 
 function saveUser(dateHoliday,newUser,userName){
     var userObject = {};
@@ -160,7 +191,7 @@ function saveUser(dateHoliday,newUser,userName){
     userObject['level0'] = parseInt($('#level0').val(),10);     
     userObject['enterHoliday'] = dateHoliday;
     
-    //At the moment only Leitner Principle ist possible
+    //At the moment only Leitner Principle ist possible - keep this for later when 2 principles are activated
     /*if ($('input[name=principle]:radio[value=Leitner]').is(":checked")){
         userObject['principle'] = LEITNER_PRINCIPLE;
     }
@@ -168,7 +199,7 @@ function saveUser(dateHoliday,newUser,userName){
         userObject['principle'] = LAMMENETT_PRINCIPLE;
     }*/
    
-   userObject['principle'] = LEITNER_PRINCIPLE;
+	userObject['principle'] = LEITNER_PRINCIPLE;
     
     if($('input#holidayActive').is(":checked")){
         userObject['holidayActive'] = 1;
@@ -237,8 +268,54 @@ function setIntervallFieldsToDefault(){
 	$('#level0').val(LEVEL0_DEFAULT);
 }
 
+function saveUserLessons(){
+	var userId = $('#user option:selected').val();
+    DeleteUserLessonFromDB(userId);
+    var origCheckLessonsStr = $('.checkedLessons').html();
+    var origCheckedLessons = origCheckLessonsStr.split(',');
+    for(var i=0; i<origCheckedLessons.length;i++){
+        origCheckedLessons[i] = parseInt(origCheckedLessons[i],10);            
+    }
+    var removeResult = false;
+    $('input.userLesson').each(function() {
+        //$(this).prop('checked',false);
+        if($(this).is(':checked')){
+            var inputId = $(this).attr('id');     
+            var lessonId = parseInt(inputId.substring(9),10);        
+            AddUserLessonToDB(userId,lessonId);
+            if (origCheckedLessons.length > 0){
+                if ($.inArray(lessonId,origCheckedLessons) == -1) {
+                    GetDBVocabulary(lessonId, removeResult);
+                }
+            }
+            else {
+                GetDBVocabulary(lessonId, removeResult);
+            }
+            
+        }
+        else {
+            var inputId = $(this).attr('id');     
+            var lessonId = parseInt(inputId.substring(9),10);                      
+            if ($.inArray(lessonId,origCheckedLessons) > -1) {
+                removeResult = true; 
+                GetDBVocabulary(lessonId, removeResult);
+            }
+        }            
+    });
+}
+
+function cancelUserLessons(){
+	$('.userLessonsWrap').hide();
+    $('.userSettings-container').show();
+    
+    //Uncheck all UserLessons
+    $('input.userLesson').each(function() {
+        $(this).prop('checked',false);
+    });
+}
+
 //Dialogs
-$("#addUserLessonsDialog").dialog({
+/*$("#addUserLessonsDialog").dialog({
   autoOpen: false,
   width: 'auto',
   modal: true,
@@ -289,4 +366,4 @@ $("#addUserLessonsDialog").dialog({
         $(this).prop('checked',false);
     });
   }
-});
+});*/

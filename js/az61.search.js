@@ -1,4 +1,4 @@
-var searchResultColor = 'yellow';
+var searchResultColor = 'rgba(255, 255, 0, 0.5)';
 
 //Create new contains selector
 $.extend($.expr[":"], {
@@ -25,11 +25,11 @@ $(function() {
     });
     
     $("#searchField").keyup(function() {
-    	$('td').css('background-color','transparent');
+    	$('.vocabulary td').css('background-color','transparent');
 
     	var searchItem = $("#searchField").val();
     	if(searchItem != ''){
-    		$('td:containsIn('+searchItem+')').css('background-color',searchResultColor);
+    		$('.vocabulary td:containsIn('+searchItem+')').css('background-color',searchResultColor);
     	}
     	
     });
@@ -37,9 +37,14 @@ $(function() {
     //When Search Button is clicked
     $( "#searchSubmit" ).click(function() {
     	var searchItem = $("#searchField").val();
-        //var jump = $('td:contains('+searchItem+')').parent('tr');
-        var jump = $('td:containsIn('+searchItem+')').parent('tr');
-        jump.css('background-color',searchResultColor);
-        $("body").scrollTop(jump.offset().top);
+    	
+    	if (searchItem != null && searchItem != ''){
+    		var jump = $('.vocabulary td:containsIn('+searchItem+')').parent('tr');
+	        //jump.css('background-color',searchResultColor);
+	        $("body").scrollTop(jump.offset().top);
+    	}
+    	else {
+    		alert('Bitte etwas in die Suche eingeben.');
+    	}        
     });   
 });

@@ -17,20 +17,23 @@ function ListDBValues(){
 	
 	else if (PATHNAME.indexOf('learnItems.html') != -1) {
 	    GetLessonCategoryInfoFromLearnItem(lesID,catID);
+	    if (DEBUG_MODE) console.log('list db values');
 		GetDBVocabulary(lesID, false);
 	}
 	
 	else if (PATHNAME.indexOf('userSettings.html') != -1) {
 		GetDBUsers(loggedInUser);
-		GetLessonsFromDB();		
+		GetAllLessonsFromDB();
+		
+		return false;
 	}
 	
-	else if (PATHNAME.indexOf('langzeit.html') != -1) {
+	else if (PATHNAME.indexOf('longterm.html') != -1) {
 		CheckForLastShown(loggedInUser);	
 	   	GetAllLongtermItems(loggedInUser);   
 	}
 	
-	else if (PATHNAME.indexOf('klassenarbeit.html') != -1) {	
+	else if (PATHNAME.indexOf('classTest.html') != -1) {	
 	   GetUserLessons(loggedInUser);
 	   showTestList();   
 	}
@@ -38,109 +41,60 @@ function ListDBValues(){
 
 function initBinding(){	
 	$('input[type=button],input[type=submit], button').button();
-	$('.vocabulary tbody tr').removeClass();
+	$('.vocabulary tbody tr').removeClass('alternate');
 	$('.vocabulary tbody tr:nth-child(even)').addClass('alternate');
 	
-	$('table.tablesorter th.question.sort-header').trigger('click');
+	//$('table.tablesorter th.question.sort-header').trigger('click');
 	
 	if(localStorage.getItem("loggedInUser") == 1){
         $('.deleteUser img').show();
-    }
-    
+        $('.addUser img').show();
+    }    
     else {
         $('.deleteUser img').hide();
+        $('.addUser img').hide();
     }   
 }
 
 $(function() {	
-	//Get Top/Bottom Content
-	$('.top').load(pathPartials+'top.html #top-html');
-	//$('.bottom').load(pathPartials+'bottom.html #menu');
+	//Get Top Content
+	$('.top').load(PATH_PARTIALS+'top.html #top-html');
 	
 	if(localStorage.getItem("loggedInUser") === null){
 		showLogin();
-	}
-	
+	}	
 	else {
 		hideLogin();
 		loadBottom();
 	}
-
-	//Sort Vocabulary by Question and Answer	
-    var thSort = $('table.tablesorter th.sort-header'),
-        inverse = false;
-    
-    thSort.click(function(event){
-        sortVocabulary($(event.target));        
-    }); 
-    
-    
-    function sortVocabulary(header){
-    	// var header = $(this),
-            // index = header.index();
-        var index = header.index();
-    
-        header
-            .closest('table')
-            .find('td')
-            .filter(function(){
-                return $(this).index() === index;
-            })
-            .sort(function(a, b){
-                
-                a = $(a).text().toLowerCase();
-                b = $(b).text().toLowerCase();
-                
-                return (
-                    isNaN(a) || isNaN(b) ?
-                        a > b : +a > +b
-                    ) ?
-                        inverse ? -1 : 1 :
-                        inverse ? 1 : -1;
-                    
-            }, function(){
-                return this.parentNode;
-            });
-        
-        inverse = !inverse;
-        
-        //Add Asc or Desc Class
-        if (inverse) {
-        	$(header).removeClass('sortDesc').addClass('sortAsc');
-        }
-        else {
-        	$(header).removeClass('sortAsc').addClass('sortDesc');
-        }
-        
-        $('.vocabulary tbody tr').removeClass();
-        $('.vocabulary tbody tr:nth-child(even)').addClass('alternate');
-    }
 });
 
+//Load images in bottom (active images)
 function loadBottom(){
 	//$('#bottom').show();
 	
 	if(PATHNAME.indexOf('index.html') != -1){
-		var src = pathImg+'line_home_act.png';
+		var src = PATH_IMG+'line_home_act.png';
 		$('li.home a > img').attr('src',src);
 	}
 	
 	else if(PATHNAME.indexOf('userSettings.html') != -1){
-		var src = pathImg+'line_user_act.png';
+		var src = PATH_IMG+'line_user_act.png';
 		$('li.userSettings a > img').attr('src',src);
 	}
 	
 	else if(PATHNAME.indexOf('settings.html') != -1){
-		var src = pathImg+'line_settings_act.png';
+		var src = PATH_IMG+'line_settings_act.png';
 		$('li.settings a > img').attr('src',src);
 	}
 	
 	else if(PATHNAME.indexOf('lessons.html') != -1 || PATHNAME.indexOf('learnItems.html') != -1){
-		var src = pathImg+'line_pen_act.png';
+		var src = PATH_IMG+'line_pen_act.png';
 		$('li.edit a > img').attr('src',src);
 	}
 }
 
+//Hide Login form when logged in
 function hideLogin(){
 	$('#login').hide();
 	$('.error').hide();
@@ -148,6 +102,7 @@ function hideLogin(){
 	$('.bottom').show();
 }
 
+//Show Login Form when not logged in
 function showLogin(){
 	$('#login').show();
 	$('.content').hide();

@@ -31,7 +31,7 @@ function GetDBCategories(){
 		      			var row = result.rows.item(i);
 		      			var catId = row.CategoryId;
 		      			$('.category').append('<li class="cat" id="cat_'+ catId +'"><span class="cat-title">' + row.CategoryName + '</span></li>');
-		      			$('.category li#cat_' + catId).append('<img class="deleteCategoryIcon pointer" src="'+ imgPath +'delete-w.png" />');
+		      			$('.category li#cat_' + catId).append('<img class="renameCategoryIcon pointer" src="'+ PATH_IMG +'rename-w.png" /><img class="deleteCategoryIcon pointer" src="'+ PATH_IMG +'delete-w.png" />');
 								      			
 		      			GetDBLessons(catId, setHtmlForLessons); 
 		      			initBinding();
@@ -65,6 +65,15 @@ function AddCategoryToDB(categoryName) {
     });	
 	return false; 
 }
+
+//Update Category to the Database
+function UpdateCategoryToDB(catId, catName){
+	db.transaction(function(tx) {
+		doQuery(tx, 'UPDATE Category SET CategoryName ="'+ catName +'" WHERE CategoryId=' + catId +';',[],querySuccessUpdate); 
+	});
+	return false;
+}
+
 
 //Delete the chosen category from the database
 function DeleteCategoryFromToDB(catId){

@@ -9,6 +9,7 @@
 $(function() {
 	var itemCounter = 0;
 	
+	//Function on Click "Prüfen" checkAnswer
 	$('.checkAnswer').on('click',function(event){
 		var liId = '';
 		var learnItemId = 0;
@@ -27,7 +28,7 @@ $(function() {
 	    var answerUser = $.trim($('#answerlearnItem_'+learnItemId+' .answerUser').val()).toLowerCase();
 	    
 	    var resultItem = {};
-	    resultItem['lastShown'] = parseInt(new Date().getTime()/1000,10);
+	    resultItem['lastShown'] = parseInt(new Date().setHours(0,0,0,0)/1000,10);
 	    resultItem['longtermLevel'];
 	    resultItem['learnItemId'] = learnItemId;
 		resultItem['userId'] = loggedInUser;
@@ -47,18 +48,19 @@ $(function() {
 			}
 			$('#questionLearnItem_'+learnItemId+' .vocabLevel p.level').html(resultItem['longtermLevel']);
 			var src = PATH_IMG_DEFAULT+'level_'+resultItem['longtermLevel']+'.png';
-			$('span.vocabLevel > img').attr('src',src);
+			$('#questionLearnItem_'+learnItemId+' span.vocabLevel > img').attr('src',src);
 			$('.checkAnswer').hide();
 			
 			if (getCurrentLongtermItem() != parseInt($('.totalLearnItem').html(),10)){
 				$('.container.longterm a.next').show();
 			}
 			else {
-				$('.resultLongterm').append('<p><a class="button form-button" href="langzeit.html">Zurück zur Fachauswahl</a></p>');
+				$('.resultLongterm').append('<p><a class="button form-button" href="longterm.html">Zurück zur Fachauswahl</a></p>');
 			}
 		}
 	});	
 	
+	//Function on enter Longterm (show Longterm Vocabulary from chosen Lesson)
 	$('.longtermList').on('click','.enterLongterm',function(event){
 		var liId = $(event.target).closest('li').attr('id');
 		lessonData = {};
@@ -78,6 +80,7 @@ $(function() {
 		event.stopPropagation();
 	});
 	
+	//Function on click next question in longterm test
 	$('.container.longterm').on('click','.rslides_nav.rslides1_nav.next',function(event) {
 		$('.checkAnswer').show();
 		$('.resultLongterm').html('');
@@ -87,6 +90,8 @@ $(function() {
 	});
 });
 
+
+//Get current Longterm Item (during testing)
 function getCurrentLongtermItem(){
 	var currentLongtermItem = '';		
 	var liId = '';
@@ -102,6 +107,7 @@ function getCurrentLongtermItem(){
 	return currentLongtermItem;
 }
 
+//Raise the longterm level
 function raiseLongtermLevel(longtermLevel) {
 	if (longtermLevel > 0) {
 		longtermLevel--;
@@ -110,6 +116,7 @@ function raiseLongtermLevel(longtermLevel) {
 	return newLevel;
 }
 
+//Sink longterm level
 function sinkLongtermLevel(longtermLevel) {
 	if (longtermLevel < 6) {
 		longtermLevel++;

@@ -8,7 +8,6 @@
 		<link rel="stylesheet" type="text/css" href="css/jquery.validate.password.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.styles.css" />
 		<link rel="stylesheet" type="text/css" href="css/default.styles.css" />
-		<!--<script type="text/javascript" src="js/cordova.js"></script>-->
 		<script type="text/javascript" src="phonegap.js"></script>
 	</head>
 	<body>
@@ -16,11 +15,10 @@
     		<div class="top row">			
     		</div>
     		<div class="main row userSettings-container">  			
-    			<h2>Benutzereinstellungen</h2>
+    			<h2>Einstellungen</h2>
     			<form id="userSettings" method="get" action="">
     			    
     			    <div class="user">
-    			        <span>Wähle einen Benutzer aus oder füge durch Klick auf "+" einen neuen hinzu.</span>
     			        <h3>Benutzer auswählen</h3>
                         <select name="user" id="user" class="userSelect">
                             <option value="choose">---</option>
@@ -31,13 +29,13 @@
     			    </div>
     			    
     			    <div class="userLessons">
-    			        <h3>Weise dem Benutzer Lektionen zu</h3>
+    			        <h3>Lektion zuweisen</h3>
     			        <span class="addUserLessons pointer"><img src="img/line_pen.png" /></span>	  
     			        <span class="checkedLessons hidden"></span>      			        
     			    </div>
     			    
     			    <div class="passwords">
-                        <h3>Benutzer-Passwort festlegen</h3>
+                        <h3>Passwort festlegen</h3>
             			<table class="userpassword">
                             <tr>
                                <td>
@@ -57,8 +55,7 @@
                             </tr>
                             <tr>
                                <td><label for="password_confirm">Passwort wiederholen</label>
-                               <input type="password" name="password_confirm" id="password_confirm" /></td>
-                               <td class="status"></td>
+                               <input type="password" name="password_confirm" id="password_confirm" /></td>                               
                             </tr>
                        </table>
                     </div>
@@ -79,28 +76,33 @@
                        <input type="radio" name="principle" value="-1"/> Prinzip -1                   
                     </div>-->
                     
-                    <h3>Intervalleinstellungen</h3>
-                    <div class="intervall">
-                       <span>Hier kannst du die Abfrageintervalle für Deine Lerninhalte ändern</span>
-                       <br/><br/>
-  
-                           <label for="level6">Level 6:</label><input type="text" name="level6" id="level6" class="intervall-input" />                   
-                           <label for="level5">Level 5:</label><input type="text" name="level5" id="level5" class="intervall-input" />                   
-                           <label for="level4">Level 4:</label><input type="text" name="level4" id="level4" class="intervall-input" />                   
-                           <label for="level3">Level 3:</label><input type="text" name="level3" id="level3" class="intervall-input" />
-                           <label for="level2">Level 2:</label><input type="text" name="level2" id="level2" class="intervall-input" />                   
-                           <label for="level1">Level 1:</label><input type="text" name="level1" id="level1" class="intervall-input" />                   
-                           <label for="level0">Level 0:</label><input type="text" name="level0" id="level0" class="intervall-input" />                           
-  
-                        
-                       </div>
-                       <button type="button" class="setIntervallBack form-button-half">Intervalleinstellungen zurücksetzen</button>                   
+                    <h3>Abfrageintervall anpassen</h3>
+                    <div class="intervall"> 
+                       <label for="level6">Level 6:</label><input type="text" name="level6" id="level6" class="intervall-input" />                   
+                       <label for="level5">Level 5:</label><input type="text" name="level5" id="level5" class="intervall-input" />                   
+                       <label for="level4">Level 4:</label><input type="text" name="level4" id="level4" class="intervall-input" />                   
+                       <label for="level3">Level 3:</label><input type="text" name="level3" id="level3" class="intervall-input" />
+                       <label for="level2">Level 2:</label><input type="text" name="level2" id="level2" class="intervall-input" />                   
+                       <label for="level1">Level 1:</label><input type="text" name="level1" id="level1" class="intervall-input" />                   
+                       <label for="level0">Level 0:</label><input type="text" name="level0" id="level0" class="intervall-input" />
                     </div>
+                    
+                    <button type="button" class="setIntervallBack form-button-half">Intervalleinstellungen zurücksetzen</button>
+
                     <div class="fixed-button">
-    			    <input class="submitUser form-button" type="button" value="Alle Änderungen speichern" />
+                        <input class="submitUser form-button" type="button" value="Alle Änderungen speichern" />
     			    </div>
     			</form>
     		</div>
+    		
+    		<div class="main row hidden userLessonsWrap">
+    		    <h2>Lektionen zuweisen</h2>
+    		    <div class="chooseUserLessons">    		    
+                </div>
+                <button class="saveUserLessons">Speichern</button>
+                <button class="cancelUserLessons">Cancel</button>
+    		</div>    		
+            
     		<div class="bottom row">
                 <ul class="bottom-buttons">
                     <li class="button settings"><a href="settings.html"><img class="bottomIcon" src="img/line_settings.png" /></a></li>
@@ -109,24 +111,23 @@
                     <li class="button home"><a href="index.html"><img class="bottomIcon" src="img/line_home.png" /></a></li>
                 </ul>                      
             </div>
-            <div id="addUserLessonsDialog" title="Lektionen zuweisen">            	
-            </div>
+
         </div>
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
 		
-		<script type="text/javascript" src="js/jquery.md5.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.password.js"></script>	
+		<script type="text/javascript" src="js/plugins/jquery.md5.js"></script>
+		<script type="text/javascript" src="js/plugins/jquery.validate.js"></script>
+		<script type="text/javascript" src="js/plugins/jquery.validate.password.js"></script>	
 		<script type="text/javascript" src="js/az61.global.js"></script>	
         <script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>
         <script type="text/javascript" src="js/az61.db/az61.db.lesson.js"></script>        
         <script type="text/javascript" src="js/az61.db/az61.db.learnItem.js"></script>        
-        <script type="text/javascript" src="js/az61.db/az61.db.longtermItem.js"></script>        
+        <script type="text/javascript" src="js/az61.db/az61.db.longterm.js"></script>        
         <script type="text/javascript" src="js/az61.db/az61.db.user.js"></script>        
         <script type="text/javascript" src="js/az61.ui/az61.ui.js"></script>
         <script type="text/javascript" src="js/az61.ui/az61.ui.user.js"></script>
-		<script type="text/javascript" src="js/mainScript.js"></script>
+		<script type="text/javascript" src="js/az61.mainScript.js"></script>
 	</body>
 </html>

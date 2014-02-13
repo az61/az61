@@ -6,11 +6,10 @@
  * Company: team in medias GmbH
  */
 
-//Gets all Users
+//Gets all Users to display in select box in userSettings.html
 function GetDBUsers(loggedInUserId) {
 	db.transaction(function(tx) {
-		tx.executeSql('SELECT UserId, UserName FROM Users ORDER BY LOWER(UserName) ASC;', [],
-	 	function(tx, result) {
+		doQuery(tx,'SELECT UserId, UserName FROM Users ORDER BY LOWER(UserName) ASC;', [], function(tx, result) {
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
 					$('.userSelect').html('');
@@ -22,21 +21,30 @@ function GetDBUsers(loggedInUserId) {
 		      			}
 		      			else {
 		      				if (loggedInUserId == row.UserId){
-		      					$('.userSelect').append('<option value="'+ row.UserId +'">'+ row.UserName +'</option>');
+		      					$('.userSelect').hide();
+		      					$('#userSettings .user h3').html('Du bist eingeloggt als');
+		      					//Remove span "loggedInAs" if exists
+		      					if($('span.loggedInAs') != null){
+		      						$('span.loggedInAs').remove();
+		      					}
+		      					//Add span "loggedInAs" with user name
+		      					$('<span class="loggedInAs">' + row.UserName + '</span>').insertAfter('#userSettings .user h3');
+		      					
+		      					//Add Row with username with selected name (important for adding user lessons)
+		      					$('.userSelect').append('<option selected="selected" value="'+ row.UserId +'">'+ row.UserName +'</option>');
 		      				}
 		      			}
 	        		}
 				}	    		
 	      	}
-		}, errorCB);
-		
-	},errorCB,nullHandler);
+		});		
+	});
 }
 
+//Get all Users for Login Select Box
 function GetDBUsersLogin() {
 	db.transaction(function(tx) {
-		tx.executeSql('SELECT UserId, UserName FROM Users ORDER BY LOWER(UserName) ASC;', [],
-	 	function(tx, result) {
+		doQuery(tx,'SELECT UserId, UserName FROM Users ORDER BY LOWER(UserName) ASC;', [], function(tx, result) {
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
 					$('#usernameLogin').html('');
@@ -47,16 +55,14 @@ function GetDBUsersLogin() {
 	        		}
 				}	    		
 	      	}
-		}, errorCB);
-		
-	},errorCB,nullHandler);
+		});		
+	});
 }
 
 //Gets all User Data
 function GetDBUserData(userId) {
 	db.transaction(function(tx) {
-		tx.executeSql('SELECT * FROM Users WHERE UserId=' + userId + ';', [],
-	 	function(tx, result) {
+		doQuery(tx,'SELECT * FROM Users WHERE UserId=' + userId + ';', [], function(tx, result) {
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
 					for (var i = 0; i < result.rows.length; i++) {
@@ -86,7 +92,7 @@ function GetDBUserData(userId) {
 	        		}
 				}	    		
 	      	}
-		}, errorCB);
+		});
 		
 	},errorCB,nullHandler);
 }
@@ -99,7 +105,7 @@ function GetUserLessonsFromDB(userId){
                 var lessons = [];
                 for (var i = 0; i < result.rows.length; i++) {
                     var row = result.rows.item(i);
-                    $('#addUserLessonsDialog input#lessonId_'+row.lesson_id).prop('checked',true);
+                    $('.chooseUserLessons input#lessonId_'+row.lesson_id).prop('checked',true);
                     lessons.push(row.lesson_id);
                 }
                 $('.checkedLessons').html(lessons.join(", "));
@@ -110,7 +116,7 @@ function GetUserLessonsFromDB(userId){
 
 function AddUserLessonToDB(userId,lessonId) {
     db.transaction(function(tx) {
-        doQuery(tx, 'INSERT INTO UserLessons(user_id, lesson_id) VALUES('+userId+','+lessonId +')',[],querySuccessInsert);
+        doQuery(tx, 'INSERT INTO UserLessons(user_id, lesson_id) VALUES('+userId+','+lessonId +')',[],querySuccessUserLessonInsert);
     });
     
     return;

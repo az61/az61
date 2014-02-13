@@ -6,21 +6,21 @@
  * Company: team in medias GmbH
  */
 
-//Gets all Lessons from DB corresponding to passed Category
+//Gets all Lessons from DB for the passed Category
 function GetDBLessons(catId, callback) {
 	db.transaction(function(tx) {
 		var innerJoin = '';
 		var where = '';
 		
 		if (loggedInUser != 1){
-			innerJoin = 'INNER JOIN UserLessons ON Lesson.LessonId = UserLessons.lesson_id';
-			where = ' AND user_id ='+loggedInUser + ' OR OwnerId = '+loggedInUser;
+			innerJoin = ' INNER JOIN UserLessons ON Lesson.LessonId = UserLessons.lesson_id';
+			where = ' AND user_id ='+loggedInUser;
 		}
-		doQuery(tx, 'SELECT * FROM Lesson ' + innerJoin + ' WHERE CategoryId = ' + catId + where + ' ORDER BY LOWER(LessonName) ASC;', [],function(tx,result){
+		doQuery(tx, 'SELECT * FROM Lesson' + innerJoin + ' WHERE CategoryId = ' + catId + where + ' GROUP BY Lesson.LessonId ORDER BY LOWER(LessonName) ASC;', [],function(tx,result){
 			if (result != null && result.rows != null) {
 				if (result.rows.length != 0){
 					var lessons = [];
-		    		for (var i = 0; i < result.rows.length; i++) {
+					for (var i = 0; i < result.rows.length; i++) {
 		      			var row = result.rows.item(i);
 		      			var lesson = {};      			
 		      			lesson['id'] = row.LessonId;
@@ -29,11 +29,8 @@ function GetDBLessons(catId, callback) {
 		      			lessons.push(lesson);
 		        	}
 		        	callback(lessons, catId);
-		        	//initBinding();
 		        }
-		        else {
-		        	
-		        }
+
 		        $('.category li#cat_' + catId).append('<button id="addLesson_'+ catId +'" class="addLessonClick">Lektion hinzufügen</button>');
 		        initBinding();
 	      	}
@@ -41,16 +38,16 @@ function GetDBLessons(catId, callback) {
 	},errorCB,nullHandler);
 }
 
-//Get all Lessons (for checkboxes)
-function GetLessonsFromDB(){
+//Get all Lessons from the Database(for adding UserLessons -> checkboxes in userSettings.html)
+function GetAllLessonsFromDB(){
 	db.transaction(function(tx) {
 		
 		doQuery(tx, 'SELECT LessonId, LessonName, CategoryName FROM Lesson LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
-				$('#addUserLessonsDialog').html('<form><fieldset></fieldset></form>');
+				$('.chooseUserLessons').html('<form><fieldset></fieldset></form>');
 				for (var i = 0; i < result.rows.length; i++) {
 	      			var row = result.rows.item(i);
-	      			$('#addUserLessonsDialog form fieldset').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
+	      			$('.chooseUserLessons form fieldset').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
 	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label>');
 	        	}
 	      	}
@@ -67,8 +64,14 @@ function setHtmlForLessons(elementArray, catId){
 		for (var i = 0; i < lessonArray.length; i++) {
 			lessonId = lessonArray[i]['id'];
 			lessonName = lessonArray[i]['name'];
+			
+			//Count lesson Name characters - if more than 20 shorten and add "..." instead in the end
+			if (lessonName.length > 20){
+				lessonName = lessonName.substr(0,20);
+				lessonName = lessonName + '...';
+			}
 
-			$('.category li#cat_'+catId +' ul.lesson').append('<li class="lessonMenu pointer" id="lektion_'+ lessonId +'"><span class="lessonName">' + lessonName + '</span><img class="lessonMenuIcon pointer" src="'+ imgPath +'menu.png" /></li>');
+			$('.category li#cat_'+catId +' ul.lesson').append('<li class="lessonMenu pointer" id="lektion_'+ lessonId +'"><span class="lessonName">' + lessonName + '</span><img class="lessonMenuIcon pointer" src="'+ PATH_IMG +'menu.png" /></li>');
 			
 			if(i == lessonArray.length-1){
 				$('ul.lesson li').addClass('last');
@@ -87,15 +90,27 @@ function AddLessonToDB(catId, lessonName) {
                 }
                 else {
                     db.transaction(function(tx) {
-                        doQuery(tx, 'INSERT INTO Lesson(LessonName,CategoryId,OwnerId) VALUES ("'+lessonName+'",' + catId + ',' + ownerID+')',[],function(tx,result){
+                        doQuery(tx, 'INSERT INTO Lesson(LessonName,CategoryId,OwnerId) VALUES ("'+lessonName+'",' + catId + ',' + loggedInUser+')',[],function(tx,result){
                         	//Insert Lesson as UserLesson for Admin
-		                    doQuery(tx, 'SELECT * FROM Lesson WHERE LessonName = "'+ lessonName + '";',[],function(tx,result){
+		                    doQuery(tx, 'SELECT * FROM Lesson WHERE LessonName = "'+ lessonName + '" AND CategoryId =' + catId + ';',[],function(tx,result){
 					            if (result != null && result.rows != null) {
-					                //If UserLesson with lessonId exists add LearnItem to Result table
+					            	if (DEBUG_MODE) console.log('Enter Add UserLesson for Admin after Lesson Insert');
+					            	
+					            	if (DEBUG_MODE) console.log('Result rows Lessons: ' + result.rows.length);
+					                //If Lesson with lesson name and Category exists add UserLesson to Result table
 					                if (result.rows.length != 0 && result.rows.length == 1){
 					                	var row = result.rows.item(0);
-					                	var userId = 1;	
-										AddUserLessonToDB(userId,row.LessonId);
+					                	
+					                	//Add User Lesson for logged In User
+					                	if (loggedInUser != 1){
+					                		AddUserLessonToDB(loggedInUser,row.LessonId);
+					                	}
+					                	
+					                	//Add User Lesson for Admin = id 1
+					                	var userId = 1;					                	
+					                	AddUserLessonToDB(userId,row.LessonId);
+					                	
+					                	ListDBValues();
 					            	}
 					        	}
 		                	});
@@ -111,7 +126,7 @@ function AddLessonToDB(catId, lessonName) {
 //Update Lesson to the Database
 function UpdateLessonToDB(lessonId, lessonName){
 	db.transaction(function(tx) {
-		tx.executeSql('UPDATE Lesson SET LessonName ="'+ lessonName +'" WHERE LessonId=' + lessonId +';',[],successCB,errorCB); 
+		doQuery(tx,'UPDATE Lesson SET LessonName ="'+ lessonName +'" WHERE LessonId=' + lessonId +';',[],querySuccess); 
 	});
 	return false;
 }
