@@ -28,7 +28,7 @@ function GetDBVocabulary(lessonId, removeResult){
 }
 
 function succesQueryGetLearnItems(tx, result){
-	if (PATHNAME.indexOf('learnItems.html') != -1) {
+	if (PATHNAME.indexOf('learnItem.html') != -1) {
 		if (DEBUG_MODE) console.log('Enter get learn items for vocabulary');
 		
         if (result != null && result.rows != null) {

@@ -6,7 +6,7 @@
  * Company: team in medias GmbH
  */
 
-//Gets longterm Items
+//Gets longterm Items from lessons that are connected to user
 function GetUserLessons(userId) {
 	db.transaction(function(tx) {
 		doQuery(tx, 'SELECT *, Category.CategoryId AS catId, Category.CategoryName FROM Lesson INNER JOIN UserLessons ON Lesson.LessonId = UserLessons.lesson_id '+
@@ -35,22 +35,30 @@ function GetUserLessons(userId) {
 	});
 }
 
+//Get learn items for test from chosen lessons
 function GetLearnItemTestFromLesson(userId, lessonIds){
 	db.transaction(function(tx) {
 		doQuery(tx, 'SELECT * FROM LearnItem INNER JOIN Lesson ON LearnItem.LessonId = Lesson.LessonId '+	
 		' WHERE Lesson.LessonId IN ('+lessonIds+') ORDER BY Lesson.LessonId;', [],function(tx,result){
 			if (result != null && result.rows != null) {
-						
-	    		for (var i = 0; i < result.rows.length; i++) {
-	      			var row = result.rows.item(i);
-	      			$('.testContent ul').append('<li id="learnItemId_'+i+'"></li>');
-						
-	      			$('.testContent li#learnItemId_'+i).append('<div id="questionLearnItem_'+i+'" class="question"><span class="header"></span>'+
-	      			'<input class="test" type="text" readonly="readonly" value="'+row.Question+'"/><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
-	      			'<input class="lessonNameItem" type="hidden" value="'+row.LessonName+'"/><input class="catNameItem" type="hidden" value="'+row.CategoryName+'"/></div>'+
-	      			'<div id="answerlearnItem_'+i+'" class="answer"><span class="header"></span>'+
-	      			'<input class="test answerUser" type="text" name="answer" /></div>');
-	        	}
+				if (result.rows.length != 0){
+					for (var i = 0; i < result.rows.length; i++) {
+		      			var row = result.rows.item(i);
+		      			$('.testContent ul').append('<li id="learnItemId_'+i+'"></li>');
+							
+		      			$('.testContent li#learnItemId_'+i).append('<div id="questionLearnItem_'+i+'" class="question"><span class="header"></span>'+
+		      			'<input class="test" type="text" readonly="readonly" value="'+row.Question+'"/><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
+		      			'<input class="lessonNameItem" type="hidden" value="'+row.LessonName+'"/><input class="catNameItem" type="hidden" value="'+row.CategoryName+'"/></div>'+
+		      			'<div id="answerlearnItem_'+i+'" class="answer"><span class="header"></span>'+
+		      			'<input class="test answerUser" type="text" name="answer" /></div>');
+		        	}
+				}
+				else {
+					$('.checkAnswer').hide();
+					$('.testContent').html('<p>Für diese Lektion gibt es keine Lerninhalte</p><br /><br />');
+					$('.testContent').append('<a class="button form-button back-button" href="classTest.html">Zurück zur Übersicht</a>');
+				}
+	    		
 	      	}
 	      	$(".rslides").responsiveSlides({
                 auto: false,            // Boolean: Animate automatically, true or false

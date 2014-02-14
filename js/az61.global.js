@@ -7,7 +7,7 @@
  */
 
 //If set to 1 console.logs are shown
-var DEBUG_MODE = 1;
+var DEBUG_MODE = 0;
 
 var db; 
 var DB_NAME = '';

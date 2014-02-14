@@ -137,6 +137,17 @@ button#searchSubmit {
 	height: 25px;
 }
 
+.search > img { 
+	width: 25px;
+	height: 25px;
+	float: right;
+	position: absolute;
+	margin-right: 0.625em;
+	vertical-align: middle;
+	top: 0.225em;
+	right: 0;
+}
+
 /* Icons / Images */
 img.lessonMenuIcon,
 img.vocabEditMenuIcon,

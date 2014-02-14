@@ -22,6 +22,19 @@ a.button{
 .editMenu .editVocab,
 .editMenu .deleteLesson{margin-right: 0.625em}
 
+.closeContainer {
+	background: url(../img/arrow-down.png) center center no-repeat #323232;
+	border-top: 1px solid #898d91;
+	border-left: 1px solid #898d91;
+	border-right: 1px solid #898d91;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	height: 2em;
+	width: 4em;
+	top: -2em;
+	right: 2em;
+	position: absolute;	
+}
 
 /*****Lightboxes**********************************************************************************************************/
 .popup{box-shadow: none!important; border-radius: 0 0 0 0;}
@@ -166,8 +179,8 @@ button.addLessonClick{margin: 1.25em 0; background: none; border: none; border-t
 
 .search{position: relative}
 .vocabulary {margin-top: 1.25em;}
-#searchField{width: 95%;}
-button#searchSubmit{position: absolute; right: 0.625em; top: 0.375em;}}
+#searchField{width: 89%; border-radius: 3px; padding-left: 2.625em}
+button#searchSubmit{position: absolute; left: 0; top: 0.375em; margin-left: 0.625em;}
 
 
 thead{text-align: left; }
@@ -296,7 +309,7 @@ ul.lesson li.active { background-color: rgba(142,58,57,0.5); }
 }
 #userSettings .holiday .holiday-wrapper input{min-height: 13px; padding: 0;}
 #userSettings .addUser{margin-top: -0.313em; margin-right: 1em}
-#userSettings .userSelect{padding: 0.625em; width: 65%!important; height: height: 2.25em;}
+#userSettings .userSelect{padding: 0.625em; width: 65%!important; height: 2.25em;}
 
 #userSettings .user{margin: 0}
 

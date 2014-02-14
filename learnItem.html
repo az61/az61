@@ -13,6 +13,24 @@
 	    <div class="container">
     		<div class="top row">			
     		</div>
+    		<div class="addLearnItem hidden">
+                <span class="questionWrap">
+                    <label for="txVocabQuestion">Frage</label>
+                    <input type="text" name="txVocabQuestion" id="txVocabQuestion" class="text ui-widget-content ui-corner-all" />
+                </span>
+                <span class="answerWrap">
+                    <label for="txVocabAnswer">Antwort</label>
+                    <input type="text" name="txVocabAnswer" id="txVocabAnswer" value="" class="text ui-widget-content ui-corner-all" />
+                </span>
+                <span class="longtermWrap">
+                    <label for="txIsLongterm">Is Longterm</label>
+                    <input type="checkbox" name="txIsLongterm" id="txIsLongterm" value="1" class="text ui-widget-content ui-corner-all" checked="checked" />
+                </span>                    
+                
+                <button class="saveLearnItem">Speichern</button>
+                <button class="cancelLearnItem">Abbrechen</button>
+            </div>
+                
     		<div class="editMenu row hidden">
     		    <span class="finished pointer"><img src="img/line_check-w.png" /></span>
                 <span class="divider"></span>
@@ -24,6 +42,7 @@
     		<div class="main row lernitems">
     		    <div class="search">
     		        <input type="text" id="searchField" value="" />
+    		        <img class="resetSearch hidden pointer" src="img/line_close.png" />
     		        <button id="searchSubmit">    		            
     		        </button>
     		    </div>
@@ -51,23 +70,9 @@
     		</div>
     		
 			<div class="wrapper-container form-action-buttons">
-			    <div class="addLearnItem hidden">
-			        <span class="questionWrap">
-			            <label for="txVocabQuestion">Frage</label>
-                        <input type="text" name="txVocabQuestion" id="txVocabQuestion" class="text ui-widget-content ui-corner-all" />
-			        </span>
-			        <span class="answerWrap">
-			            <label for="txVocabAnswer">Antwort</label>
-                        <input type="text" name="txVocabAnswer" id="txVocabAnswer" value="" class="text ui-widget-content ui-corner-all" />
-			        </span>
-			        <span class="longtermWrap">
-			            <label for="txIsLongterm">Is Longterm</label>
-                        <input type="checkbox" name="txIsLongterm" id="txIsLongterm" value="1" class="text ui-widget-content ui-corner-all" checked="checked" />
-			        </span>                    
-                    
-                    <button class="saveLearnItem">Speichern</button>
-                    <button class="cancelLearnItem">Abbrechen</button>
-			    </div>
+			    <!--Minimize fixed container - keep it for later-->
+			    <!--<span class="closeContainer pointer open"></span>-->
+			    
                 
                 <button id="create-vocabulary">Vokabel hinzufügen</button>
             </div>    		
@@ -82,7 +87,7 @@
             </div>
 		</div>
 		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>				
+		<script type="text/javascript" src="js/jquery-ui.custom.js"></script>				
 		<script type="text/javascript" src="js/az61.global.js"></script>		
 		<script type="text/javascript" src="js/plugins/jquery.sortElements.js"></script>
 		<script type="text/javascript" src="js/az61.db/az61.db.manager.js"></script>

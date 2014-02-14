@@ -44,7 +44,7 @@ function getUrlVars(){
 }
 
 function pageRedirectVocab(lessonId, catId){
-	window.location.href = 'learnItems.html?lessonId='+ lessonId +'&catId='+catId;
+	window.location.href = 'learnItem.html?lessonId='+ lessonId +'&catId='+catId;
 	window.localStorage.setItem("lesId", lessonId);
 	window.localStorage.setItem("catId", catId);
 }

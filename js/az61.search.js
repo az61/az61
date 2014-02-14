@@ -25,6 +25,9 @@ $(function() {
     });
     
     $("#searchField").keyup(function() {
+    	//Show reset image
+    	$('.resetSearch').show();
+    	
     	$('.vocabulary td').css('background-color','transparent');
 
     	var searchItem = $("#searchField").val();
@@ -39,12 +42,23 @@ $(function() {
     	var searchItem = $("#searchField").val();
     	
     	if (searchItem != null && searchItem != ''){
+    		//Define row that has td that maches search - jump to that row
     		var jump = $('.vocabulary td:containsIn('+searchItem+')').parent('tr');
-	        //jump.css('background-color',searchResultColor);
-	        $("body").scrollTop(jump.offset().top);
+    		if (typeof jump === 'undefined'){
+    			$("body").scrollTop(jump.offset().top);
+    		}
     	}
     	else {
     		alert('Bitte etwas in die Suche eingeben.');
     	}        
-    });   
+    });
+    
+    //When reset search is clicked - empty input, hide image
+    $('.resetSearch').click(function(){
+    	$('#searchField').val('');
+    	//Hide reset image
+    	$('.resetSearch').hide();
+    	//reset background color
+    	$('.vocabulary td').css('background-color','transparent');
+    }); 
 });
