@@ -86,6 +86,11 @@ function ListDBValues(){
 		GetDBUsers(loggedInUser);
 		GetAllLessonsFromDB();
 		
+		//If login user not admin (id=1) get and display user data
+		if(loggedInUser != 1) {
+			GetDBUserData(loggedInUser);
+		}
+		
 		return false;
 	}
 	

@@ -36,6 +36,8 @@ $(function() {
 			    			$(this).prop('checked',true);
 			    		}
 					});
+					
+					$('.noLessons').prop('checked',false);
 				}
 				else {
 					checked = false;
@@ -89,7 +91,7 @@ $(function() {
 			alert('Du muss eine Lektion auswählen um fortzufahren.');
 		}
 		
-		
+		//Prevent from calling function twice
 		event.stopPropagation();
 	});
 	
@@ -112,13 +114,18 @@ $(function() {
 	    $('.resultTest').html('');
 	    $('.showResult').hide();
 	    
+	    //Procede only if answer is not empty
 	    if (answerUser != '') {
 			if (answerUser == answerValue) {
-				$('.resultTest').html('<p class="green">Die Antwort war richtig.</p>');
+				$('.resultTest').html('<p class="green">Die Antwort war Richtig</p>');
+				$('.answerUser').addClass('green');
+				
 				counterRight++;
 			}
 			else {
-			    $('.resultTest').html('<p class="red">Die Antwort entspricht nicht der eigentlichen Antwort.</p>');
+			    $('.resultTest').html('<p class="red">Die Antwort war Falsch</p>');
+			    $('.answerUser').addClass('red');
+			    
 			    counterWrong++;
 			    
 			    if($.inArray(lessonId,wrongLessonIds) == -1){
@@ -129,33 +136,47 @@ $(function() {
 			if (getCurrentLongtermItem() == parseInt($('.totalLearnItem').html(),10)){
 				$('.container.test a.next').hide();
 				$('.showResult').show();
-				$('.showResult').show();
+				//$('.showResult').show();
 			}
 			else {
-				$('.container.test a.next').show();
+				//$('.container.test a.next').show();
+				//Display block important - so that background is not cut off and "Weiter" over the border of background
+				$('.container.test a.next').css('display','inline-block');
 			}
 			
+			//Hide Check Answer after answer is checked (checking not possible twice)
 			$('.checkAnswer').hide();
 		}
 		else {
 			alert('Bitte Antwort eingeben, um fortzufahren.');
 		}
 		
-		
+		//Prevent from calling function twice
 		event.stopPropagation();
 	});
 	
 	$('.container.test').on('click','.rslides_nav.rslides1_nav.next',function(event) {
+		//Hide divs and spans not to display during answer checking
 		$('.checkAnswer').show();
 		$('.rslides_nav.rslides1_nav.next').hide();
 		$('.resultTest').html('');
 		$('.showResult').hide();
 		
+		//Remove class green or red from textarea
+		if ($('.answerUser').hasClass('green')){
+			$('.answerUser').removeClass('green');
+		}
+		else if ($('.answerUser').hasClass('red')){
+			$('.answerUser').removeClass('red');
+		}
+		
+		//Get current item to display current slide
 		itemCounter = getCurrentLongtermItem();
 		$('.countLearnItem').html(itemCounter);
 		
 		var learnItemId = 0;
 		
+		//Get ID of current item
 		$('.testContent').find('li').each(function(){
 		    if ($(this).hasClass('rslides1_on')) {
 		        liId = $(this).find('div.question').attr('id');
@@ -163,11 +184,13 @@ $(function() {
 		    }
 		});
 		
+		//Display current Lesson name
 		var lessonName = $.trim($('#questionLearnItem_'+learnItemId+' .lessonNameItem').val());
 		$('.lessonName').html(lessonName);
 		
-		var categoryName = $.trim($('#questionLearnItem_'+learnItemId+' .catNameItem').val());
-		$('.categoryName').html(categoryName);
+		//Get current Category
+		/*var categoryName = $.trim($('#questionLearnItem_'+learnItemId+' .catNameItem').val());
+		$('.categoryName').html(categoryName);*/
 		
 		if (getCurrentLongtermItem() == parseInt($('.totalLearnItem').html(),10)){
 			$('.container.test a.next').hide();
@@ -180,13 +203,14 @@ $(function() {
 		$('.showResult').hide();
 		getTestSummary();
 		
-		
+		//Prevent from calling function twice
 		event.stopPropagation();
 	});
 	
 	$('.againTest').on('click',function(event) {
 		GetLearnItemTestFromLesson(loggedInUser, wrongLessons.join(','));
 		
+		//Prevent from calling function twice
 		event.stopPropagation();
 	});
 	

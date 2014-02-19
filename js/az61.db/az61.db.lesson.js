@@ -47,8 +47,8 @@ function GetAllLessonsFromDB(){
 				$('.chooseUserLessons').html('<form><fieldset></fieldset></form>');
 				for (var i = 0; i < result.rows.length; i++) {
 	      			var row = result.rows.item(i);
-	      			$('.chooseUserLessons form fieldset').append('<input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
-	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label>');
+	      			$('.chooseUserLessons form fieldset').append('<span class="userLessonWrap"><input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
+	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label></span>');
 	        	}
 	      	}
 		});

@@ -46,11 +46,16 @@ function GetLearnItemTestFromLesson(userId, lessonIds){
 		      			var row = result.rows.item(i);
 		      			$('.testContent ul').append('<li id="learnItemId_'+i+'"></li>');
 							
-		      			$('.testContent li#learnItemId_'+i).append('<div id="questionLearnItem_'+i+'" class="question"><span class="header"></span>'+
+		      			/*$('.testContent li#learnItemId_'+i).append('<div id="questionLearnItem_'+i+'" class="question"><span class="header"></span>'+
 		      			'<input class="test" type="text" readonly="readonly" value="'+row.Question+'"/><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
 		      			'<input class="lessonNameItem" type="hidden" value="'+row.LessonName+'"/><input class="catNameItem" type="hidden" value="'+row.CategoryName+'"/></div>'+
 		      			'<div id="answerlearnItem_'+i+'" class="answer"><span class="header"></span>'+
-		      			'<input class="test answerUser" type="text" name="answer" /></div>');
+		      			'<input class="test answerUser" type="text" name="answer" /></div>');*/
+		      			$('.testContent li#learnItemId_'+i).append('<div id="questionLearnItem_'+i+'" class="question"><span class="header"></span>'+
+		      			'<textarea class="test" readonly="readonly">'+row.Question+'</textarea><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
+		      			'<input class="lessonNameItem" type="hidden" value="'+row.LessonName+'"/><input class="catNameItem" type="hidden" value="'+row.CategoryName+'"/></div>'+
+		      			'<div id="answerlearnItem_'+i+'" class="answer"><span class="header"></span>'+
+		      			'<textarea class="test answerUser" name ="answer"></textarea></div>');
 		        	}
 				}
 				else {

@@ -34,14 +34,19 @@ $(function() {
 		resultItem['userId'] = loggedInUser;
 	    
 	    $('.resultLongterm').html('');
+	    
+	    //Procede if answer user not empty
 	    if (answerUser != '') {	        
 			if (answerUser == answerValue) {
+				//Raise longterm level
 				resultItem['longtermLevel'] = raiseLongtermLevel(longtermLevel);
 				UpdateResultToDB(resultItem);
-				$('.resultLongterm').html('<p class="green">Die Antwort war richtig.</p>');
+				$('.resultLongterm').html('<p class="green">Die Antwort is richtig.</p>');
+				$('.answerUser').addClass('green');
 			}
 			else {
-			    $('.resultLongterm').html('<p class="red">Die Antwort entspricht nicht der eigentlichen Antwort.</p>');
+			    $('.resultLongterm').html('<p class="red">Die Antwort ist falsch.</p>');
+			    $('.answerUser').addClass('red');
 				//Sink longterm level
 				resultItem['longtermLevel'] = sinkLongtermLevel(longtermLevel);
 				UpdateResultToDB(resultItem);
@@ -52,7 +57,8 @@ $(function() {
 			$('.checkAnswer').hide();
 			
 			if (getCurrentLongtermItem() != parseInt($('.totalLearnItem').html(),10)){
-				$('.container.longterm a.next').show();
+				//$('.container.longterm a.next').show();
+				$('.container.longterm a.next').css('display','inline-block');
 			}
 			else {
 				$('.resultLongterm').append('<p><a class="button form-button" href="longterm.html">Zurück zur Fachauswahl</a></p>');
@@ -82,10 +88,22 @@ $(function() {
 	
 	//Function on click next question in longterm test
 	$('.container.longterm').on('click','.rslides_nav.rslides1_nav.next',function(event) {
+		//Remove class green or red from textarea
+		if ($('.answerUser').hasClass('green')){
+			$('.answerUser').removeClass('green');
+		}
+		else if ($('.answerUser').hasClass('red')){
+			$('.answerUser').removeClass('red');
+		}
+		
 		$('.checkAnswer').show();
 		$('.resultLongterm').html('');
+		
+		//Get current item number for display purposes
 		itemCounter = getCurrentLongtermItem();
 		$('.countLearnItem').html(itemCounter);
+		
+		//Hide next button
 		$('.container.longterm a.next').hide();
 	});
 });

@@ -1,13 +1,15 @@
-/**** Main Styles ****/
-.main{ 
-	margin:  0em 0.625em;
-	margin-top: 1em;
-	font-size: 100%;
-}
-.main.row{ width: 95%}
-.main h2 {color: #7a1716; border-bottom: 5px solid #7a1716;}
+/*
+ * default.styles.css
+ * 
+ * Define only styles for default skin
+ *
+ * Created: 16.10.2013
+ * Author: Rebeca Kurz <rk@inmedias.de>
+ * Company: team in medias GmbH
+ */
 
-.main p{font-size: 100%}
+/**** Main Styles ****/
+body { font-family: verdana, sans-serif; font-size: 16px; }
 
 a.next,
 a.button{
@@ -18,10 +20,6 @@ a.button{
 	font-weight: normal;
 }
 
-.editMenu .divider{display: inline-block; margin:0 0.25em; height: 2em}
-.editMenu .editVocab,
-.editMenu .deleteLesson{margin-right: 0.625em}
-
 .closeContainer {
 	background: url(../img/arrow-down.png) center center no-repeat #323232;
 	border-top: 1px solid #898d91;
@@ -29,24 +27,7 @@ a.button{
 	border-right: 1px solid #898d91;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
-	height: 2em;
-	width: 4em;
-	top: -2em;
-	right: 2em;
-	position: absolute;	
 }
-
-/*****Lightboxes**********************************************************************************************************/
-.popup{box-shadow: none!important; border-radius: 0 0 0 0;}
-.button.b-close, .button.bClose{
-	border-radius: 0 0 0 0;
-	background-color: #7a1716;
-	font-size: 1.313em;
-	padding: 0.313em 0.625em;
-	top: -15px;
-	right: -15px;
-}
-
 
 .ui-dialog{border-radius: 0 0 0 0;}
 .ui-dialog .ui-widget-header{background-color: #7a1716; background-image: none!important; color: #fff; border-radius: 0 0 0 0;}
@@ -55,34 +36,19 @@ a.button{
 .ui-dialog-buttonset .ui-widget-content .ui-state-default,
 .ui-dialog-buttonset .ui-widget-header .ui-state-default{background-color: #898d90!important; color: #ffffff; background-image: none;}
 
-/******Form Styles********************************************************************************************************/
-input[type=text], select, textarea{ border: 1px solid #898d91; color: #111111; min-height: 1.875em; padding: 0.225em; }
+/****** Form Styles********************************************************************************************************/
+input[type=text], select, textarea{ border: 1px solid #898d91; color: #111111; }
 
-/*Button******************************************************************************************************************/
+/****** Button******************************************************************************************************************/
 
 input.ui-button, button.ui-button {color: #ffffff; background-image: none; border-radius: 0; }
 button.ui-button.inactive { background-color: #898d91; color: #535353; border-color: #898d91; cursor: default; }
 
-.bottom-buttons{height: 3.125em; width: 100%;}
-.bottom-buttons li{display: inline-block; width: 25%; height: 3.125em;text-align: center;}
-.bottom-buttons li.button a{display: inline-block;; text-align: center;}
-
-.container.home .main li.button a{font-size: 116%}
-.bottom-buttons .button.active{background-color: #ffffff;}
-
-.bottom-buttons li.button {height: 3.125em!important;}
-
-
 .form-action-buttons{
-	position: fixed;
-	bottom: 3em;
 	background-color: #323232;
-	width: 100%;
 	border-top: 1px solid #898d91;
-	padding: 0.625em 0;	
-	text-align: center;
-	
 }
+
 .cancelUserLessons,
 .saveUserLessons,
 .addLearnItem .saveLearnItem,
@@ -95,8 +61,7 @@ button.ui-button.inactive { background-color: #898d91; color: #535353; border-co
 	padding: 0.625em!important;
 	color: #ffffff!important;
 	text-transform: uppercase;
-	font-size: 100%;	
-	margin-bottom: 0.625em;
+	font-size: 100%;
 	width: 95%;
 }
 .form-button-half{
@@ -105,118 +70,52 @@ button.ui-button.inactive { background-color: #898d91; color: #535353; border-co
 	color: #ffffff;
 	border-bottom: 0.625em solid #ffffff;
 	text-transform: uppercase;
-	font-size: 85%;	
+	font-size: 85%;
 	padding-bottom: 0!important;
 	width: 95%;
 }
 
-/**** Home ***************************************************************************************************************/
-.top { background-color: #7a1716; height: 2.313em; border-bottom: 2px solid #fff; }
-.top img{margin-top: 0.625em}
-.bottom{background-color: #7a1716;}
-.bottom ul.bottom-buttons li{border-top: 2px solid #ffffff;}
-.bottom ul.bottom-buttons li.active{border-top: 2px solid #7a1616}
+/**** Top Styles ***************************************************************************************************************/
+.top { background-color: #7a1716; border-bottom: 2px solid #fff; }
 
+/****** Main Content Styles ******/
+.main h2 { color: #7a1716; border-bottom: 5px solid #7a1716; }
+
+/**** Home ***************************************************************************************************************/
 .container,
 .container.home{background: url(../img/app-bg-main.png) no-repeat right bottom #333333; color: #ffffff;}
-.container.home .main ul.buttons a{color: #ffffff; background: url(../img/bg_content_trans.png) repeat top right; border: 1px solid #5a5a5a; padding: 1em 0.625em;}
-
-/**** Longterm ***********************************************************************************************************/
-.container.longterm .question span.header,
-.container.test .question span.header { background: url(../img/default/h2_vocabulary.png) no-repeat; }
-.container.longterm .answer span.header,
-.container.test .answer span.header { background: url(../img/default/h2_translation.png) no-repeat; }
-
-.longtermList.longtermContainer,
-.longtermLearn,
-.testContainer {background-color: rgba(255,255,255,0.3); padding: 0.625em;}
-
-.container.longterm h1,
-.container.test h1 {
-	color: #7a1716;
-	font-size: 126%;
-	margin-bottom: 0.625em;
-	text-transform: uppercase;
-	border-bottom: 2px solid #7a1716;
-	padding: 0.313em;
-}
-
-/****** Test *************************************************************************************************************/
-.container.test .summaryTest span.headerSum { background: url(../img/default/h2_summary.png) no-repeat; height: 22px; min-width: 156px; }
-
+.container.home .main ul.buttons a{color: #ffffff; background: url(../img/bg_content_trans.png) repeat top right; border: 1px solid #5a5a5a; }
 
 /******Lessons************************************************************************************************************/
-.main.lesson-page{padding-bottom: 200px;}
-p.info{color: #ffffff; background: url(../img/bg_content_trans.png) repeat top right; border: 1px solid #5a5a5a; padding:0.625em;}
+p.info{color: #ffffff; background: url(../img/bg_content_trans.png) repeat top right; border: 1px solid #5a5a5a; }
 
-ul.lesson{}
 ul.lesson li{
-	margin-bottom: 0.525em;
 	border: 1px solid #5a5a5a;
-	background: url(../img/bg_content_trans.png) repeat top right; 
-	padding: 0.625em 0;
-	width: 100%;	
-	position: relative;
+	background: url(../img/bg_content_trans.png) repeat top right;
 }
 
-ul.lesson .lessonName{font-size: 100%; text-transform: uppercase; margin-left: 0.25em;}
-ul.lesson .lessonMenuIcon{position: absolute; right: 0.625em; top:0.375em;}
+ul.lesson .lessonName{font-size: 100%; text-transform: uppercase; }
 
-.wrapper-container{text-align: center; width: 100%;}
-#txCategoryName{width: 93%; height: 2.25em; margin-bottom: 0.625em}
-
-.category .cat{margin-bottom: 1.625em;}
-li.cat > img {float:right; margin-top: -2.25em; max-width: 30px; max-height: 30px;}
-li.cat .renameCategoryIcon{margin-right: 40px;}
 .cat-title{font-size: 1.25em; text-transform: uppercase; display: block; border-bottom: 5px solid #ffffff;}
 
 button.addLessonClick{margin: 1.25em 0; background: none; border: none; border-top: 5px solid #8e3a39; width: 100%; margin-top: 0px; font-weight:bold}
 .addLessonClick .ui-button-text{color: #8e3a39; text-transform: uppercase; font-size: 117%; text-align: right; padding: 0;}
 
 /******Edit Lessons*******************************************************************************************************/
-.main.lernitems{padding-bottom: 65px;}
-
-
-.search{position: relative}
-.vocabulary {margin-top: 1.25em;}
-#searchField{width: 89%; border-radius: 3px; padding-left: 2.625em}
-button#searchSubmit{position: absolute; left: 0; top: 0.375em; margin-left: 0.625em;}
-
-
-thead{text-align: left; }
-thead th{padding: 0.625em 0 0; color: #7a1716; border-bottom: 2px solid #7a1716;}
-
-.question, .answer{padding: 0.313em;}
+thead th{ color: #7a1716; border-bottom: 2px solid #7a1716;}
 
 .alternate { background-color: #4d4d4d; }
 
-.vocabulary .isLongterm{margin: 0.313em;}
 .vocabulary tr.active,
 ul.lesson li.active { background-color: rgba(142,58,57,0.5); }
-
-.ui-dialog fieldset{padding: 0.313em;}
-.ui-dialog fieldset input,
-.ui-dialog fieldset label{ float: left; clear: both;}
-
-.ui-dialog fieldset label{margin: 0.313em 0;}
-.ui-dialog fieldset #txVocabQuestion, .ui-dialog fieldset #txVocabAnswer{width: 95%;}
-.ui-dialog-content {height: auto!important;}
 
 #create-vocabulary{
 	background-color: #7a1616;
 	border: 1px solid #515547;
-	width: 95%;
-	padding: 0.625em 0;
 	color: #ffffff;
-	text-transform: uppercase;
 	font-size: 1em;
-	margin-bottom: 0.625em;
+	text-transform: uppercase;
 }
-#create-vocabulary span{padding: .4em 1em}
-
-.lesson-head{}
-.lessonContent .lessonName{}
-.lessonContent .categoryName{margin-left: 0.625em}
 
 .lessonContent .lessonName,
 .lessonContent .categoryName{
@@ -224,181 +123,100 @@ ul.lesson li.active { background-color: rgba(142,58,57,0.5); }
 	padding: 0.625em!important;
 	border: 1px solid #5a5a5a!important;
 	text-transform: uppercase;
-	background: url(../img/bg_content_trans.png) repeat top right; 
+	background: url(../img/bg_content_trans.png) repeat top right;
 }
 .lessonContent table.tablesorter{
 	border: 1px solid #5a5a5a!important;
-	background: url(../img/bg_content_trans.png) repeat top right; 
+	background: url(../img/bg_content_trans.png) repeat top right;
 	border-spacing: 0!important;
 }
-.lessonContent thead th{color: #8e3a39!important; border-bottom: 2px solid #8e3a39; text-transform: uppercase; padding: 0.313em!important}
-.lessonContent table.tablesorter td{padding: 1em 0.313em;}
-
-.addLearnItem{margin-bottom: 0.625em; text-align: left;	margin-left: 0.625em;}
-.addLearnItem span.longtermWrap,
-.addLearnItem span.answerWrap,
-.addLearnItem span.questionWrap{
-	display: block;
-	text-align: left;
-	margin-bottom: 0.625em;
-}
-.addLearnItem span label{width: 25%; display: inline-block;}
-.addLearnItem span input{width: 67%}
-.addLearnItem .longtermWrap input{height: 2em}
-
-.saveUserLessons,
-.cancelUserLessons,
-.addLearnItem .saveLearnItem,
-.addLearnItem .cancelLearnItem{height: 3em; display: inline-block;}
-
-.addLearnItem .saveLearnItem span,
-.addLearnItem .cancelLearnItem span{display: none}
+.lessonContent thead th{color: #8e3a39!important; border-bottom: 2px solid #8e3a39; text-transform: uppercase; }
 
 .saveUserLessons,
 .addLearnItem .saveLearnItem{
 	background:url(../img/line_check-small-green.png) no-repeat center center #c0d6a9!important;
 	border: 2px solid #73885c!important;
-	width: 70%;
 }
 .cancelUserLessons,
 .addLearnItem .cancelLearnItem{
 	background:url(../img/line_close-small-red.png) no-repeat center center #d6a9a9!important;
 	border: 2px solid #8e3a39!important;
-	width: 25%;
 }
 
 
-/******userSettings*******************************************************************************************************/
+/****** userSettings *******************************************************************************************************/
+.container.user p.date { background-color: #999999; color: #555555; border: 1px solid #767273; }
+
 .user > h3{font-weight: normal; margin: 0!important;}
 .userLessonsWrap h2{margin-bottom: 0;}
 
 .user .loggedInAs{
 	font-weight: bold;
-	text-align: center;
-	display: block;
 	border-bottom: 1px solid #fff;
-	padding-bottom: 0.313em;
-	margin-bottom: 1em;
 	font-size: 117%;
-	margin-top: 0.313em;
 }
 
 .userSettings-container h2{
-	color: #ffffff;	
+	color: #ffffff;
 	text-transform: uppercase;
 	border-bottom: 5px solid #ffffff;
-	margin: 0;
-	padding: 0;
 }
 
-#userSettings {	
+#userSettings {
 	border: 1px solid #5a5a5a!important;
 	background: url(../img/bg_content_trans.png) repeat top right;
-	padding: 0.625em;
 }
-
-#userSettings h3{margin: 1.5em 0 0.625em;}
-#userSettings .user select#user{margin-right: 0.625em; width: 80%;}
 
 #userSettings .holiday .holiday-wrapper{
 	background-color: #333;
-	padding: 6px 5px 3px;
-	width: 13px;
-	display: block;
-	margin-top: 0.625em;	
 }
-#userSettings .holiday .holiday-wrapper input{min-height: 13px; padding: 0;}
-#userSettings .addUser{margin-top: -0.313em; margin-right: 1em}
-#userSettings .userSelect{padding: 0.625em; width: 65%!important; height: 2.25em;}
 
-#userSettings .user{margin: 0}
-
-#userSettings .userpassword{width: 100%;}
-#userSettings input#password_confirm,
-#userSettings input.password{width: 100%; height: 30px; border-radius:3px; height: 3em;}
-#userSettings .password-meter{width: 100%; border: 2px solid #5a5a5a!important;}
-.password-meter-bg .password-meter-strong{width: auto!important}
-
-#userSettings .intervall-input{margin-bottom: 0.625em; width: 97%; border-radius: 3px; height: 3em;}
-
-#userSettings .form-button-half{width: 99%;}
+#userSettings .password-meter{border: 2px solid #5a5a5a!important;}
 
 .fixed-button{
-	position: fixed;
-	bottom: 2em;
-	padding: 0.625em 0;
 	border-top: 1px solid #898d91;
 	background-color: #323232;
-	width: 100%;
-	text-align: center;
-	left: 0;
-}
-
-.userSettings-container {padding-bottom: 60px;}
-
-.main .container-content .form-button{
-	width: 100%;
 }
 
 .chooseUserLessons{
 	border: 1px solid #5a5a5a!important;
 	background: url(../img/bg_content_trans.png) repeat top right;
-	padding: 0.625em;	
-}
-.chooseUserLessons fieldset{ border: none;}
-.chooseUserLessons fieldset input {float: left; width: 2em; height: 2em;}
-.chooseUserLessons fieldset label {
-	height: 2em;
-	float: left;
-	width: 87%;
-	text-align: left;
-	margin-left: 1em;
-	margin-bottom: 0.625em;
-	padding-top: 0.25em;
 }
 
-.saveUserLessons span,
-.cancelUserLessons span{display: none!important}
+/**** Longterm Modus ***********************************************************************************************************/
+.container.longterm .vocabulary textarea,
+.container.test .question textarea { color: #008000; }
 
-/****** LONG TERM*********************************************************************************************************/
+.container.longterm .question span.header,
+.container.test .question span.header { background: url(../img/default/h2_vocabulary.png) no-repeat; }
+.container.longterm .answer span.header,
+.container.test .answer span.header { background: url(../img/default/h2_translation.png) no-repeat; }
+
+.longtermList.longtermContainer,
+.longtermLearn,
+.testContainer {
+	background-color: rgba(255,255,255,0.3);
+	border: 1px solid #5a5a5a!important;
+	background: url(../img/bg_content_trans.png) repeat top right;
+}
+
+.container.longterm h1,
+.container.test h1 {
+	color: #7a1716;
+	font-size: 126%;
+	text-transform: uppercase;
+	border-bottom: 2px solid #7a1716;
+}
 
 .test .main h1,
 .longterm .main h1{
-	color: #ffffff;	
+	color: #ffffff;
 	text-transform: uppercase;
 	border-bottom: 5px solid #ffffff;
-	margin: 0;
-	padding: 0;	
 }
 
-.testContainer,
-.longtermLearn,
-.longtermList.longtermContainer{
-	border: 1px solid #5a5a5a!important;
-	background: url(../img/bg_content_trans.png) repeat top right;
-	padding: 0.625em;
-}
-.longtermList li{text-transform: uppercase; background-color: #7a1716; padding: 0.313em}
-.longtermList span{display: inline-block}
-.enterLongtermIcon{padding: 0!important; }
-.enterLongterm{margin: 0!important;}
-.longtermIconWrap{float: right; display:block !important; }
+.longtermList li{text-transform: uppercase; background-color: #7a1716;}
 
-.vocabLevel{
-	display: block;
-	text-align: right;
-	width: 100%;
-}
-.testContainer span.header
-.longtermContent span.header{display: block!important}
-.longtermContent input.longterm{
-	margin: 0!important;
-	width: 100%!important;
-}
-.longtermContent .question, .longtermContent .answer{padding: 0!important;}
-.checkAnswer{width: 100%!important;}
-
-.rslides_nav.rslides1_nav.next{display: block; text-align: center; width: 95%;}
 .error.red,
 p.red{
 	background-color:#d6a9a9;
@@ -406,7 +224,7 @@ p.red{
 	border: 1px solid #8e3a39;
 	text-align: center;
 	padding: 0.625em 1em;
-	margin-bottom: 1.625em;	
+	margin-bottom: 1.625em;
 }
 p.green{
 	background-color:#c0d6a9;
@@ -414,10 +232,11 @@ p.green{
 	border: 1px solid #73885c;
 	text-align: center;
 	padding: 0.625em 1em;
-	margin-bottom: 1.625em;	
+	margin-bottom: 1.625em;
 }
 
-/***** Classtest-modus****************************************************************************************************/
+/***** Classtest-modus ****************************************************************************************************/
+.container.test .summaryTest span.headerSum { background: url(../img/default/h2_summary.png) no-repeat; }
 
 .testContainer .enterTest{
 	background-color: #7a1616;
@@ -426,7 +245,7 @@ p.green{
 	padding: 0.625em;
 	color: #ffffff;
 	text-transform: uppercase;
-	font-size: 1em;	
+	font-size: 1em;
 	margin-bottom: 0.625em;
 }
 .testContainer .enterTest.inactive{
@@ -434,31 +253,14 @@ p.green{
 	border: 1px solid #515547;
 	color: #333333;
 }
-.testContainer .cat-title{padding: 1.25em 0 0 3em!important; background: url(../img/folder_closed_small.png) no-repeat left bottom;}
-
-.testContainer ul.testList{margin: 1.625em 0;}
-.testContainer ul.testList li ul{margin-bottom: 0.625em;}
-
-.testContainer .lesson{padding: 0.625em 0.313em!important;}
-.testContainer .lessonTitle{
-	font-weight: bold;
-	font-size: 100%;
-	text-transform: uppercase;
-	vertical-align: text-bottom;
-}
-
-.testContainer .header{display: block!important}
-
-.testContainer input.test{width: 100%!important; margin: 0.625em 0 0 0!important;}
-
-.button.finish{margin-top: 0.625em}
+.testContainer .cat-title{background: url(../img/folder_closed_small.png) no-repeat left bottom;}
 
 .wrong.red{
 	color: #8e3a39;
 	text-transform: uppercase;
 	border-bottom: 10px solid #8e3a39;
 	margin-bottom: 1em;
-	float: none;	
+	float: none;
 	font-size: 1em;
 }
 
@@ -468,12 +270,16 @@ p.green{
 	border-bottom: 10px solid #73885c;
 	margin-bottom: 1em;
 	float: none;
-	font-size: 1em;	
+	font-size: 1em;
 }
 
-.summaryTest{margin-top: 1em}
-.testSummary .text{margin-right: 1.625em;display: inline-block;}
-.testSummary .counter{margin-right: 1.625em;display: inline-block;}
 
-.testLearn .button.finish,
-.testSummary .button.back-button{display: block; text-align: center}
+/****** Bottom Styles ******/
+.bottom{background-color: #7a1716;}
+.bottom ul.bottom-buttons li{border-top: 2px solid #ffffff;}
+.bottom ul.bottom-buttons li.active{border-top: 2px solid #7a1616}
+
+div.bottom li.bottomMenuBorder { background: url(../img/bottomMenuBorder.png) transparent no-repeat; }
+
+.container.home .main li.button a{font-size: 116%}
+.bottom-buttons .button.active{background-color: #ffffff;}

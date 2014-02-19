@@ -97,7 +97,7 @@ function GetDBUserData(userId) {
 	},errorCB,nullHandler);
 }
 
-//Get all User Lessons (for checkboxes)
+//Get all User Lessons (for checkboxes) - Lesson are retrieved in db.lesson.js
 function GetUserLessonsFromDB(userId){
     db.transaction(function(tx) {
         doQuery(tx, 'SELECT * FROM UserLessons WHERE user_id = '+userId+';', [],function(tx,result){

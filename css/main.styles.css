@@ -1,8 +1,19 @@
+/*
+ * main.styles.css
+ * 
+ * Define all main styles - no colors, no fonts/styles/sizes
+ *
+ * Created: 16.10.2013
+ * Author: Rebeca Kurz <rk@inmedias.de>
+ * Company: team in medias GmbH
+ */
+
+
+/**** Main Styles ******************/
+
 * { margin: 0; padding: 0; }
 
 body, html { width: 100%; height: 100%; }
-
-body { font-family: verdana, sans-serif; font-size: 16px; }
 
 h1 { color: #000; font-size: 1em; }
 
@@ -20,9 +31,10 @@ button {
 	-moz-appearance: none;
 	appearance: none;
 }
+input[type=text], select, textarea{ min-height: 2.875em; padding: 0.225em; width: 98%;}
 
 .red { color: #960000; }
-.green { color: #0DFF03; }
+.green { color: #73885c; }
 
 .row { margin: 0 auto; width: 100%; }
 
@@ -33,38 +45,38 @@ button {
 .toggle,
 .pointer { cursor: pointer; }
 
-
-.popup {
-	background-color: #FFFFFF;
-    border-radius: 0.625em;
-    box-shadow: 0 0 1.563em 0.313em #999999;
-    color: #111111;
-    display: none;
-    padding: 0.938em;
-}
-
 .hidden { display:none; }
-
-.button.b-close, 
-.button.bClose {
-	border-radius: 0.438em;
-	background-color: #941e34;
-	color: #fff;
-    box-shadow: none;
-    padding: 0 6px 2px;
-    position: absolute;
-    right: -7px;
-    top: -7px;
-    cursor: pointer;
-    display: inline-block;
-}
 
 .inline-block { display: inline-block; }
 
-/****** Top Styles ******/
+.container {
+	padding-bottom: 65px;
+	padding-top: 65px;
+	min-height: 100%;
+	overflow: hidden;	
+}
 
+.closeContainer {
+	height: 2em;
+	width: 4em;
+	top: -2em;
+	right: 2em;
+	position: absolute;
+}
+
+/****** Button ******/
+.form-action-buttons{
+	position: fixed;
+	bottom: 3em;
+	width: 100%;
+	padding: 0.625em 0;
+	text-align: center;
+
+}
+
+/****** Top Styles ******/
 .top { 
-	height: 3.563em; 
+	height: 2.313em;
 	margin-bottom: 1.563em;
 	left: 0;
 	top: 0;
@@ -73,6 +85,35 @@ button {
 }
 
 .top .right img { max-height: 38px; }
+
+.top img{margin-top: 0.625em}
+
+/****** Main Content Styles ******/
+.main { clear: both; font-size: 100%; margin:  0em 0.625em; margin-top: 1em; }
+
+.main.row{ width: 95%}
+
+.main h2 { 
+	font-size: 1.313em;
+	margin-bottom: 0.938em;
+	color: #7a1716;
+	border-bottom: 5px solid #7a1716;
+}
+
+.main h3 { 
+	font-size: 1em; 
+	font-style: italic;
+	margin-bottom: 0.625em;
+}
+
+.main p { line-height: 150%; font-size: 100%;  }
+
+.main div { margin-bottom: 0.938em;  }
+
+.main label { display: block; }
+
+.main table.tablesorter,
+.main table.longtermList { width: 100%; }
 
 /****** Edit Menu Top Styles ******/
 .editMenu {
@@ -83,52 +124,174 @@ button {
 	top:0;
 }
 
-.editMenu .divider { border-right: 2px solid #fff; vertical-align: top; margin: 0 0.5em; }
+.editMenu .divider { border-right: 2px solid #fff; vertical-align: top; margin:0 0.25em; display: inline-block; height: 2em; }
 
-/****** Main Content Styles ******/
-.main { clear: both; font-size: 0.75em; }
-
-.main h2 { 
-	font-size: 1.313em;
-	margin-bottom: 0.938em;   
-}
-
-.main h3 { 
-	font-size: 1em; 
-	font-style: italic;
-	margin-bottom: 0.625em;
-}
-
-.main p { line-height: 150%; font-size: 1.25em;  }
+.editMenu .editVocab,
+.editMenu .deleteLesson{margin-right: 0.625em}
 
 /* Home */
-.container.home .main ul.buttons {}
-
 .container.home .main li.button { margin-bottom: 1.625em; }
 
 .container.home .main li.button a {
-	color: #fff;
 	font-size: 1.625em;
 	font-weight: bold; 
 	text-align: center;	 
 	text-transform: uppercase;
 	display: block;
+	padding: 1em 0.625em;
 }
 
-.main div { margin-bottom: 0.938em;  }
+.container.home .main ul.buttons a { padding: 1em 0.625em; }
 
-.main label { display: block; }
+/* Icons / Images */
+img.lessonMenuIcon,
+img.vocabEditMenuIcon,
+img.folderIcon,
+img.deleteIcon,
+img.enterLongtermIcon { max-width: 20px; max-height: 20px; width: 100%; height: auto; padding: 0.125em; }
 
-.main table.tablesorter,
-.main table.longtermList { width: 100%; }
+img.addIcon,
+img.editIcon,
+img.deleteIcon,
+img.renameIcon { max-width: 16px; max-height: 16px; width: 100%; height: auto; padding: 0.125em; }
 
-.container {
-	padding-bottom: 65px;
-	padding-top: 65px;
-	min-height: 100%;
-	overflow: hidden;	
+.editMenu img { max-width: 25px; max-height: 25px; width: 100%; height: auto; padding: 0.125em; }
+
+.tablesorter th > img { max-width: 25px; max-height: 25px; width: 100%; height: auto; padding: 0.125em; vertical-align: middle; }
+
+/* User Setting Styles **********************************************************************/
+select.userSelect, 
+span.addUser,
+input#newUser,
+span.close { float:left; }
+
+.deleteCategoryIcon,
+.container.user .addUser img,
+.container.user .close img,
+.container.user .addUserLessons img { max-width: 35px; max-height: 35px; width: auto; height: auto;}
+
+.container.user .deleteUser img { max-width: 30px; width: auto; height: auto; display:none; }
+
+.container.user p.date { padding: 2px; width: 125px; }
+
+#userSettings label.error {
+  background:url(../img/validator/unchecked.png) no-repeat 0px 0px;
+  font-weight: bold;
+  color: #9E0B0B;
 }
 
+#userSettings label.checked {
+  background:url(../img/validator/checked.png) no-repeat 0px 0px;
+}
+
+.password-meter, 
+.password-meter div { margin-bottom: 0 !important; }
+
+.user > h3{font-weight: normal; margin: 0!important;}
+.userLessonsWrap h2{margin-bottom: 0;}
+
+.user .loggedInAs{
+	text-align: center;
+	display: block;
+	padding-bottom: 0.313em;
+	margin-bottom: 1em;
+	margin-top: 0.313em;
+}
+
+.userSettings-container h2{
+	margin: 0;
+	padding: 0;
+}
+
+#userSettings { padding: 0.625em; }
+
+#userSettings h3{margin: 1.5em 0 0.625em;}
+#userSettings .user select#user{margin-right: 0.625em; width: 80%;}
+
+#userSettings .holiday .holiday-wrapper{
+	padding: 6px 5px 3px;
+	width: 13px;
+	display: block;
+	margin-top: 0.625em;
+}
+#userSettings .holiday .holiday-wrapper input{min-height: 13px; padding: 0;}
+#userSettings .addUser{margin-top: -0.313em; margin-right: 1em}
+#userSettings .userSelect{padding: 0.625em; width: 65%!important; height: 2.25em;}
+
+#userSettings .user{margin: 0}
+
+#userSettings .userpassword{width: 100%;}
+#userSettings input#password_confirm,
+#userSettings input.password{width: 100%; height: 30px; border-radius:3px; height: 3em;}
+#userSettings .password-meter{width: 100%;}
+.password-meter-bg .password-meter-strong{width: auto!important}
+
+#userSettings .intervall-input{margin-bottom: 0.625em; width: 97%; border-radius: 3px; height: 3em;}
+
+#userSettings .form-button-half{width: 99%;}
+
+.fixed-button{
+	position: fixed;
+	bottom: 2em;
+	padding: 0.625em 0;
+	width: 100%;
+	text-align: center;
+	left: 0;
+}
+
+.userSettings-container {padding-bottom: 60px;}
+
+.main .container-content .form-button{ width: 100%; }
+
+.chooseUserLessons{ padding: 0.625em; }
+.chooseUserLessons fieldset{ border: none;}
+.chooseUserLessons fieldset input {float: left; width: 2em; height: 2em; margin-right: 1em}
+.chooseUserLessons fieldset label {
+	height: 2em;
+	/*float: left;
+	width: 87%;*/
+	text-align: left;
+	margin-left: 1em;
+	margin-bottom: 0.625em;
+	padding-top: 0.25em;
+}
+
+@media (min-width: 480px) {
+	.chooseUserLessons fieldset span.userLessonWrap { float: left; }
+}
+
+.saveUserLessons span,
+.cancelUserLessons span{display: none!important}
+
+/***** Lessons ************************************************************************/
+ul.lesson li { 
+	width: 100%;
+	padding: 0.625em 0;
+	margin: 0 auto;
+	margin-bottom: 0.525em;
+	position: relative;
+}
+
+
+.lessonEditMenu { display: none; }
+
+.lessonContent span.border { border: 1px solid #000; padding: 0.125em; }
+
+.main.lesson-page{padding-bottom: 200px;}
+p.info{padding:0.625em;}
+
+ul.lesson .lessonName{margin-left: 0.25em;}
+ul.lesson .lessonMenuIcon{position: absolute; right: 0.625em; top:0.375em;}
+
+.wrapper-container{text-align: center; width: 100%;}
+#txCategoryName{width: 93%; height: 2.25em; margin-bottom: 0.625em}
+
+.category .cat{margin-bottom: 1.625em;}
+li.cat > img {float:right; margin-top: -2.25em; max-width: 30px; max-height: 30px;}
+li.cat .renameCategoryIcon{margin-right: 40px;}
+.cat-title{font-size: 1.25em; text-transform: uppercase; display: block; border-bottom: 5px solid #ffffff;}
+
+/***** Edit Lessons - Learn Items *****/
 button#searchSubmit { 
 	background: url(../img/line_search.png) transparent no-repeat;
 	background-size: 20px;
@@ -148,73 +311,72 @@ button#searchSubmit {
 	right: 0;
 }
 
-/* Icons / Images */
-img.lessonMenuIcon,
-img.vocabEditMenuIcon,
-img.folderIcon,
-img.deleteIcon,
-img.enterLongtermIcon { max-width: 20px; max-height: 20px; width: 100%; height: auto; padding: 0.125em; }
+.main.lernitems{padding-bottom: 65px;}
 
-img.addIcon,
-img.editIcon,
-img.deleteIcon,
-img.renameIcon { max-width: 16px; max-height: 16px; width: 100%; height: auto; padding: 0.125em; }
+.search{position: relative}
+.vocabulary {margin-top: 1.25em;}
+#searchField{width: 89%; border-radius: 3px; padding-left: 2.625em}
+button#searchSubmit{position: absolute; left: 0; top: 0.375em; margin-left: 0.625em;}
 
-.editMenu img { max-width: 25px; max-height: 25px; width: 100%; height: auto; padding: 0.125em; }
+thead{text-align: left; }
+thead th{padding: 0.313em; }
 
-.tablesorter th > img { max-width: 25px; max-height: 25px; width: 100%; height: auto; padding: 0.125em; vertical-align: middle; }
+.vocabulary .isLongterm{margin: 0.313em;}
 
-/* User Setting Styles */
-select.userSelect, 
-span.addUser,
-input#newUser,
-span.close { float:left; }
+.ui-dialog fieldset{padding: 0.313em;}
+.ui-dialog fieldset input,
+.ui-dialog fieldset label{ float: left; clear: both;}
 
-.deleteCategoryIcon,
-.container.user .addUser img,
-.container.user .close img,
-.container.user .addUserLessons img { max-width: 35px; max-height: 35px; width: auto; height: auto;}
+.ui-dialog fieldset label{margin: 0.313em 0;}
+.ui-dialog fieldset #txVocabQuestion, .ui-dialog fieldset #txVocabAnswer{width: 95%;}
+.ui-dialog-content {height: auto!important;}
 
-.container.user .deleteUser img { max-width: 30px; width: auto; height: auto; display:none; }
-
-.container.user p.date { background-color: #999999; color: #555555; padding: 2px; border: 1px solid #767273; width: 125px; }
-
-#userSettings label.error {
-  background:url(../img/validator/unchecked.png) no-repeat 0px 0px;
-  font-weight: bold;
-  color: #9E0B0B;
+#create-vocabulary{
+	width: 95%;
+	padding: 0.625em 0;
+	margin-bottom: 0.625em;
 }
+#create-vocabulary span{padding: .4em 1em}
 
-#userSettings label.checked {
-  background:url(../img/validator/checked.png) no-repeat 0px 0px;
+.lessonContent .categoryName{margin-left: 0.625em}
+
+.lessonContent table.tablesorter td{padding: 1em 0.313em;}
+
+.addLearnItem{margin-bottom: 0.625em; text-align: left;	margin-left: 0.625em;}
+.addLearnItem span.longtermWrap,
+.addLearnItem span.answerWrap,
+.addLearnItem span.questionWrap{
+	display: block;
+	text-align: left;
+	margin-bottom: 0.625em;
 }
+.addLearnItem span label{width: 25%; display: inline-block;}
+.addLearnItem span input{width: 67%}
+.addLearnItem .longtermWrap input{height: 2em}
 
-.password-meter, 
-.password-meter div { margin-bottom: 0 !important; }
+.saveUserLessons,
+.cancelUserLessons,
+.addLearnItem .saveLearnItem,
+.addLearnItem .cancelLearnItem{height: 3em; display: inline-block;}
 
-/***** Lessons *****/
-ul.lesson li { 
-	width: 80%;
-	padding: 0.188em;
-	margin: 0 auto;
-	margin-bottom: 0.125em;
-}
+.addLearnItem .saveLearnItem span,
+.addLearnItem .cancelLearnItem span{display: none}
 
+.saveUserLessons,
+.addLearnItem .saveLearnItem{ width: 70% !important; }
+.cancelUserLessons,
+.addLearnItem .cancelLearnItem{ width: 25% !important; }
 
-.lessonEditMenu { display: none; }
-
-.lessonContent span.border { border: 1px solid #000; padding: 0.125em; }
 
 /***** Longterm Styles *****/
+.longtermList.longtermContainer,
+.longtermLearn,
+.testContainer {padding: 0.625em;}
+
 .container.longterm input.longterm,
 .container.test input.test { width: 50%; height: 4.688em; margin-right: 1.25em; }
 .container.longterm span.header,
 .container.test span.header { width: 25%; height: 22px; display: inline-block; }
-
-.container.longterm .vocabulary input,
-.container.test .vocabulary input { color: #008000; }
-.container.longterm .translation input,
-.container.test .translation input { color: #941E34; }
 
 .container.longterm a.prev,
 .container.longterm a.next,
@@ -235,12 +397,91 @@ ul.lesson li {
 	height: auto;
 }
 
+.container.longterm h1,
+.container.test h1 {
+	margin-bottom: 0.625em;
+	padding: 0.313em;
+}
+
+.test .main h1,
+.longterm .main h1{
+	margin: 0;
+	padding: 0;
+}
+
+.longtermList li{padding: 0.313em}
+.longtermList span{display: inline-block}
+.enterLongtermIcon{padding: 0!important; }
+.enterLongterm{margin: 0!important;}
+.longtermIconWrap{float: right; display:block !important; }
+
+.vocabLevel{
+	display: block;
+	text-align: right;
+	width: 100%;
+}
+.testContainer span.header
+.longtermContent span.header{display: block!important}
+.longtermContent input.longterm{
+	margin: 0!important;
+	width: 100%!important;
+}
+.longtermContent .question, .longtermContent .answer{padding: 0!important;}
+.checkAnswer{width: 100%!important;}
+
+.rslides_nav.rslides1_nav.next{display: block; text-align: center;}
+
 /***** Test Styles *****/
-.container.test .lesson { margin-left: 0.625em; line-height: 1.625em; padding: 0.225em 0; }
-.container.test input[type=checkbox] { margin-right: 0.625em; }
-.container.test .cat-title { padding: 0.625em 0; }
+.container.test .lesson { margin-left: 0.625em; line-height: 1.625em; padding: 0.625em 0.313em 0.313em; }
+.container.test input[type=checkbox] { margin-right: 0.625em; vertical-align:middle; }
+.container.test .cat-title { padding: 1.25em 0 0 3em; }
 .container.test .all { margin-right: 1.25em; }
-.container.test label { display: inline; }
+.container.test label { display: inline; margin-right: 2em; vertical-align:middle;}
+
+.container.test .summaryTest span.headerSum { height: 22px; min-width: 156px; }
+
+.test .checkLesson, .test .noLessons{width: 2em; height: 2em;}
+.test .checkboxLabel{padding-bottom: 5px; height: 2em; }
+
+.testContainer ul.testList{margin: 1.625em 0;}
+.testContainer ul.testList li ul{margin-bottom: 0.625em;}
+
+.testContainer .lessonTitle{
+	font-weight: bold;
+	font-size: 100%;
+	text-transform: uppercase;
+	vertical-align: text-bottom;
+}
+
+.testContainer .header{display: block!important}
+
+.testContainer input.test{width: 100%!important; margin: 0.625em 0 0 0!important;}
+
+.button.finish{margin-top: 0.625em}
+
+.summaryTest{margin-top: 1em}
+.testSummary .text{margin-right: 1.625em;display: inline-block;}
+.testSummary .counter{margin-right: 1.625em;display: inline-block;}
+
+.testLearn .button.finish,
+.testSummary .button.back-button{display: block; text-align: center}
+
+.test .resultTest p.red, .test .resultTest p.green{margin-bottom: 0; padding: 0}
+.test .resultTest{margin-bottom: 0;}
+.test .answer{margin-bottom: 0em}
+.test .question{margin-top: 0.625em}
+.test .testContent{margin-bottom: 0}
+.test .checkAnswer{margin-top: 1em}
+.test .rslides_nav.rslides1_nav.next{margin-right: 0; width: 94%; margin: 0 auto;}
+
+/* Classtest Styles for scmaller devices*/ 
+@media (min-width: 480px) {
+	.container.test .category { max-width: 45%; float: left; margin-right: 3em; }
+}
+
+@media (max-width: 480px) {
+	.test .checkboxLabel{display: block!important;}
+}
 
 /***** Login Styles *****/
 
@@ -254,13 +495,10 @@ ul.lesson li {
 
 #passwordLogin{width: 98%;}
 
-/*.error.red { display: inline-block; }*/
-
 /****** Bottom Styles ******/
 
 div#menu {
 	width: 30%;
-	background-color: yellow;
 	position:absolute;
 	bottom: 0;
 	left: 35%;
@@ -275,15 +513,14 @@ div.bottom {
 	height: 50px;
 }
 
-div.bottom li {	
-	float: left;
-	height: 50px; 
-}
+div.bottom li {	float: left; height: 50px; }
 
-div.bottom li.button { height: 25px;  }
+div.bottom li.button { height: 3.125em;  }
 
 div.bottom li.button a { display: block; }
 
-div.bottom li.bottomMenuBorder { background: url(../img/bottomMenuBorder.png) transparent no-repeat; }
-
 div.bottom img.bottomIcon { width: 25px; height: 25px; padding: 0.781em 1em; }
+
+.bottom-buttons{height: 3.125em; width: 100%;}
+.bottom-buttons li{display: inline-block; width: 25%; height: 3.125em;text-align: center;}
+.bottom-buttons li.button a{display: inline-block; text-align: center;}

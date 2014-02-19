@@ -44,7 +44,7 @@ function setDBNameAccordingToVersion(){
 //Create all tables
 function createTable(tx){
 	
-	//doQuery(tx, 'Update Result SET LastShown = 1392073200 WHERE user_id = 1 AND learnItem_id = 21',[],querySuccess);
+	//doQuery(tx, 'Update Result SET LastShown = 1392418800 WHERE user_id = 1 AND learnItem_id = 21',[],querySuccess);
 	
 	tableExists(tx, "Lesson", function(status) {
 		if (!status){
@@ -190,6 +190,10 @@ function querySuccessUpdate(tx, results) {
 //Callback for Successful Update of results
 function querySuccessUpdateResult(tx, results) {	
     successLog(results);
+    
+    if (PATHNAME.indexOf('longterm.html') != -1) {
+    	ListDBValues();
+    }
 }
 
 //Callback for Successful Delete

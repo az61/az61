@@ -62,6 +62,8 @@ function GetAllLongtermItems(userId) {
 		      			levelInfo['level1'] = $('.userData span.level1').html();
 		      			levelInfo['level0'] = $('.userData span.level0').html();
 		      			
+		      			if(DEBUG_MODE) console.log('Longterm list area');
+		      			
 		      			//Check if item should be displayed today
 		      			var createListItem = false;
 		      			createListItem = CheckIfDisplayItem(row.LongtermLevel, row.LastShown, now, row.lItemTimestamp, levelInfo);
@@ -105,6 +107,7 @@ function GetAllLongtermItems(userId) {
 			        	}
 			        	
 			        	$('.longtermCount').html('<p>Insgesamt: <span class="allLongtermItem">'+learnItemCountTotal+'</span> Vokabeln in <span class="cateCount">' + categoryCount + '</span> ' + lessonText + '</p>');
+			        	$('ul.longtermList').html('');
 			        	
 			        	var lastCat = 0;
 			        	
@@ -150,6 +153,8 @@ function GetLongtermFromLesson(userId, lessonData){
 	      			levelInfo['level1'] = $('.userData span.level1').html();
 	      			levelInfo['level0'] = $('.userData span.level0').html();
 	      			
+	      			if(DEBUG_MODE) console.log('Longterm test area');
+	      			
 	      			var createListItem = false;
 	      			createListItem = CheckIfDisplayItem(row.LongtermLevel, row.LastShown, now, row.Timestamp, levelInfo);
 	      			
@@ -157,10 +162,15 @@ function GetLongtermFromLesson(userId, lessonData){
 	      			if (createListItem){
 						$('.longtermContent ul').append('<li id="learnItemId_'+row.lItemId+'"></li>');
 						
-		      			$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
+		      			/*$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
 		      			'<input class="longterm" type="text" readonly="readonly" value="'+row.Question+'"/><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
 		      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
-		      			'<input class="longterm answerUser" type="text" name="answer" /></div>');
+		      			'<input class="longterm answerUser" type="text" name="answer" /></div>');*/
+		      			
+		      			$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
+		      			'<textarea class="longterm" readonly="readonly">'+row.Question+'</textarea><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
+		      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
+		      			'<textarea class="longterm answerUser" name="answer"></textarea></div>');
 	      			}
 	        	}
 	      	}
