@@ -433,7 +433,7 @@ thead th{padding: 0.313em; }
 
 .rslides_nav.rslides1_nav.next{display: block; text-align: center;}
 
-/***** Test Styles *****/
+/***** Classtest Styles *****/
 .container.test .lesson { margin-left: 0.625em; line-height: 1.625em; padding: 0.625em 0.313em 0.313em; }
 .container.test input[type=checkbox] { margin-right: 0.625em; vertical-align:middle; }
 .container.test .cat-title { padding: 1.25em 0 0 3em; }
@@ -476,9 +476,12 @@ thead th{padding: 0.313em; }
 .test .checkAnswer{margin-top: 1em}
 .test .rslides_nav.rslides1_nav.next{margin-right: 0; width: 94%; margin: 0 auto;}
 
+.afterList { display: block; }
+
 /* Classtest Styles for scmaller devices*/ 
 @media (min-width: 480px) {
 	.container.test .category { max-width: 45%; float: left; margin-right: 3em; }
+	.container.test label.reverseLearning, .container.test label.noTyping { display:block; }
 }
 
 @media (max-width: 480px) {
