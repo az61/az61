@@ -114,8 +114,8 @@ $(function() {
 		$('.addLearnItem').slideToggle();
 		$('#create-vocabulary').hide();
 		
-		var question = $('tr#vocab_'+vocabId).children('.question').text();
-		var answer = $('tr#vocab_'+vocabId).children('.answer').text();
+		var question = $('tr#vocab_'+vocabId + ' .question').children('input.full').val();
+		var answer = $('tr#vocab_'+vocabId + ' .answer').children('input.full').val();
 		var isLongterm = $('tr#vocab_'+vocabId).find('td .isLongterm').is(":checked");
 		
 		$('#txVocabQuestion').val(question);

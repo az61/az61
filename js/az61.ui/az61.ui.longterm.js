@@ -7,7 +7,49 @@
  */
 
 $(function() {
-	var itemCounter = 0;
+	//Function on enter Longterm (show Longterm Vocabulary from chosen Lesson)
+	$('.longtermList').on('click','.enterLongterm',function(event){
+		var liId = $(event.target).closest('li').attr('id');
+		lessonData = {};
+		lessonData['catId'] = liId.substring(9);
+		
+		//Hide introduction to Longterm
+		$('div.longtermList').hide();
+		
+		//Show Longterm Content
+		$('div.longtermLearn').show();
+		$('.categoryName').html($('#'+liId + ' .longtermCategory').html());
+		
+		var reverse = false;
+		
+		if($('#reverseLearning').is(':checked')){
+			reverse = true;
+		}
+		
+		//Get Longterm Lesson for User
+		GetLongtermFromLesson(loggedInUser, lessonData, reverse);
+		
+		//Prevent from Calling funtion twice
+		event.stopPropagation();
+	});
+	
+	//On clicking reverse direction
+	$('#reverseLearning').change(function(){
+		var src = '';
+		
+		//Change image to reverse arrow
+		if($('#reverseLearning').is(':checked')){
+			src = PATH_IMG+'reverse_AQ.png';
+		}
+		
+		else {
+			src = PATH_IMG+'reverse_QA.png';
+		}
+		$('label.reverseLearning').css('background-image','url('+src+')');
+		
+		//Prevent from calling function twice
+		event.stopPropagation();
+	});
 	
 	//Function on Click "Prüfen" checkAnswer
 	$('.checkAnswer').on('click',function(event){
@@ -64,27 +106,9 @@ $(function() {
 				$('.resultLongterm').append('<p><a class="button form-button" href="longterm.html">Zurück zur Fachauswahl</a></p>');
 			}
 		}
-	});	
-	
-	//Function on enter Longterm (show Longterm Vocabulary from chosen Lesson)
-	$('.longtermList').on('click','.enterLongterm',function(event){
-		var liId = $(event.target).closest('li').attr('id');
-		lessonData = {};
-		lessonData['catId'] = liId.substring(9);
-		
-		//Hide introduction to Longterm
-		$('div.longtermList').hide();
-		
-		//Show Longterm Content
-		$('div.longtermLearn').show();
-		$('.categoryName').html($('#'+liId + ' .longtermCategory').html());
-		
-		//Get Longterm Lesson for User
-		GetLongtermFromLesson(loggedInUser, lessonData);
-		
-		//Prevent from Calling funtion twice
-		event.stopPropagation();
 	});
+	
+	var itemCounter = 0;
 	
 	//Function on click next question in longterm test
 	$('.container.longterm').on('click','.rslides_nav.rslides1_nav.next',function(event) {

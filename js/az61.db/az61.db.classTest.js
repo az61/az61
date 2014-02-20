@@ -27,7 +27,7 @@ function GetUserLessons(userId) {
 	      					$('ul.testList').append('<li class="category" id="cat_'+row.catId+'"><span class="cat-title"">' + row.CategoryName + '</span><ul></ul></li>');
 	      				}
 	      				
-	      				$('ul.testList').find('li#cat_'+row.catId + ' ul').append('<li class="lesson" id="lesson_'+row.LessonId+'"><input id="lesson'+row.LessonId+'" class="checkLesson" type="checkbox" value=""/><label for="lesson'+row.LessonId+'" class="lessonTitle">'+row.LessonName+'</span></label></li>');
+	      				$('ul.testList').find('li#cat_'+row.catId + ' ul').append('<li class="lesson" id="lesson_'+row.LessonId+'"><input id="lesson'+row.LessonId+'" class="checkLesson bigCheckbox" type="checkbox" value=""/><label for="lesson'+row.LessonId+'" class="lessonTitle">'+row.LessonName+'</span></label></li>');
 					}
 				}
 			}
@@ -61,7 +61,7 @@ function GetLearnItemTestFromLesson(userId, lessonIds, reverse){
 				      			'<input class="lessonNameItem" type="hidden" value="'+row.LessonName+'"/><input class="catNameItem" type="hidden" value="'+row.CategoryName+'"/></div>'+
 				      			'<div id="answerlearnItem_'+i+'" class="answer"><span class="header"></span>'+
 				      			'<textarea class="test answerUser" name ="answer"></textarea></div>');
-						}		      			
+						}
 		        	}
 				}
 				else {

@@ -38,23 +38,6 @@ function GetDBLessons(catId, callback) {
 	},errorCB,nullHandler);
 }
 
-//Get all Lessons from the Database(for adding UserLessons -> checkboxes in userSettings.html)
-function GetAllLessonsFromDB(){
-	db.transaction(function(tx) {
-		
-		doQuery(tx, 'SELECT LessonId, LessonName, CategoryName FROM Lesson LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId;', [],function(tx,result){
-			if (result != null && result.rows != null) {
-				$('.chooseUserLessons').html('<form><fieldset></fieldset></form>');
-				for (var i = 0; i < result.rows.length; i++) {
-	      			var row = result.rows.item(i);
-	      			$('.chooseUserLessons form fieldset').append('<span class="userLessonWrap"><input class="userLesson" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
-	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label></span>');
-	        	}
-	      	}
-		});
-	});
-}
-
 //HTML for Lessons must be filled here because values are not returned
 function setHtmlForLessons(elementArray, catId){
 	lessonArray = elementArray;

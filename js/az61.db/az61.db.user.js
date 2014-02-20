@@ -97,7 +97,7 @@ function GetDBUserData(userId) {
 	},errorCB,nullHandler);
 }
 
-//Get all User Lessons (for checkboxes) - Lesson are retrieved in db.lesson.js
+//Get all User Lessons (for checkboxes) - Lesson are retrieved in GetAllLessonsFromDB()
 function GetUserLessonsFromDB(userId){
     db.transaction(function(tx) {
         doQuery(tx, 'SELECT * FROM UserLessons WHERE user_id = '+userId+';', [],function(tx,result){
@@ -112,6 +112,23 @@ function GetUserLessonsFromDB(userId){
             }             
         });
     });
+}
+
+//Get all Lessons from the Database(for adding UserLessons -> checkboxes in userSettings.html)
+function GetAllLessonsFromDB(){
+	db.transaction(function(tx) {
+		
+		doQuery(tx, 'SELECT LessonId, LessonName, CategoryName FROM Lesson LEFT JOIN Category ON Lesson.CategoryId = Category.CategoryId;', [],function(tx,result){
+			if (result != null && result.rows != null) {
+				$('.chooseUserLessons').html('<form><fieldset></fieldset></form>');
+				for (var i = 0; i < result.rows.length; i++) {
+	      			var row = result.rows.item(i);
+	      			$('.chooseUserLessons form fieldset').append('<span class="userLessonWrap"><input class="userLesson bigCheckbox" type="checkbox" name="lessons" value="'+row.LessonName+'" id="lessonId_'+row.LessonId+'"/>'+
+	      			'<label for="lessonId_'+row.LessonId+'">'+row.CategoryName+'-'+row.LessonName+'</label></span>');
+	        	}
+	      	}
+		});
+	});
 }
 
 function AddUserLessonToDB(userId,lessonId) {

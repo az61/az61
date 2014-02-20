@@ -247,7 +247,7 @@ span.close { float:left; }
 
 .chooseUserLessons{ padding: 0.625em; }
 .chooseUserLessons fieldset{ border: none;}
-.chooseUserLessons fieldset input {float: left; width: 2em; height: 2em; margin-right: 1em}
+.chooseUserLessons fieldset input {float: left; margin-right: 1em}
 .chooseUserLessons fieldset label {
 	height: 2em;
 	/*float: left;
@@ -342,7 +342,10 @@ thead th{padding: 0.313em; }
 
 .lessonContent .categoryName{margin-left: 0.625em}
 
-.lessonContent table.tablesorter td{padding: 1em 0.313em;}
+.lessonContent table.tablesorter td { 
+	padding: 1em 0.313em; 
+	vertical-align: top;
+}
 
 .addLearnItem{margin-bottom: 0.625em; text-align: left;	margin-left: 0.625em;}
 .addLearnItem span.longtermWrap,
@@ -354,7 +357,6 @@ thead th{padding: 0.313em; }
 }
 .addLearnItem span label{width: 25%; display: inline-block;}
 .addLearnItem span input{width: 67%}
-.addLearnItem .longtermWrap input{height: 2em}
 
 .saveUserLessons,
 .cancelUserLessons,
@@ -433,6 +435,14 @@ thead th{padding: 0.313em; }
 
 .rslides_nav.rslides1_nav.next{display: block; text-align: center;}
 
+.container.longterm label.reverseLearning { margin-bottom: 0.815em; vertical-align: middle; }
+.container.longterm label.reverseLearning input { vertical-align: middle; }
+
+/* Classtest Styles for scmaller devices*/ 
+@media (min-width: 480px) {
+	.container.longterm label.reverseLearning { display: inline-block; padding-right: 5em; }
+}
+
 /***** Classtest Styles *****/
 .container.test .lesson { margin-left: 0.625em; line-height: 1.625em; padding: 0.625em 0.313em 0.313em; }
 .container.test input[type=checkbox] { margin-right: 0.625em; vertical-align:middle; }
@@ -442,7 +452,6 @@ thead th{padding: 0.313em; }
 
 .container.test .summaryTest span.headerSum { height: 22px; min-width: 156px; }
 
-.test .checkLesson, .test .noLessons, .test .noTyping {width: 2em; height: 2em;}
 .test .checkboxLabel{padding-bottom: 5px; height: 2em; }
 
 .testContainer ul.testList{margin: 1.625em 0;}
@@ -481,7 +490,8 @@ thead th{padding: 0.313em; }
 /* Classtest Styles for scmaller devices*/ 
 @media (min-width: 480px) {
 	.container.test .category { max-width: 45%; float: left; margin-right: 3em; }
-	.container.test label.reverseLearning, .container.test label.noTyping { display:block; }
+	.container.test label.noTyping { display:block; margin-top: 0.825em; }
+	.container.test label.reverseLearning { display: inline; padding-right: 5em; }
 }
 
 @media (max-width: 480px) {

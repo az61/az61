@@ -39,9 +39,24 @@ function succesQueryGetLearnItems(tx, result){
                 var learnItem = {};                 
                 learnItem['id'] = row.LearnItemId;
                 learnItem['question'] = row.Question;
-                learnItem['answer'] = row.Answer;                   
+                learnItem['answer'] = row.Answer;
                 
-                $('.vocabulary table tbody').append('<tr id="vocab_'+ row.LearnItemId +'" class="pointer"><td class="question">' + row.Question + '</td><td class="answer">' + row.Answer + '</td>' +
+                var question = row.Question;
+                var answer = row.Answer;
+                
+                //Count learn item characters - if more than 20 shorten and add "..." instead in the end
+				if (row.Question.length > 10){
+					question = question.substr(0,10);
+					question = question + '...';
+				}
+				
+				if (row.Answer.length > 10){
+					answer = answer.substr(0,10);
+					answer = answer + '...';
+				}
+                
+                $('.vocabulary table tbody').append('<tr id="vocab_'+ row.LearnItemId +'" class="pointer"><td class="question">' + question + '<input type="hidden" class="full" value="' + row.Question + '" /></td>'+
+                	'<td class="answer">' + answer + '<input type="hidden" class="full" value="' + row.Answer + '" /></td>' +
                     '<td><input type="checkbox" class="isLongterm" name="txIsLongterm" id="txIsLongterm_' + row.LearnItemId + '" value="' + row.IsLongterm +'" class="text ui-widget-content ui-corner-all" /></td>' +
                     '<td><img class="vocabEditMenuIcon pointer" src="'+ PATH_IMG +'menu.png" /></td></tr>');
                 

@@ -132,7 +132,7 @@ function GetAllLongtermItems(userId) {
 	},errorCB,nullHandler);
 }
 
-function GetLongtermFromLesson(userId, lessonData){
+function GetLongtermFromLesson(userId, lessonData, reverse){
 	db.transaction(function(tx) {
 		doQuery(tx, 'SELECT Result.learnItem_id as lItemId,* FROM Result INNER JOIN LearnItem ON LearnItem.LearnItemId = Result.learnItem_id'+
 		' INNER JOIN Lesson ON LearnItem.LessonId = Lesson.LessonId '+		
@@ -162,15 +162,20 @@ function GetLongtermFromLesson(userId, lessonData){
 	      			if (createListItem){
 						$('.longtermContent ul').append('<li id="learnItemId_'+row.lItemId+'"></li>');
 						
-		      			/*$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
-		      			'<input class="longterm" type="text" readonly="readonly" value="'+row.Question+'"/><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
-		      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
-		      			'<input class="longterm answerUser" type="text" name="answer" /></div>');*/
-		      			
-		      			$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
-		      			'<textarea class="longterm" readonly="readonly">'+row.Question+'</textarea><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
-		      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
-		      			'<textarea class="longterm answerUser" name="answer"></textarea></div>');
+						//If not reverse learning display question and ask for answer
+		      			if (!reverse){
+		      				$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
+				      			'<textarea class="longterm" readonly="readonly">'+row.Question+'</textarea><input class="answerValue" type="hidden" value="'+row.Answer+'"/>'+
+				      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
+				      			'<textarea class="longterm answerUser" name="answer"></textarea></div>');
+		      			}
+		      			//If reverse learning display answer and ask for question 
+						else {
+							$('.longtermContent li#learnItemId_'+row.lItemId).append('<div id="questionLearnItem_'+row.lItemId+'" class="question"><span class="vocabLevel"><img src="' + PATH_IMG_DEFAULT + 'level_'+row.LongtermLevel+'.png" /><p class="level hidden">'+row.LongtermLevel+'</p></span><span class="header"></span>'+
+				      			'<textarea class="longterm" readonly="readonly">'+row.Answer+'</textarea><input class="answerValue" type="hidden" value="'+row.Question+'"/>'+
+				      			'</div><div id="answerlearnItem_'+row.lItemId+'" class="answer"><span class="header"></span>'+
+				      			'<textarea class="longterm answerUser" name="answer"></textarea></div>');
+						}
 	      			}
 	        	}
 	      	}
