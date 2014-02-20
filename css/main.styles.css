@@ -33,6 +33,8 @@ button {
 }
 input[type=text], select, textarea{ min-height: 2.875em; padding: 0.225em; width: 98%;}
 
+input[type=checkbox].bigCheckbox { width: 2em; height: 2em; }
+
 .red { color: #960000; }
 .green { color: #73885c; }
 
@@ -427,7 +429,7 @@ thead th{padding: 0.313em; }
 	width: 100%!important;
 }
 .longtermContent .question, .longtermContent .answer{padding: 0!important;}
-.checkAnswer{width: 100%!important;}
+.checkAnswer, .showAnswer {width: 100%!important;}
 
 .rslides_nav.rslides1_nav.next{display: block; text-align: center;}
 
@@ -440,7 +442,7 @@ thead th{padding: 0.313em; }
 
 .container.test .summaryTest span.headerSum { height: 22px; min-width: 156px; }
 
-.test .checkLesson, .test .noLessons{width: 2em; height: 2em;}
+.test .checkLesson, .test .noLessons, .test .noTyping {width: 2em; height: 2em;}
 .test .checkboxLabel{padding-bottom: 5px; height: 2em; }
 
 .testContainer ul.testList{margin: 1.625em 0;}

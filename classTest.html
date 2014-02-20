@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
         <title>AZ 6-1</title>
-        <link rel="stylesheet" type="text/css" href="css/main.styles.css" />
         <link rel="stylesheet" type="text/css" href="css/az61-theme/jquery-ui-1.10.3.custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.styles.css" />
         <link rel="stylesheet" type="text/css" href="css/default.styles.css" />
         <link rel="stylesheet" type="text/css" href="css/slider/responsiveslides.css" />
         <script type="text/javascript" src="phonegap.js"></script>
@@ -27,6 +27,10 @@
                         <ul class="testList">                    
                         </ul>
                         
+                        <label for="reverseLearning" class="checkboxLabel reverseLearning"><input type="checkbox" class="reverseLearning bigCheckbox" id="reverseLearning">
+                        Lernrichtung wechseln</label>
+                        <label for="noTyping" class="checkboxLabel"><input type="checkbox" class="noTyping" id="noTyping">
+                        Antwort nicht eintippen</label>
                         <button class="enterTest inactive" type="button">Weiter</button>
                         <p style="text-align: center;">Wähle eine Lektion aus, um für eine Klassenarbeit zu lernen.</p>
                     </div>                
@@ -43,10 +47,11 @@
                             <span class="right"></span>
                             <span class="wrong"></span>
                         </div>
-                        <button class="checkAnswer form-button">Prüfen</button>
+                        <button class="checkAnswer form-button hidden">Prüfen</button>
+                        <button class="showAnswer form-button hidden">Antwort anzeigen</button>
 
                         <span class="showResult hidden"><a class="button finish form-button" href="#">Zum Ergebnis</a></span>
-                                        <div style="clear: both"></div>                     
+                        <div style="clear: both"></div>                     
                     </div>
                     
                     <div class="testSummary">

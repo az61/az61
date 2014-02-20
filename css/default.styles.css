@@ -273,6 +273,8 @@ p.green{
 	font-size: 1em;
 }
 
+label.reverseLearning { background: url(../img/reverse_QA.png) right center no-repeat; }
+
 
 /****** Bottom Styles ******/
 .bottom{background-color: #7a1716;}
