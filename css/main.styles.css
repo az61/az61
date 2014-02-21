@@ -259,7 +259,7 @@ span.close { float:left; }
 }
 
 @media (min-width: 480px) {
-	.chooseUserLessons fieldset span.userLessonWrap { float: left; }
+	.chooseUserLessons fieldset span.userLessonWrap { float: left; width: 25%;}
 }
 
 .saveUserLessons span,
