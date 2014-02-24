@@ -165,7 +165,8 @@ function querySuccessInsertResult(tx, results) {
 function querySuccessUserInsert(tx, results) { 
     querySuccessInsert(tx, results); 
     
-    GetDBUsers(loggedInUser);
+    var preselectuser = results.insertId;
+    GetDBUsers(loggedInUser, preselectuser);
     alert('Neuer Benutzer wurde erfolgreich angelegt.');
 }
 

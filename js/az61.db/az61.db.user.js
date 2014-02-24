@@ -7,7 +7,7 @@
  */
 
 //Gets all Users to display in select box in userSettings.html
-function GetDBUsers(loggedInUserId) {
+function GetDBUsers(loggedInUserId,preselectUser) {
 	db.transaction(function(tx) {
 		doQuery(tx,'SELECT UserId, UserName FROM Users ORDER BY LOWER(UserName) ASC;', [], function(tx, result) {
 			if (result != null && result.rows != null) {
@@ -16,8 +16,19 @@ function GetDBUsers(loggedInUserId) {
 					$('.userSelect').append('<option value="choose">---</option>');
 					for (var i = 0; i < result.rows.length; i++) {
 		      			var row = result.rows.item(i);
-		      			if (loggedInUserId == 1) {		      				
-		      				$('.userSelect').append('<option value="'+ row.UserId +'">'+ row.UserName +'</option>');
+		      			if (loggedInUserId == 1) {
+		      				if (typeof preselectUser === 'undefined'){
+		      					$('.userSelect').append('<option value="'+ row.UserId +'">'+ row.UserName +'</option>');
+		      				}
+		      				//If User was inserted now (preselectUser is not undefined) change this option to selected 
+		      				//and trigger change to prefill user data
+		      				else {
+		      					if (row.UserId == preselectUser){
+		      						$('.userSelect').append('<option selected="selected" value="'+ row.UserId +'">'+ row.UserName +'</option>');
+		      						$('.userSelect').trigger('change');
+		      					}		      					
+		      				}	      				
+		      				
 		      			}
 		      			else {
 		      				if (loggedInUserId == row.UserId){
