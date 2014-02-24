@@ -26,6 +26,9 @@ function GetDBUsers(loggedInUserId,preselectUser) {
 		      					if (row.UserId == preselectUser){
 		      						$('.userSelect').append('<option selected="selected" value="'+ row.UserId +'">'+ row.UserName +'</option>');
 		      						$('.userSelect').trigger('change');
+		      					}
+		      					else {
+		      						$('.userSelect').append('<option value="'+ row.UserId +'">'+ row.UserName +'</option>');
 		      					}		      					
 		      				}	      				
 		      				
